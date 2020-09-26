@@ -1,0 +1,319 @@
+---
+title: BERT Text Classification in a different language
+author: Philipp Schmid
+date: 2020-05-22
+image: ./cover.jpg
+excerpt:
+  Build a non-English (German) BERT multi-class text classification model with HuggingFace and Simple Transformers.
+tag:
+  - Machine Learning
+  - NLP
+photograph: Photo by Ivan Shilov on Unsplash
+---
+
+# Introduction
+
+Currently, we have 7.5 billion people living on the world in around 200 nations. Only
+[1.2 billion people of them are native English speakers](https://en.wikipedia.org/wiki/List_of_countries_by_English-speaking_population).
+This leads to a lot of unstructured non-English textual data.
+
+Most of the tutorials and blog posts demonstrate how to build text classification, sentiment analysis,
+question-answering, or text generation models with BERT based architectures in English. In order to overcome this
+missing, I am going to show you how to build a non-English multi-class text classification model.
+
+![native-english-map](./images/map.png)
+
+Opening my article let me guess it’s safe to assume that you have heard of BERT. If you haven’t, or if you’d like a
+refresh, I recommend reading this [paper](https://arxiv.org/pdf/1810.04805.pdf).
+
+In deep learning, there are currently two options for how to build language models. You can build either monolingual
+models or multilingual models.
+
+> "multilingual, or not multilingual, that is the question" - as Shakespeare would have said
+
+Multilingual models describe machine learning models that can understand different languages. An example of a
+multilingual model is [mBERT](https://storage.googleapis.com/bert_models/2018_11_23/multi_cased_L-12_H-768_A-12.zip)
+from Google research.
+[This model supports and understands 104 languages.](https://github.com/google-research/bert/blob/master/multilingual.md)
+Monolingual models, as the name suggest can understand one language.
+
+Multilingual models are already achieving good results on certain tasks. But these models are bigger, need more data,
+and also more time to be trained. These properties lead to higher costs due to the larger amount of data and time
+resources needed.
+
+Due to this fact, I am going to show you how to train a monolingual non-English BERT-based multi-class text
+classification model. Wow, that was a long sentence!
+
+![meme](./images/meme.png)
+
+---
+
+# Tutorial
+
+We are going to use [Simple Transformers](https://github.com/ThilinaRajapakse/simpletransformers) - an NLP library based
+on the [Transformers](https://github.com/huggingface/transformers) library by HuggingFace. Simple Transformers allows us
+to fine-tune Transformer models in a few lines of code.
+
+As the dataset, we are going to use the [Germeval 2019](https://projects.fzai.h-da.de/iggsa/projekt/), which consists of
+German tweets. We are going to detect and classify abusive language tweets. These tweets are categorized in 4 classes:
+`PROFANITY`, `INSULT`, `ABUSE`, and `OTHERS`. The highest score achieved on this dataset is `0.7361`.
+
+### We are going to:
+
+- install Simple Transformers library
+- select a pre-trained monolingual model
+- load the dataset
+- train/fine-tune our model
+- evaluate the results of training
+- save the trained model
+- load the model and predict a real example
+
+I am using Google Colab with a GPU runtime for this tutorial. If you are not sure how to use a GPU Runtime take a look
+[here](https://www.philschmid.de/google-colab-the-free-gpu-tpu-jupyter-notebook-service).
+
+---
+
+# Install Simple Transformers library
+
+First, we install `simpletransformers` with pip. If you are not using Google colab you can check out the installation
+guide [here](https://github.com/ThilinaRajapakse/simpletransformers).
+
+```python
+# install simpletransformers
+!pip install simpletransformers
+
+# check installed version
+!pip freeze | grep simpletransformers
+# simpletransformers==0.28.2
+```
+
+---
+
+# Select a pre-trained monolingual model
+
+Next, we select the pre-trained model. As mentioned above the Simple Transformers library is based on the Transformers
+library from HuggingFace. This enables us to use every pre-trained model provided in the
+[Transformers library](https://huggingface.co/transformers/pretrained_models.html) and all community-uploaded models.
+For a list that includes all community-uploaded models, I refer to
+[https://huggingface.co/models](https://huggingface.co/models).
+
+We are going to use the `distilbert-base-german-cased` model, a
+[smaller, faster, cheaper version of BERT](https://huggingface.co/transformers/model_doc/distilbert.html). It uses 40%
+less parameters than `bert-base-uncased` and runs 60% faster while still preserving over 95% of Bert’s performance.
+
+---
+
+# Load the dataset
+
+The dataset is stored in two text files we can retrieve from the
+[competition page](https://projects.fzai.h-da.de/iggsa/). One option to download them is using 2 simple `wget` CLI
+commands.
+
+```python
+!wget https://projects.fzai.h-da.de/iggsa/wp-content/uploads/2019/08/germeval2019GoldLabelsSubtask1_2.txt
+!wget https://projects.fzai.h-da.de/iggsa/wp-content/uploads/2019/09/germeval2019.training_subtask1_2_korrigiert.txt
+```
+
+Afterward, we use some `pandas` magic to create a dataframe.
+
+```python
+import pandas as pd
+
+class_list = ['INSULT','ABUSE','PROFANITY','OTHER']
+
+df1 = pd.read_csv('germeval2019GoldLabelsSubtask1_2.txt',sep='\t', lineterminator='\n',encoding='utf8',names=["tweet", "task1", "task2"])
+df2 = pd.read_csv('germeval2019.training_subtask1_2_korrigiert.txt',sep='\t', lineterminator='\n',encoding='utf8',names=["tweet", "task1", "task2"])
+
+df = pd.concat([df1,df2])
+df['task2'] = df['task2'].str.replace('\r', "")
+df['pred_class'] = df.apply(lambda x:  class_list.index(x['task2']),axis=1)
+
+df = df[['tweet','pred_class']]
+
+print(df.shape)
+df.head()
+```
+
+Since we don't have a test dataset, we split our dataset — `train_df` and `test_df`. We use 90% of the data for training
+(`train_df`) and 10% for testing (`test_df`).
+
+```python
+from sklearn.model_selection import train_test_split
+
+train_df, test_df = train_test_split(df, test_size=0.10)
+
+print('train shape: ',train_df.shape)
+print('test shape: ',test_df.shape)
+
+# train shape:  (6309, 2)
+# test shape:  (702, 2)
+```
+
+---
+
+# Load pre-trained model
+
+The next step is to load the pre-trained model. We do this by creating a `ClassificationModel` instance called `model`.
+This instance takes the parameters of:
+
+- the architecture (in our case `"bert"`)
+- the pre-trained model (`"distilbert-base-german-cased"`)
+- the number of class labels (`4`)
+- and our hyperparameter for training (`train_args`).
+
+You can configure the hyperparameter mwithin a wide range of possibilities. For a detailed description of each
+attribute, please refer to the
+[documentation](https://simpletransformers.ai/docs/usage/#configuring-a-simple-transformers-model).
+
+```python
+from simpletransformers.classification import ClassificationModel
+
+# define hyperparameter
+train_args ={"reprocess_input_data": True,
+             "fp16":False,
+             "num_train_epochs": 4}
+
+# Create a ClassificationModel
+model = ClassificationModel(
+    "bert", "distilbert-base-german-cased",
+    num_labels=4,
+    args=train_args
+)
+```
+
+---
+
+# Train/fine-tune our model
+
+To train our model we only need to run `model.train_model()` and specify which dataset to train on.
+
+```python
+model.train_model(train_df)
+```
+
+---
+
+# Evaluate the results of training
+
+After we trained our model successfully we can evaluate it. Therefore we create a simple helper function
+`f1_multiclass()`, which is used to calculate the `f1_score`. The `f1_score` is a measure for model accuracy. More on
+that [here](https://en.wikipedia.org/wiki/F1_score).
+
+```python
+from sklearn.metrics import f1_score, accuracy_score
+
+def f1_multiclass(labels, preds):
+    return f1_score(labels, preds, average='micro')
+
+result, model_outputs, wrong_predictions = model.eval_model(test_df, f1=f1_multiclass, acc=accuracy_score)
+
+# {'acc': 0.6894586894586895,
+# 'eval_loss': 0.8673831869594075,
+# 'f1': 0.6894586894586895,
+# 'mcc': 0.25262380289641617}
+```
+
+We achieved an `f1_score` of `0.6895`. Initially, this seems rather low, but keep in mind: the highest submission at
+[Germeval 2019](https://projects.fzai.h-da.de/iggsa/submissions/) was `0.7361`. We would have achieved a top 20 rank
+without tuning the hyperparameter. This is pretty impressive!
+
+In a future post, I am going to show you how to achieve a higher `f1_score` by tuning the hyperparameters.
+
+---
+
+# Save the trained model
+
+Simple Transformers saves the `model` automatically every `2000` steps and at the end of the training process. The
+default directory is `outputs/`. But the `output_dir` is a hyperparameter and can be overwritten. I created a helper
+function `pack_model()`, which we use to `pack` all required model files into a `tar.gz`file for deployment.
+
+```python
+import os
+import tarfile
+
+def pack_model(model_path='',file_name=''):
+  files = [files for root, dirs, files in os.walk(model_path)][0]
+  with tarfile.open(file_name+ '.tar.gz', 'w:gz') as f:
+    for file in files:
+      f.add(f'{model_path}/{file}')
+
+# run the function
+pack_model('output_path','model_name')
+```
+
+---
+
+# Load the model and predict a real example
+
+As a final step, we load and predict a real example. Since we packed our files a step earlier with `pack_model()`, we
+have to `unpack` them first. Therefore I wrote another helper function `unpack_model()` to unpack our model files.
+
+```python
+import os
+import tarfile
+
+def unpack_model(model_name=''):
+  tar = tarfile.open(f"{model_name}.tar.gz", "r:gz")
+  tar.extractall()
+  tar.close()
+
+unpack_model('model_name')
+```
+
+To load a saved model, we only need to provide the `path` to our saved files and initialize it the same way as we did it
+in the training step. _Note: you will need to specify the correct (usually the same used in training) args when loading
+the model._
+
+```python
+from simpletransformers.classification import ClassificationModel
+
+# define hyperparameter
+train_args ={"reprocess_input_data": True,
+             "fp16":False,
+             "num_train_epochs": 4}
+
+# Create a ClassificationModel with our trained model
+model = ClassificationModel(
+    "bert", 'path_to_model/',
+    num_labels=4,
+    args=train_args
+)
+```
+
+After initializing it we can use the `model.predict()` function to classify an output with a given input. In this
+example, we take a tweet from the Germeval 2018 dataset.
+
+```python
+class_list = ['INSULT','ABUSE','PROFANITY','OTHER']
+
+test_tweet1 = "Meine Mutter hat mir erzählt, dass mein Vater einen Wahlkreiskandidaten nicht gewählt hat, weil der gegen die Homo-Ehe ist"
+
+predictions, raw_outputs = model.predict([test_tweet1])
+
+print(class_list[predictions[0]])
+# OTHER
+test_tweet2 = "Frau #Böttinger meine Meinung dazu ist sie sollten uns mit ihrem Pferdegebiss nicht weiter belästigen #WDR"
+
+predictions, raw_outputs = model.predict([test_tweet2])
+
+print(class_list[predictions[0]])
+# INSULT
+```
+
+Our model predicted the correct class `OTHER` and `INSULT`.
+
+---
+
+# Resume
+
+Concluding, we can say we achieved our goal to create a non-English BERT-based text classification model.
+
+Our example referred to the German language but can easily be transferred into another language. HuggingFace offers a
+lot of pre-trained models for languages like French, Spanish, Italian, Russian, Chinese, ...
+
+---
+
+Thanks for reading. You can find the colab notebook with the complete code
+[here](https://colab.research.google.com/drive/1kAlGGGsZaFaFoL0lZ0HK4xUR6QS8gipn#scrollTo=JG2gN7KUqyjY).
+
+If you have any questions, feel free to contact me.

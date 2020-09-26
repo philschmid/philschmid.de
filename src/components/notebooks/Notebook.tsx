@@ -11,7 +11,7 @@ const Notebook = ({data}) => {
   console.log(notebook);
   return (
     <Layout>
-      <NotebookSEO article={notebook} location={location} />
+      <NotebookSEO article={notebook} />
       <article className="Notebook ">
         <header>
           <NotebookTitle>{notebook.title}</NotebookTitle>

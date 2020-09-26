@@ -19,7 +19,7 @@ const siteQuery = graphql`
   }
 `;
 
-function ArticleSEO({article, location}: {article: any; location: any}) {
+function ArticleSEO({article}: {article: any}) {
   const results = useStaticQuery(siteQuery);
   const name = results.allSite.edges[0].node.siteMetadata.name;
   const siteUrl = results.allSite.edges[0].node.siteMetadata.siteUrl;
@@ -32,7 +32,7 @@ function ArticleSEO({article, location}: {article: any; location: any}) {
     "@type": "NewsArticle",
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": "${siteUrl + location.pathname}"
+      "@id": "${siteUrl + article.slug}"
     },
     "headline": "${article.title}",
     "image": "${siteUrl + article.image.childImageSharp.fluid.src}",
@@ -65,7 +65,7 @@ function ArticleSEO({article, location}: {article: any; location: any}) {
       image={article.image.childImageSharp.fluid.src}
       timeToRead={article.readingTime}
       published={article.date}
-      pathname={location.href}
+      pathname={article.slug}
     >
       <script type="application/ld+json">{microdata}</script>
     </SEO>

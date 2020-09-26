@@ -9,9 +9,10 @@ import PostSEO from '../default/SEO/SEO.Post';
 
 const Post = ({data}) => {
   const post = data.blogPost;
+
   return (
     <Layout>
-      <PostSEO article={post} location={location} />
+      <PostSEO article={post} />
       <article className="post ">
         <header>
           <PostTitle>{post.title}</PostTitle>

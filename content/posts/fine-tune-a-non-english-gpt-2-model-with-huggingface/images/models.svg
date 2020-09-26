@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="853.817" height="549.52" viewBox="0 0 853.817 549.52">
+  <defs>
+    <clipPath id="clip-path">
+      <rect width="42" height="413" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="Gruppe_9" data-name="Gruppe 9" transform="translate(-419 -407)">
+    <rect id="Rechteck_1" data-name="Rechteck 1" width="853.817" height="549.52" transform="translate(419 407)" fill="#ebf0f3"/>
+    <g id="Gruppe_1" data-name="Gruppe 1" transform="translate(516.951 453.157)">
+      <path id="Pfad_1" data-name="Pfad 1" d="M795.214,455.082H64.951V46.157H81.228V446.145H795.214Z" transform="translate(-64.951 -46.157)" fill="#d5d6db"/>
+      <rect id="Rechteck_2" data-name="Rechteck 2" width="725.79" height="8.934" transform="translate(4.471 351.309)" fill="#d5d6db"/>
+      <rect id="Rechteck_3" data-name="Rechteck 3" width="725.79" height="8.934" transform="translate(4.471 303.59)" fill="#d5d6db"/>
+      <rect id="Rechteck_4" data-name="Rechteck 4" width="725.79" height="8.934" transform="translate(4.471 255.856)" fill="#d5d6db"/>
+      <rect id="Rechteck_5" data-name="Rechteck 5" width="725.79" height="8.934" transform="translate(4.471 208.138)" fill="#d5d6db"/>
+      <rect id="Rechteck_6" data-name="Rechteck 6" width="725.79" height="8.934" transform="translate(4.471 160.435)" fill="#d5d6db"/>
+      <rect id="Rechteck_7" data-name="Rechteck 7" width="725.79" height="8.934" transform="translate(4.471 112.717)" fill="#d5d6db"/>
+      <rect id="Rechteck_8" data-name="Rechteck 8" width="725.79" height="8.934" transform="translate(4.471 64.993)" fill="#d5d6db"/>
+      <rect id="Rechteck_9" data-name="Rechteck 9" width="725.79" height="8.934" transform="translate(4.471 17.27)" fill="#d5d6db"/>
+    </g>
+    <text id="Models" transform="translate(811 943)" fill="#64798a" font-size="20" font-family="HelveticaNeue-Bold, Helvetica Neue" font-weight="700"><tspan x="0" y="0">Models</tspan></text>
+    <g id="Wiederholungsraster_1" data-name="Wiederholungsraster 1" transform="translate(468 459)" clip-path="url(#clip-path)">
+      <g transform="translate(-487 -831)">
+        <text id="_180" data-name="180" transform="translate(487 851)" fill="#64798a" font-size="20" font-family="HelveticaNeue-Bold, Helvetica Neue" font-weight="700"><tspan x="0" y="0">180</tspan></text>
+      </g>
+      <g transform="translate(-487 -789)">
+        <text id="_160" data-name="160" transform="translate(487 851)" fill="#64798a" font-size="20" font-family="HelveticaNeue-Bold, Helvetica Neue" font-weight="700"><tspan x="0" y="0">160</tspan></text>
+      </g>
+      <g transform="translate(-487 -747)">
+        <text id="_140" data-name="140" transform="translate(487 851)" fill="#64798a" font-size="20" font-family="HelveticaNeue-Bold, Helvetica Neue" font-weight="700"><tspan x="0" y="0">140</tspan></text>
+      </g>
+      <g transform="translate(-487 -705)">
+        <text id="_120" data-name="120" transform="translate(487 851)" fill="#64798a" font-size="20" font-family="HelveticaNeue-Bold, Helvetica Neue" font-weight="700"><tspan x="0" y="0">120</tspan></text>
+      </g>
+      <g transform="translate(-487 -663)">
+        <text id="_100" data-name="100" transform="translate(487 851)" fill="#64798a" font-size="20" font-family="HelveticaNeue-Bold, Helvetica Neue" font-weight="700"><tspan x="0" y="0">100</tspan></text>
+      </g>
+      <g transform="translate(-487 -621)">
+        <text id="_80" transform="translate(487 851)" fill="rgba(100,121,138,0)" font-size="20" font-family="HelveticaNeue-Bold, Helvetica Neue" font-weight="700"><tspan x="0" y="0">_</tspan><tspan y="0" fill="#64798a">80</tspan></text>
+      </g>
+      <g transform="translate(-487 -579)">
+        <text id="_60" transform="translate(487 851)" fill="rgba(100,121,138,0)" font-size="20" font-family="HelveticaNeue-Bold, Helvetica Neue" font-weight="700"><tspan x="0" y="0">_</tspan><tspan y="0" fill="#64798a">60</tspan></text>
+      </g>
+      <g transform="translate(-487 -537)">
+        <text id="_40" transform="translate(487 851)" fill="rgba(100,121,138,0)" font-size="20" font-family="HelveticaNeue-Bold, Helvetica Neue" font-weight="700"><tspan x="0" y="0">_</tspan><tspan y="0" fill="#64798a">40</tspan></text>
+      </g>
+      <g transform="translate(-487 -495)">
+        <text id="_20" transform="translate(487 851)" fill="rgba(100,121,138,0)" font-size="20" font-family="HelveticaNeue-Bold, Helvetica Neue" font-weight="700"><tspan x="0" y="0">_</tspan><tspan y="0" fill="#64798a">20</tspan></text>
+      </g>
+      <g transform="translate(-487 -453)">
+        <text id="__0" transform="translate(487 851)" fill="rgba(100,121,138,0)" font-size="20" font-family="HelveticaNeue-Bold, Helvetica Neue" font-weight="700"><tspan x="0" y="0">__</tspan><tspan y="0" fill="#64798a">0</tspan></text>
+      </g>
+    </g>
+    <text id="_Parameters_in_Billion_" data-name="# Parameters (in Billion)" transform="translate(449 795) rotate(-90)" fill="#64798a" font-size="20" font-family="HelveticaNeue-Bold, Helvetica Neue" font-weight="700"><tspan x="0" y="0"># Parameters (in Billion)</tspan></text>
+    <g id="Gruppe_3" data-name="Gruppe 3">
+      <rect id="Rechteck_10" data-name="Rechteck 10" width="49.792" height="1" transform="translate(554 853)" fill="#fcd462"/>
+      <text id="BERT" transform="translate(558 882)" fill="#64798a" font-size="16" font-family="HelveticaNeue, Helvetica Neue"><tspan x="0" y="0">BERT</tspan></text>
+    </g>
+    <g id="Gruppe_4" data-name="Gruppe 4" transform="translate(-15)">
+      <rect id="Rechteck_11" data-name="Rechteck 11" width="49.792" height="2" transform="translate(685 852)" fill="#44c4a1"/>
+      <text id="RoBERTa" transform="translate(676 882)" fill="#64798a" font-size="16" font-family="HelveticaNeue, Helvetica Neue"><tspan x="0" y="0">RoBERTa</tspan></text>
+    </g>
+    <g id="Gruppe_5" data-name="Gruppe 5" transform="translate(7)">
+      <rect id="Rechteck_12" data-name="Rechteck 12" width="49.792" height="3" transform="translate(779 851)" fill="#e56353"/>
+      <text id="GPT-2" transform="translate(781 882)" fill="#64798a" font-size="16" font-family="HelveticaNeue, Helvetica Neue"><tspan x="0" y="0">GPT-2</tspan></text>
+    </g>
+    <g id="Gruppe_6" data-name="Gruppe 6" transform="translate(7)">
+      <rect id="Rechteck_13" data-name="Rechteck 13" width="49.792" height="20" transform="translate(886 834)" fill="#27a2db"/>
+      <text id="T5" transform="translate(902 882)" fill="#64798a" font-size="16" font-family="HelveticaNeue, Helvetica Neue"><tspan x="0" y="0">T5</tspan></text>
+    </g>
+    <g id="Gruppe_7" data-name="Gruppe 7" transform="translate(-3)">
+      <rect id="Rechteck_14" data-name="Rechteck 14" width="49.792" height="40" transform="translate(1023 814)" fill="#fcd462"/>
+      <text id="Turning_NLG" data-name="Turning NLG" transform="translate(1003 882)" fill="#64798a" font-size="16" font-family="HelveticaNeue, Helvetica Neue"><tspan x="0" y="0">Turning NLG</tspan></text>
+    </g>
+    <g id="Gruppe_8" data-name="Gruppe 8">
+      <rect id="Rechteck_15" data-name="Rechteck 15" width="49.792" height="370.437" transform="translate(1147 484)" fill="#44c4a1"/>
+      <text id="GPT-3" transform="translate(1150 882)" fill="#64798a" font-size="16" font-family="HelveticaNeue, Helvetica Neue"><tspan x="0" y="0">GPT-3</tspan></text>
+    </g>
+  </g>
+</svg>
