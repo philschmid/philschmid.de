@@ -46,6 +46,7 @@ module.exports = {
       white: '#FFF',
       black: '#000',
       primary: 'var(--primary)',
+      darkBlack: '#0C1015',
     },
     extend: {
       screens: {
