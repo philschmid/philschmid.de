@@ -48,8 +48,17 @@ module.exports = {
           },
           {resolve: `gatsby-remark-copy-linked-files`},
           {resolve: `gatsby-remark-smartypants`},
+          {resolve: `gatsby-remark-numbered-footnotes`},
+          {
+            resolve: `gatsby-remark-katex`,
+            options: {
+              // Add any KaTeX options from https://github.com/KaTeX/KaTeX/blob/master/docs/options.md here
+              strict: `ignore`,
+            },
+          },
         ],
-        remarkPlugins: [require(`remark-slug`)],
+        remarkPlugins: [require(`remark-slug`), require('remark-html-katex')],
+        // remarkPlugins: [require(`remark-slug`)],
       },
     },
     {
@@ -93,6 +102,18 @@ module.exports = {
         host: 'https://www.philschmid.de',
         sitemap: 'https://www.philschmid.de/sitemap.xml',
         policy: [{userAgent: '*', allow: '/'}],
+      },
+    },
+    {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        name: `philschmid blog by Philipp Schmid`,
+        short_name: `philschmid`,
+        start_url: `/`,
+        background_color: `#fff`,
+        theme_color: `#fff`,
+        display: `standalone`,
+        icon: `src/assets/favicon.png`,
       },
     },
   ].filter(Boolean),

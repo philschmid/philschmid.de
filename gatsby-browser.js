@@ -1,4 +1,5 @@
 import './src/styles/index.css';
+import 'katex/dist/katex.min.css';
 
 // const ReactGA = require('react-ga');
 // const uuid = require('uuid');
