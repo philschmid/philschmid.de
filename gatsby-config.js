@@ -78,9 +78,15 @@ module.exports = {
     {
       resolve: `gatsby-plugin-postcss`,
       options: {
-        postCssPlugins: [require('postcss-import'), require('postcss-nested'), require('tailwindcss')],
+        postCssPlugins: [
+          require('postcss-import'),
+          require('postcss-nested'),
+          require('tailwindcss'),
+          require('autoprefixer'),
+        ],
       },
-    }`gatsby-plugin-sitemap`,
+    },
+    `gatsby-plugin-sitemap`,
     {
       resolve: 'gatsby-plugin-robots-txt',
       options: {

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {MDXRenderer} from 'gatsby-plugin-mdx';
-import Layout from './layout';
+import Layout from '../default/Layout/Layout';
 import PostTitle from './Post.Title';
 import PostDate from './Post.Date';
 import PostHero from './Post.Hero';

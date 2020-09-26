@@ -1,55 +1,50 @@
 body {
-  @apply font-sans antialiased text-base text-dark-gray leading-2;
-}
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  @apply font-bold text-blue hyphens-auto;
+  @apply antialiased text-base leading-3;
+
+  @screen md {
+    @apply text-lg;
+  }
 }
 
 h1 {
-  @apply text-3xl leading-5;
+  @apply text-4xl leading-7;
 
   @screen md {
-    @apply text-4xl leading-7;
+    @apply text-5xl leading-9;
   }
 }
 
 h2 {
-  @apply text-xl leading-3;
+  @apply font-semibold text-3xl leading-6;
 
   @screen md {
-    @apply text-3xl leading-6;
+    @apply text-4xl leading-8;
   }
 }
 
-h3,
-h4,
-h5,
-h6 {
-  @apply text-lg;
+h3 {
+  @apply text-2xl leading-5;
+
+  @screen md {
+    @apply text-3xl leading-7;
+  }
 }
 
-h3 {
+h4 {
+  @apply text-xl leading-4;
+
   @screen md {
     @apply text-2xl leading-6;
   }
 }
 
-h4 {
+button {
+  @apply text-lg;
+
   @screen md {
-    @apply text-xl leading-3;
+    @apply text-xl;
   }
 }
-
-a,
-button {
-  @apply text-blue;
-}
-
-address {
-  @apply not-italic;
+.active {
+  @apply text-primary;
 }

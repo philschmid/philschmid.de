@@ -1,5 +1,5 @@
 import {MDXProvider} from '@mdx-js/react';
-import Code from '../default/Code';
+import Code from '../Code';
 import React from 'react';
 
 const components = {
@@ -25,6 +25,6 @@ const components = {
   // td: Tables.Cell,
 };
 
-export default function Layout({children}) {
+export default function MDX({children}) {
   return <MDXProvider components={components}>{children}</MDXProvider>;
 }

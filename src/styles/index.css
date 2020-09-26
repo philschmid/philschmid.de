@@ -2,19 +2,20 @@
 * Base 
 */
 
-@tailwind base;
-/* @import './reset.css'; */
-@import './dark-mode.css';
+@import 'tailwindcss/base';
+@import './theme.css';
+@import './reset.css';
+
 /* @import './styles/font-faces'; */
 
 /**
  * Components
  */
 
-@tailwind components;
+@import 'tailwindcss/components';
 
 /**
  * Utilities
  */
 
-@tailwind utilities;
+@import 'tailwindcss/utilities';

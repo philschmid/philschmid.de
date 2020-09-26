@@ -1,0 +1,27 @@
+/**
+ * Default - Light Mode
+ */
+
+@screen light {
+  :root {
+    /* --color: #000;
+    --background-color: rgb(5, 5, 5); */
+    --primary: #421696;
+  }
+}
+
+/**
+ * Dark Mode
+ */
+
+@screen dark {
+  :root {
+    /* --color: rgb(250, 250, 250);
+    --background-color: rgb(5, 5, 5); */
+    --primary: #a677ff;
+  }
+
+  body {
+    @apply bg-black text-white;
+  }
+}
