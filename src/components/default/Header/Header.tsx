@@ -4,8 +4,8 @@ import Navigation from './Navigation';
 
 export default function Header() {
   return (
-    <header className="grid grid-cols-2">
-      <Link to="/">
+    <header className="grid grid-cols-3 gap-4 px-12">
+      <Link to="/" className="col-span-1">
         <svg xmlns="http://www.w3.org/2000/svg" width="233" height="35" viewBox="0 0 233 35">
           <text
             id="philschmid_blog"
