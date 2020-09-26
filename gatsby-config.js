@@ -12,15 +12,19 @@ const customSiteMetadata = {
   },
   social: [
     {
+      name: `Twitter`,
       url: `https://twitter.com/_philschmid`,
     },
     {
+      name: `Github`,
       url: `https://github.com/philschmid`,
     },
     {
+      name: `Instagram`,
       url: `https://instagram.com/schmid_philipp`,
     },
     {
+      name: `LinkedIn`,
       url: `https://www.linkedin.com/in/philipp-schmid-a6a2bb196/`,
     },
   ],

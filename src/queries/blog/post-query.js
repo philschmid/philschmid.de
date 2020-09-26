@@ -4,12 +4,7 @@ import PostPage from '../../components/blog/post';
 export default PostPage;
 
 export const query = graphql`
-  query PostPageQuery(
-    $id: String!
-    $previousId: String
-    $nextId: String
-    $maxWidth: Int
-  ) {
+  query PostPageQuery($id: String!, $previousId: String, $nextId: String, $maxWidth: Int) {
     site {
       siteMetadata {
         title
@@ -32,6 +27,7 @@ export const query = graphql`
         github
       }
       date(formatString: "MMMM DD, YYYY")
+      dateForSEO: date
       image {
         childImageSharp {
           fluid(maxWidth: $maxWidth) {

@@ -20,6 +20,7 @@ export const query = graphql`
         slug
         title
         date(formatString: "MMMM DD, YYYY")
+        dateForSEO: date
         tags
         links {
           colab

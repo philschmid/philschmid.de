@@ -25,6 +25,7 @@ export const query = graphql`
         github
       }
       date(formatString: "MMMM DD, YYYY")
+      dateForSEO: date
     }
     previous: notebook(id: {eq: $previousId}) {
       id

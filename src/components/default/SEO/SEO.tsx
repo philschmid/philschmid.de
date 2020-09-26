@@ -1,13 +1,4 @@
 /**
- * This react helmt code is adapted from
- * https://themeteorchef.com/tutorials/reusable-seo-with-react-helmet.
- *
- * A great tutorial explaining how to setup a robust version of an
- * SEO friendly react-helmet instance.
- *
- *
- * Use the Helmt on pages to generate SEO and meta content!
- *
  * Usage:
  * <SEO
  *   title={title}
@@ -30,7 +21,7 @@ interface HelmetProps {
   url?: string;
   canonical?: string;
   published?: string;
-  timeToRead?: string;
+  readingTime?: string;
 }
 
 const seoQuery = graphql`
@@ -52,22 +43,12 @@ const seoQuery = graphql`
   }
 `;
 
-function SEO({
-  title,
-  description,
-  children,
-  url,
-  image,
-  published,
-  pathname,
-  timeToRead,
-}: HelmetProps) {
+function SEO({title, description, children, url, image, published, pathname, readingTime}: HelmetProps) {
   const results = useStaticQuery(seoQuery);
   const site = results.allSite.edges[0].node.siteMetadata;
   const twitter = site.social.find((option) => option.name === 'twitter') || {};
 
-  const fullURL = (path: string) =>
-    path ? `${site.siteUrl}${path}` : site.siteUrl;
+  const fullURL = (path: string) => (path ? `${site.siteUrl}${path}` : site.siteUrl);
 
   const metaTags = [
     {charset: 'utf-8'},
@@ -113,21 +94,14 @@ function SEO({
     metaTags.push({name: 'article:published_time', content: published});
   }
 
-  if (timeToRead) {
-    metaTags.push({name: 'twitter:label1', value: 'Reading time'});
-    metaTags.push({name: 'twitter:data1', value: `${timeToRead} min read`});
+  if (readingTime) {
+    metaTags.push({name: 'twitter:label1', content: 'Reading time'});
+    metaTags.push({name: 'twitter:data1', content: readingTime});
   }
 
   return (
-    <Helmet
-      title={title || site.title}
-      htmlAttributes={{lang: 'en'}}
-      meta={metaTags}
-    >
-      <link
-        href="https://fonts.googleapis.com/css?family=Merriweather:700,700i&display=swap"
-        rel="stylesheet"
-      />
+    <Helmet title={site.title} htmlAttributes={{lang: 'en'}} meta={metaTags}>
+      <link href="https://fonts.googleapis.com/css?family=Merriweather:700,700i&display=swap" rel="stylesheet" />
       {children}
     </Helmet>
   );

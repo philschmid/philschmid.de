@@ -4,10 +4,7 @@ const mkdirp = require(`mkdirp`);
 const debug = require(`debug`);
 const readingTime = require('reading-time');
 
-const {
-  createFilePath,
-  createRemoteFileNode,
-} = require(`gatsby-source-filesystem`);
+const {createFilePath, createRemoteFileNode} = require(`gatsby-source-filesystem`);
 const {urlResolve, createContentDigest, slash} = require(`gatsby-core-utils`);
 
 const options = require(`./utils/options`);
@@ -29,12 +26,7 @@ exports.onPreBootstrap = ({store}, themeOptions) => {
   });
 };
 
-const mdxResolverPassthrough = (fieldName) => async (
-  source,
-  args,
-  context,
-  info,
-) => {
+const mdxResolverPassthrough = (fieldName) => async (source, args, context, info) => {
   const type = info.schema.getType(`Mdx`);
   const mdxNode = context.nodeModel.getNodeById({
     id: source.parent,
@@ -60,6 +52,7 @@ exports.createSchemaCustomization = ({actions, schema}, themeOptions) => {
       body: String!
       slug: String!
       date: Date! @dateformat
+      dateForSEO: Date!
       tags: [String]!
       links: Link
       excerpt: String!
@@ -84,6 +77,7 @@ exports.createSchemaCustomization = ({actions, schema}, themeOptions) => {
         },
         date: {type: `Date!`, extensions: {dateformat: {}}},
         tags: {type: `[String]!`},
+        dateForSEO: {type: `Date!`},
         links: {type: `Link`},
         readingTime: {
           type: `String`,
@@ -154,6 +148,7 @@ exports.createSchemaCustomization = ({actions, schema}, themeOptions) => {
       body: String!
       slug: String!
       date: Date! @dateformat
+      dateForSEO: Date!
       tags: [String]!
       links: Link
   }
@@ -172,6 +167,7 @@ exports.createSchemaCustomization = ({actions, schema}, themeOptions) => {
           type: `String!`,
         },
         date: {type: `Date!`, extensions: {dateformat: {}}},
+        dateForSEO: {type: `Date!`},
         tags: {type: `[String]!`},
         links: {type: `Link`},
         body: {
@@ -189,10 +185,7 @@ exports.createSchemaCustomization = ({actions, schema}, themeOptions) => {
 
 function processRelativeImage(source, context, type) {
   // Image is a relative path - find a corresponding file
-  const mdxFileNode = context.nodeModel.findRootNodeAncestor(
-    source,
-    (node) => node.internal && node.internal.type === `File`,
-  );
+  const mdxFileNode = context.nodeModel.findRootNodeAncestor(source, (node) => node.internal && node.internal.type === `File`);
   if (!mdxFileNode) {
     return;
   }
@@ -217,10 +210,7 @@ function validURL(str) {
 
 // Create fields for post slugs and source
 // This will change with schema customization with work
-exports.onCreateNode = async (
-  {node, actions, getNode, createNodeId, store, cache},
-  themeOptions,
-) => {
+exports.onCreateNode = async ({node, actions, getNode, createNodeId, store, cache}, themeOptions) => {
   const {createNode, createParentChildLink} = actions;
 
   // Make sure it's an MDX node
@@ -262,6 +252,7 @@ exports.onCreateNode = async (
       readingTime: node.frontmatter.readingTime,
       slug,
       date: node.frontmatter.date,
+      dateForSEO: node.frontmatter.dateForSEO,
       image: node.frontmatter.image,
       socialImage: node.frontmatter.socialImage,
     };
@@ -342,6 +333,7 @@ exports.onCreateNode = async (
       title: node.frontmatter.title,
       tags: node.frontmatter.tags || [],
       links: node.frontmatter.links || {},
+      dateForSEO: node.frontmatter.dateForSEO,
       slug,
       date: node.frontmatter.date,
     };
@@ -368,12 +360,8 @@ exports.onCreateNode = async (
 const PostTemplate = require.resolve(`./src/queries/blog/post-query.js`);
 const PostsTemplate = require.resolve(`./src/queries/blog/posts-query.js`);
 // These queries are simply data-fetching wrappers that import components
-const NotebookTemplate = require.resolve(
-  `./src/queries/notebooks/notebook-query.js`,
-);
-const NotebooksTemplate = require.resolve(
-  `./src/queries/notebooks/notebooks-query.js`,
-);
+const NotebookTemplate = require.resolve(`./src/queries/notebooks/notebook-query.js`);
+const NotebooksTemplate = require.resolve(`./src/queries/notebooks/notebooks-query.js`);
 
 exports.createPages = async ({graphql, actions, reporter}, themeOptions) => {
   const {createPage} = actions;
@@ -435,15 +423,13 @@ exports.createPages = async ({graphql, actions, reporter}, themeOptions) => {
   if (resultNotebook.errors) {
     reporter.panic(resultNotebook.errors);
   }
-  console.log(resultNotebook);
   // Create Posts and Post pages.
   const {allNotebook} = resultNotebook.data;
   const notebooks = allNotebook.nodes;
 
   // Create a page for each Post
   notebooks.forEach((notebook, index) => {
-    const previous =
-      index === notebooks.length - 1 ? null : notebooks[index + 1];
+    const previous = index === notebooks.length - 1 ? null : notebooks[index + 1];
     const next = index === 0 ? null : notebooks[index - 1];
     const {slug} = notebook;
     createPage({
@@ -465,19 +451,19 @@ exports.createPages = async ({graphql, actions, reporter}, themeOptions) => {
   });
 };
 
-const path = require('path');
+// const path = require('path');
 
-module.onCreateWebpackConfig = ({actions}) => {
-  actions.setWebpackConfig({
-    resolve: {
-      alias: {
-        '@components': path.resolve(__dirname, './src/components/'),
-        '@icons': path.resolve(__dirname, './src/assets/icons/'),
-        // '@styles': path.resolve(__dirname, '../../styles/'),
-        // '@utils': path.resolve(__dirname, '../../utils/'),
-        // '@types': path.resolve(__dirname, '../../types/'),
-      },
-      extensions: ['.js', '.json', '.ts', '.tsx'],
-    },
-  });
-};
+// module.onCreateWebpackConfig = ({actions}) => {
+//   actions.setWebpackConfig({
+//     resolve: {
+//       alias: {
+//         '@components': path.resolve(__dirname, './src/components/'),
+//         '@icons': path.resolve(__dirname, './src/assets/icons/'),
+//         // '@styles': path.resolve(__dirname, '../../styles/'),
+//         // '@utils': path.resolve(__dirname, '../../utils/'),
+//         // '@types': path.resolve(__dirname, '../../types/'),
+//       },
+//       extensions: ['.js', '.json', '.ts', '.tsx'],
+//     },
+//   });
+// };
