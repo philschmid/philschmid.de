@@ -6,13 +6,14 @@
 @import './theme.css';
 @import './reset.css';
 
-/* @import './styles/font-faces'; */
+@import './font-faces.css';
 
 /**
  * Components
  */
 
 @import 'tailwindcss/components';
+@import './components.css';
 
 /**
  * Utilities

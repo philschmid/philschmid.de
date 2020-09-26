@@ -11,7 +11,8 @@ module.exports = {
   },
   theme: {
     fontFamily: {
-      sans: ['Averta', '"Trebuchet MS"', '-apple-system', 'sans-serif'],
+      sans: ['Open Sans', '-apple-system', 'sans-serif'],
+      serif: ['Merriweather', '-apple-system', 'serif'],
     },
     fontWeight: {
       normal: 400,
@@ -20,8 +21,8 @@ module.exports = {
     fontSize: {
       xs: '0.75rem', // 12px
       sm: '0.875rem', // 14px
-      base: '1rem', // 16px
-      lg: '1.125rem', // 18px
+      base: '1.125rem', // 16px
+      lg: '1.2rem', // 18px
       xl: '1.25rem', // 20px
       '2xl': '1.375rem', // 22px
       '2xl': '1.625rem', // 26px

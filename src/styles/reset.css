@@ -1,9 +1,18 @@
 body {
-  @apply antialiased text-base leading-3;
+  @apply antialiased text-base leading-3 font-serif;
 
   @screen md {
     @apply text-lg;
   }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply font-sans;
 }
 
 h1 {
@@ -47,4 +56,8 @@ button {
 }
 .active {
   @apply text-primary;
+}
+
+p {
+  @apply leading-6;
 }

@@ -12,13 +12,14 @@ const Post = ({data}) => {
   return (
     <Layout>
       <PostSEO article={post} location={location} />
-      <article className="post">
+      <article className="post ">
         <header>
-          <PostHero post={post} />
           <PostTitle>{post.title}</PostTitle>
           <PostDate>{post.date}</PostDate>
+
+          <PostHero post={post} />
         </header>
-        <section className="post-body">
+        <section className="w-post m-auto">
           <MDXRenderer>{post.body}</MDXRenderer>
         </section>
       </article>
