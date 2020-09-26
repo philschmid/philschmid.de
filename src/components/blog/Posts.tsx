@@ -1,6 +1,6 @@
 import React from 'react';
 
-import PostList from './post-list';
+import PostList from './Post.List';
 
 const Posts = ({data}) => {
   const posts = data.allBlogPost.nodes;

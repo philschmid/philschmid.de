@@ -2,9 +2,9 @@ import React from 'react';
 
 import {MDXRenderer} from 'gatsby-plugin-mdx';
 import Layout from './layout';
-import PostTitle from './post-title';
-import PostDate from './post-date';
-import PostHero from './post-hero';
+import PostTitle from './Post.Title';
+import PostDate from './Post.Date';
+import PostHero from './Post.Hero';
 
 const Post = ({data}) => {
   const post = data.blogPost;
