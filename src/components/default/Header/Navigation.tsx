@@ -80,7 +80,7 @@ export default function Navigation() {
 
           <ul className="   flex justify-evenly items-center flex-col h-screen ">
             {sites.map((site) => (
-              <li className="">
+              <li className="" key={site.to}>
                 <Link to={site.to} activeClassName="active">
                   {site.label}
                 </Link>
