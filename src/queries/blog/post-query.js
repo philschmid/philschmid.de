@@ -22,6 +22,7 @@ export const query = graphql`
       title
       tags
       readingTime
+      photograph
       links {
         colab
         github

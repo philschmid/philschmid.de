@@ -1,16 +1,13 @@
-import React from "react"
-import Image from "gatsby-image"
+import React from 'react';
+import Image from 'gatsby-image';
 
-const PostHero = ({ post }) => (
+const PostHero = ({post}) => (
   <>
     {post?.image?.childImageSharp && (
-      <Image
-        fluid={post.image.childImageSharp.fluid}
-        alt={post.imageAlt ? post.imageAlt : post.excerpt}
-        className="post-hero"
-      />
+      <Image fluid={post.image.childImageSharp.fluid} alt={post.imageAlt ? post.imageAlt : post.excerpt} className="post-hero" />
     )}
+    <p>{post.photograph}</p>
   </>
-)
+);
 
-export default PostHero
+export default PostHero;

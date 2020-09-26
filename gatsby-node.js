@@ -56,6 +56,7 @@ exports.createSchemaCustomization = ({actions, schema}, themeOptions) => {
       tags: [String]!
       links: Link
       excerpt: String!
+      photograph: String!
       readingTime: String
       image: File
       imageAlt: String
@@ -79,6 +80,7 @@ exports.createSchemaCustomization = ({actions, schema}, themeOptions) => {
         tags: {type: `[String]!`},
         dateForSEO: {type: `Date!`},
         links: {type: `Link`},
+        photograph: {type: `String!`},
         readingTime: {
           type: `String`,
           resolve: async (source, args, context, info) => {
@@ -249,6 +251,7 @@ exports.onCreateNode = async ({node, actions, getNode, createNodeId, store, cach
       title: node.frontmatter.title,
       tags: node.frontmatter.tags || [],
       links: node.frontmatter.links || {},
+      photograph: node.frontmatter.photograph || '',
       readingTime: node.frontmatter.readingTime,
       slug,
       date: node.frontmatter.date,
