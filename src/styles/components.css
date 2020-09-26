@@ -5,3 +5,31 @@
 .w-notebook {
   max-width: 1000;
 }
+
+.clip-circle-sm {
+  width: 100px;
+  clip-path: circle(25px at center);
+}
+
+.clip-circle-lg {
+  width: 500px;
+  clip-path: circle(150px at center);
+}
+
+.clip-circle-md {
+  width: 250px;
+  clip-path: circle(75px at center);
+}
+
+.clip-circle {
+  width: 250px;
+  clip-path: circle(75px at center);
+}
+
+@screen lg {
+  /* ... */
+  .clip-circle {
+    width: 500px;
+    clip-path: circle(150px at center);
+  }
+}
