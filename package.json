@@ -1,8 +1,7 @@
 {
-  "name": "gatsby-theme-blog-core",
-  "version": "2.0.2",
-  "main": "index.js",
-  "author": "christopherbiscardi <chris@christopherbiscardi.com> (@chrisbiscardi)",
+  "name": "philschmid-blog",
+  "version": "1.0.0",
+  "author": "Philipp Schmid",
   "license": "MIT",
   "scripts": {
     "build": "rm -rf .cache && rm -rf ./public && gatsby build ",
@@ -11,12 +10,15 @@
     "start": "yarn develop",
     "serve": "gatsby serve"
   },
+  "browserslist": [
+    "defaults"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/gatsbyjs/gatsby.git",
     "directory": "packages/gatsby-theme-blog-core"
   },
-  "homepage": "https://github.com/gatsbyjs/themes/tree/master/packages/gatsby-theme-blog-core#readme",
+  "homepage": "https://www.philschmid.de",
   "peerDependencies": {
     "@mdx-js/react": "^1.0.27",
     "gatsby": "^2.23.22",
@@ -53,7 +55,9 @@
     "prettier": "2.0.5",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "tailwindcss": "^1.8.10"
+    "tailwindcss": "^1.8.10",
+    "postcss-nested": "^4.2.3",
+    "postcss-import": "^12.0.1"
   },
   "engines": {
     "node": ">=10.13.0"

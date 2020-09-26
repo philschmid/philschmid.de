@@ -1,3 +1,20 @@
+/* 
+* Base 
+*/
+
 @tailwind base;
+/* @import './reset.css'; */
+@import './dark-mode.css';
+/* @import './styles/font-faces'; */
+
+/**
+ * Components
+ */
+
 @tailwind components;
+
+/**
+ * Utilities
+ */
+
 @tailwind utilities;

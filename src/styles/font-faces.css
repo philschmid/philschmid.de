@@ -1,0 +1,8 @@
+@font-face {
+  font-family: 'Nürnberger Text Web';
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+000-5FF;
+  src: url('/assets/fonts/nuernberger-text-web-regular.woff2') format('woff2'),
+    url('/assets/fonts/nuernberger-text-web-regular.woff') format('woff');
+}

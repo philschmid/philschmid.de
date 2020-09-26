@@ -1,0 +1,55 @@
+body {
+  @apply font-sans antialiased text-base text-dark-gray leading-2;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply font-bold text-blue hyphens-auto;
+}
+
+h1 {
+  @apply text-3xl leading-5;
+
+  @screen md {
+    @apply text-4xl leading-7;
+  }
+}
+
+h2 {
+  @apply text-xl leading-3;
+
+  @screen md {
+    @apply text-3xl leading-6;
+  }
+}
+
+h3,
+h4,
+h5,
+h6 {
+  @apply text-lg;
+}
+
+h3 {
+  @screen md {
+    @apply text-2xl leading-6;
+  }
+}
+
+h4 {
+  @screen md {
+    @apply text-xl leading-3;
+  }
+}
+
+a,
+button {
+  @apply text-blue;
+}
+
+address {
+  @apply not-italic;
+}
