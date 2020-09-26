@@ -78,15 +78,15 @@ export default function Navigation() {
             </svg>
           </div>
 
-          <ul className="   flex justify-evenly items-center flex-col h-screen ">
+          <ul className="hover:text-primary   flex justify-evenly items-center flex-col h-screen font-sans">
             {sites.map((site) => (
-              <li className="" key={site.to}>
+              <li key={site.to}>
                 <Link to={site.to} activeClassName="active">
                   {site.label}
                 </Link>
               </li>
             ))}
-            <li>
+            <li className="hover:text-primary font-sans">
               <a href="mailto:schmidphilipp1995@gmail.com">Contact</a>
             </li>
           </ul>
@@ -96,13 +96,13 @@ export default function Navigation() {
       {/* Desktop Navigation */}
       <ul className=" hidden lg:flex">
         {sites.map((site) => (
-          <li className="hover:text-primary px-4" key={site.to}>
+          <li className="hover:text-primary px-4 text-center font-sans" key={site.to}>
             <Link to={site.to} activeClassName="active">
               {site.label}
             </Link>
           </li>
         ))}
-        <li className="hover:text-primary">
+        <li className="hover:text-primary font-sans">
           <a href="mailto:schmidphilipp1995@gmail.com">Contact</a>
         </li>
       </ul>

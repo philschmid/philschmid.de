@@ -36,8 +36,9 @@ const seoQuery = graphql`
 
 const MachineLearning = () => {
   const results = useStaticQuery(seoQuery);
-  const posts = results.allBlogPost.nodes;
   console.log(results);
+
+  const posts = results.allBlogPost.nodes;
   return (
     <Layout>
       <SEO pathname={'/'} title={''} description={'Blog overview'} />
