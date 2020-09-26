@@ -26,6 +26,7 @@ export const query = graphql`
       slug
       title
       tags
+      readingTime
       links {
         colab
         github

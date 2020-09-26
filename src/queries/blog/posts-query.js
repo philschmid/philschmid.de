@@ -22,10 +22,7 @@ export const query = graphql`
         title
         date(formatString: "MMMM DD, YYYY")
         tags
-        links {
-          colab
-          github
-        }
+        readingTime
         image {
           childImageSharp {
             fluid(maxWidth: 600) {

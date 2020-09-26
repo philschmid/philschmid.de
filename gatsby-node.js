@@ -2,6 +2,8 @@ const fs = require(`fs`);
 const path = require(`path`);
 const mkdirp = require(`mkdirp`);
 const debug = require(`debug`);
+const readingTime = require('reading-time');
+
 const {
   createFilePath,
   createRemoteFileNode,
@@ -61,6 +63,7 @@ exports.createSchemaCustomization = ({actions, schema}, themeOptions) => {
       tags: [String]!
       links: Link
       excerpt: String!
+      readingTime: String
       image: File
       imageAlt: String
       socialImage: File
@@ -82,6 +85,16 @@ exports.createSchemaCustomization = ({actions, schema}, themeOptions) => {
         date: {type: `Date!`, extensions: {dateformat: {}}},
         tags: {type: `[String]!`},
         links: {type: `Link`},
+        readingTime: {
+          type: `String`,
+          resolve: async (source, args, context, info) => {
+            const mdxNode = context.nodeModel.getNodeById({
+              id: source.parent,
+            });
+            const time = readingTime(mdxNode.internal.content);
+            return time.text;
+          },
+        },
         excerpt: {
           type: `String!`,
           args: {
@@ -246,6 +259,7 @@ exports.onCreateNode = async (
       title: node.frontmatter.title,
       tags: node.frontmatter.tags || [],
       links: node.frontmatter.links || {},
+      readingTime: node.frontmatter.readingTime,
       slug,
       date: node.frontmatter.date,
       image: node.frontmatter.image,

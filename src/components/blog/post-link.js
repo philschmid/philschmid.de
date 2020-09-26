@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'gatsby';
-import Image from '../base/Image/Image';
+import Image from '../default/Image/Image';
 
 const PostLink = ({title, slug, date, excerpt, image}) => {
   return (

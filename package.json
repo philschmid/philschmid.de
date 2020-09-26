@@ -35,6 +35,7 @@
     "gatsby-source-filesystem": "^2.3.22",
     "gatsby-transformer-sharp": "^2.5.11",
     "prism-react-renderer": "^1.1.1",
+    "reading-time": "^1.2.0",
     "remark-slug": "^5.1.2"
   },
   "devDependencies": {
