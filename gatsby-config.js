@@ -1,22 +1,33 @@
 const options = require(`./utils/options`);
 
-module.exports = {
-  siteMetadata: {
-    title: `Blog Title Placeholder`,
-    author: `Name Placeholder`,
-    description: `Description placeholder`,
-    siteUrl: `https://example.com`,
-    social: [
-      {
-        name: `Twitter`,
-        url: `https://twitter.com/gatsbyjs`,
-      },
-      {
-        name: `GitHub`,
-        url: `https://github.com/gatsbyjs`,
-      },
-    ],
+const customSiteMetadata = {
+  title: `philschmid blog by Philipp Schmid`,
+  name: `philschmid`,
+  siteUrl: `https://www.philschmid.de`,
+  description: `Blog about Machine Learning, Cloud, AWS, GCP, helping People, Code, Share, be helpful`,
+  hero: {
+    heading: `Articles about Machine Learning and Cloud`,
+    subheading: `think, code and share`,
+    maxWidth: 652,
   },
+  social: [
+    {
+      url: `https://twitter.com/_philschmid`,
+    },
+    {
+      url: `https://github.com/philschmid`,
+    },
+    {
+      url: `https://instagram.com/schmid_philipp`,
+    },
+    {
+      url: `https://www.linkedin.com/in/philipp-schmid-a6a2bb196/`,
+    },
+  ],
+};
+
+module.exports = {
+  siteMetadata: customSiteMetadata,
   plugins: [
     `gatsby-plugin-typescript`,
     {
@@ -60,5 +71,15 @@ module.exports = {
     },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
+    `gatsby-plugin-postcss`,
+    `gatsby-plugin-sitemap`,
+    {
+      resolve: 'gatsby-plugin-robots-txt',
+      options: {
+        host: 'https://www.philschmid.de',
+        sitemap: 'https://www.philschmid.de/sitemap.xml',
+        policy: [{userAgent: '*', allow: '/'}],
+      },
+    },
   ].filter(Boolean),
 };

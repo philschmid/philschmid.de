@@ -464,3 +464,20 @@ exports.createPages = async ({graphql, actions, reporter}, themeOptions) => {
     context: {},
   });
 };
+
+const path = require('path');
+
+module.onCreateWebpackConfig = ({actions}) => {
+  actions.setWebpackConfig({
+    resolve: {
+      alias: {
+        '@components': path.resolve(__dirname, './src/components/'),
+        '@icons': path.resolve(__dirname, './src/assets/icons/'),
+        // '@styles': path.resolve(__dirname, '../../styles/'),
+        // '@utils': path.resolve(__dirname, '../../utils/'),
+        // '@types': path.resolve(__dirname, '../../types/'),
+      },
+      extensions: ['.js', '.json', '.ts', '.tsx'],
+    },
+  });
+};
