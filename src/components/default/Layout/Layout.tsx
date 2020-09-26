@@ -4,7 +4,7 @@ import Header from '../Header/Header';
 
 export default function Layout({children}) {
   return (
-    <div className="container m-auto">
+    <div className="container px-4 md:m-auto">
       <Header />
       <MDX>{children}</MDX>
     </div>
