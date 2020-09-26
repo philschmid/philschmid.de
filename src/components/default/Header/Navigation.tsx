@@ -27,7 +27,7 @@ export default function Navigation() {
       {/* Desktop Navigation */}
       <ul className=" hidden lg:flex">
         {sites.map((site) => (
-          <li className="hover:text-primary px-4">
+          <li className="hover:text-primary px-4" key={site.to}>
             <Link to={site.to} activeClassName="active">
               {site.label}
             </Link>

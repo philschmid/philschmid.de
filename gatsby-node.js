@@ -149,6 +149,7 @@ exports.createSchemaCustomization = ({actions, schema}, themeOptions) => {
       title: String!
       body: String!
       slug: String!
+      excerpt: String!
       date: Date! @dateformat
       dateForSEO: Date!
       tags: [String]!
@@ -172,6 +173,16 @@ exports.createSchemaCustomization = ({actions, schema}, themeOptions) => {
         dateForSEO: {type: `Date!`},
         tags: {type: `[String]!`},
         links: {type: `Link`},
+        excerpt: {
+          type: `String!`,
+          args: {
+            pruneLength: {
+              type: `Int`,
+              defaultValue: options.excerptLength,
+            },
+          },
+          resolve: mdxResolverPassthrough(`excerpt`),
+        },
         body: {
           type: `String!`,
           resolve: mdxResolverPassthrough(`body`),
@@ -187,7 +198,10 @@ exports.createSchemaCustomization = ({actions, schema}, themeOptions) => {
 
 function processRelativeImage(source, context, type) {
   // Image is a relative path - find a corresponding file
-  const mdxFileNode = context.nodeModel.findRootNodeAncestor(source, (node) => node.internal && node.internal.type === `File`);
+  const mdxFileNode = context.nodeModel.findRootNodeAncestor(
+    source,
+    (node) => node.internal && node.internal.type === `File`,
+  );
   if (!mdxFileNode) {
     return;
   }

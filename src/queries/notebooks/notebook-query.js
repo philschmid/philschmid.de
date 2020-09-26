@@ -1,5 +1,5 @@
 import {graphql} from 'gatsby';
-import NotebookPage from '../../components/blog/post';
+import NotebookPage from '../../components/notebooks/Notebook';
 
 export default NotebookPage;
 
@@ -19,6 +19,7 @@ export const query = graphql`
       body
       slug
       title
+      excerpt
       tags
       links {
         colab

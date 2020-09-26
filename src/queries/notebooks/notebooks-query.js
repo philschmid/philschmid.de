@@ -1,5 +1,5 @@
 import {graphql} from 'gatsby';
-import NotebookPage from '../../components/blog/posts';
+import NotebookPage from '../../components/notebooks/Notebooks';
 
 export default NotebookPage;
 
@@ -18,6 +18,7 @@ export const query = graphql`
       nodes {
         id
         slug
+        excerpt
         title
         date(formatString: "MMMM DD, YYYY")
         dateForSEO: date
