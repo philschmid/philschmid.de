@@ -5,8 +5,6 @@ import Layout from '../default/Layout/Layout';
 import SEO from '../default/SEO/SEO';
 import PostHighlight from './Post.Highlight';
 
-import PostList from './Post.List';
-
 const Posts = ({data}) => {
   const highlighPost = data.allBlogPost.nodes[0];
   const postList = data.allBlogPost.nodes.slice(1);
@@ -14,15 +12,17 @@ const Posts = ({data}) => {
   return (
     <Layout>
       <SEO pathname={'/'} title={''} description={'Blog overview'} />
-      <div className="hidden md:grid grid-cols-2">
+      <div className="hidden md:flex justify-between space-x-24">
         <AuthorHero />
         <PostHighlight post={highlighPost} />
       </div>
-      <main>
+      <main className="grid sm:grid-cols-2 xl:grid-cols-3 gap-16">
         <div className="md:hidden">
           <PostLink {...highlighPost} />
         </div>
-        <PostList posts={postList} />
+        {postList.map((node) => (
+          <PostLink key={node.slug} {...node} />
+        ))}
       </main>
     </Layout>
   );

@@ -5,9 +5,9 @@ import Img from 'gatsby-image';
 export default () => {
   const data = useStaticQuery(query);
   return (
-    <div className="flex items-center flex-col text-center m-12">
+    <div className="w-1/3 col-span-1 flex items-center flex-col text-center m-12">
       <Img fluid={data.file.childImageSharp.fluid} className="clip-circle" />
-      <h4>Hello, I am Philipp a 24 years old Cloud & Machine Learning enthusiast.</h4>
+      <h2 className="text-lg text-gray-1">Hello, I am Philipp a 24 years old Cloud & Machine Learning enthusiast.</h2>
     </div>
   );
 };

@@ -7,6 +7,7 @@
     /* --color: #000;
     --background-color: rgb(5, 5, 5); */
     --primary: #421696;
+    --textDark: #797a85;
   }
   .mobile-nav-bg {
     @apply bg-white;
@@ -22,6 +23,7 @@
     /* --color: rgb(250, 250, 250);
     --background-color: rgb(5, 5, 5); */
     --primary: #a677ff;
+    --textDark: #797a85;
   }
   .mobile-nav-bg {
     @apply bg-black;

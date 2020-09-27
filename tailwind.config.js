@@ -46,6 +46,10 @@ module.exports = {
       white: '#FFF',
       black: '#000',
       primary: 'var(--primary)',
+      gray: {
+        1: 'var(--textDark)',
+        2: '#474953',
+      },
       darkBlack: '#0C1015',
     },
     extend: {

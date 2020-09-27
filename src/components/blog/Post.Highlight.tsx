@@ -5,19 +5,19 @@ import Img from 'gatsby-image';
 const PostHighlight = ({post}: any) => {
   const {title, slug, date, excerpt, image, readingTime, tags} = post;
   return (
-    <Link to={slug} className="flex items-center">
+    <Link to={slug} className="flex items-center  max-w-3xl">
       <article className="bg-darkBlack p-4 grid grid-cols-3 rounded-lg">
         <header className="col-span-2 space-y-4">
-          <h2 className="hover:text-primary">{title || slug}</h2>
+          <h1 className="text-3xl leading-7 hover:text-primary">{title || slug}</h1>
           <div>
             {' '}
             {tags.map((tag) => (
-              <span>#{tag.toUpperCase()} </span>
+              <span className="text-primary">#{tag} </span>
             ))}
           </div>
 
-          <p>{excerpt}</p>
-          <small>
+          <p className="text-gray-1 pb-12">{excerpt}</p>
+          <small className="text-gray-2">
             {date} · {readingTime}
           </small>
         </header>

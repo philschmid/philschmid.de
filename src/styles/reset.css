@@ -1,9 +1,5 @@
 body {
   @apply antialiased text-base leading-3 font-serif;
-
-  @screen md {
-    @apply text-lg;
-  }
 }
 
 h1,
@@ -17,43 +13,38 @@ h6 {
 
 h1 {
   @apply text-4xl leading-7;
-
-  @screen md {
-    @apply text-5xl leading-9;
-  }
 }
 
 h2 {
   @apply font-semibold text-3xl leading-6;
-
-  @screen md {
-    @apply text-4xl leading-8;
-  }
 }
 
 h3 {
   @apply text-2xl leading-5;
-
-  @screen md {
-    @apply text-3xl leading-7;
-  }
 }
 
 h4 {
   @apply text-xl leading-4;
+}
 
-  @screen md {
+@screen md {
+  h4 {
     @apply text-2xl leading-6;
   }
-}
-
-button {
-  @apply text-lg;
-
-  @screen md {
-    @apply text-xl;
+  h3 {
+    @apply text-3xl leading-7;
+  }
+  h2 {
+    @apply text-4xl;
+  }
+  h1 {
+    @apply text-5xl leading-9;
+  }
+  body {
+    @apply text-lg;
   }
 }
+
 .active {
   @apply text-primary;
 }

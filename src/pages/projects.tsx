@@ -2,12 +2,18 @@ import React from 'react';
 import Layout from '../components/default/Layout/Layout';
 import SEO from '../components/default/SEO/SEO';
 
+const tags = ['NLP', 'BERT', 'AWS', 'Competitive Intelligence'];
+
 export default function Projects() {
   return (
     <Layout>
       <SEO pathname={'/projects'} title={'Projects'} description={'Project overview'} />
-
-      <h1>Projects</h1>
+      <div className="mt-8 mb-32 ">
+        <h1 className="text-6xl font-serif ">Projects</h1>
+        {tags.map((tag) => (
+          <span className="text-primary text-2xl">#{tag} </span>
+        ))}
+      </div>
     </Layout>
   );
 }
