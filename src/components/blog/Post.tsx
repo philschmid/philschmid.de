@@ -15,13 +15,13 @@ const Post = ({data}) => {
     <Layout>
       <PostSEO article={post} />
       <article className="post">
-        <header className=" mt-24 mb-8 md:max-w-xl lg:max-w-2xl xl:max-w-3xl m-auto">
+        <header className=" mt-24 mb-4 md:max-w-xl lg:max-w-2xl  m-auto">
           <PostTitle>{post.title}</PostTitle>
           <PostMeta {...post} />
         </header>
         <PostHero post={post} />
 
-        <section className="w-post m-auto">
+        <section className="md:max-w-xl lg:max-w-2xl m-auto">
           <MDXRenderer>{post.body}</MDXRenderer>
         </section>
       </article>

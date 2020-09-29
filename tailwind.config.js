@@ -61,7 +61,9 @@ module.exports = {
   },
   variants: {
     backgroundColor: ['responsive', 'hover', 'focus'],
-    textColor: ['responsive', 'hover', 'focus'],
+    textColor: ['responsive', 'hover', 'focus', 'visited'],
+    opacity: ['visited'],
+    underline: ['hover'],
   },
   plugins: [],
 };

@@ -7,7 +7,7 @@ export default () => {
   return (
     <div className="flex flex-row items-center">
       <Img fluid={data.file.childImageSharp.fluid} className="clip-circle-sm" />
-      <h3 className="text-base font-serif " style={{fontWeight: 'bold'}}>
+      <h3 className="text-base " style={{fontWeight: 'bold'}}>
         Philipp Schmid
       </h3>
     </div>

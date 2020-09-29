@@ -1,5 +1,5 @@
 import React from 'react';
-import MDX from './MDX';
+import MDX from '../MDX/MDX';
 import Header from '../Header/Header';
 
 export default function Layout({children}) {
