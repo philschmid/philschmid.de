@@ -1,9 +1,5 @@
 import React from 'react';
 
-const PostTitle = (props) => (
-  <h1 className="text-4xl text-primary" {...props}>
-    {props.children}
-  </h1>
-);
+const PostTitle = ({children}) => <h1 className="text-4xl font-serif font-bold  xl:text-6xl">{children}</h1>;
 
 export default PostTitle;

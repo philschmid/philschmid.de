@@ -8,21 +8,25 @@
 
 .clip-circle-sm {
   width: 100px;
+  margin: 0 -20px;
   clip-path: circle(25px at center);
 }
 
 .clip-circle-lg {
   width: 500px;
+  margin: 0 -100px;
   clip-path: circle(150px at center);
 }
 
 .clip-circle-md {
   width: 250px;
+  margin: 0 -50px;
   clip-path: circle(75px at center);
 }
 
 .clip-circle {
   width: 250px;
+  margin: 0 -50px;
   clip-path: circle(75px at center);
 }
 
