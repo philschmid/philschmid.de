@@ -50,8 +50,8 @@ our bash script in our Github Actions workflow.
 
 _optional:_
 
-- _test it locally with `act`_
-- _publish the action to the Github Action marketplace_
+- test it locally with `act`
+- publish the action to the Github Action marketplace
 
 You can find everything we do in this [Github repository](https://github.com/philschmid/blog-custom-github-action).
 
@@ -125,7 +125,6 @@ value with the [jq processor](https://stedolan.github.io/jq/) to get the name of
 output for our Action we need to use a Github Action specific syntax: `echo "::set-output name=<output name>::<value>"`.
 
 ```bash
-#!/bin/bash
 set -e
 
 api_url="https://pokeapi.co/api/v2/pokemon/${INPUT_POKEMON_ID}"

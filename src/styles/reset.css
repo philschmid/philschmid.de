@@ -52,3 +52,21 @@ h4 {
 p {
   @apply leading-6;
 }
+
+.gatsby-resp-image-image {
+  @apply rounded;
+}
+
+/* .gatsby-resp-image-image {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  vertical-align: middle;
+  position: absolute;
+  top: 0;
+  left: 0;
+} */
+
+/* .gatsby-resp-image-background-image {
+  display: none;
+} */

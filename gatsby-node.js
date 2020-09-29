@@ -7,7 +7,7 @@ const readingTime = require('reading-time');
 const {createFilePath, createRemoteFileNode} = require(`gatsby-source-filesystem`);
 const {urlResolve, createContentDigest, slash} = require(`gatsby-core-utils`);
 
-const options = require(`./utils/options`);
+const options = require(`./gatsby-meta-config`);
 
 // Ensure that content directories exist at site-level
 exports.onPreBootstrap = ({store}, themeOptions) => {

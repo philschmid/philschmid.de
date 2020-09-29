@@ -2,6 +2,13 @@
   letter-spacing: 0.6em;
   content: '...';
 }
+.copy-button {
+  position: absolute;
+  right: 5px;
+  top: 20px;
+  padding: 8px 12px 7px;
+  transition: background 0.3s ease 0s;
+}
 
 li::before {
   content: '';

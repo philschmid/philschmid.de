@@ -50,7 +50,7 @@ module.exports = {
         1: 'var(--textDark)',
         2: '#474953',
       },
-      darkBlack: '#0C1015',
+      darkBlack: 'var(--darkBlack)',
     },
     extend: {
       screens: {
@@ -62,7 +62,8 @@ module.exports = {
   variants: {
     backgroundColor: ['responsive', 'hover', 'focus'],
     textColor: ['responsive', 'hover', 'focus', 'visited'],
-    opacity: ['visited'],
+    opacity: ['visited', 'hover'],
+    backgroundOpacity: ['visited', 'hover'],
     underline: ['hover'],
   },
   plugins: [],

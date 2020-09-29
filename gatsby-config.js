@@ -1,4 +1,4 @@
-const options = require(`./utils/options`);
+const options = require(`./gatsby-meta-config`);
 
 const customSiteMetadata = {
   title: `philschmid blog by Philipp Schmid`,
@@ -38,12 +38,23 @@ module.exports = {
       resolve: `gatsby-plugin-mdx`,
       options: {
         extensions: [`.mdx`, `.md`],
+        plugins: [
+          `gatsby-remark-images`,
+          `gatsby-remark-images-medium-zoom`, // Important!
+        ],
         gatsbyRemarkPlugins: [
           {
             resolve: `gatsby-remark-images`,
             options: {
               maxWidth: options.imageMaxWidth,
               linkImagesToOriginal: false,
+            },
+          },
+          {
+            resolve: `gatsby-remark-images-medium-zoom`, // Important!
+            options: {
+              margin: 36,
+              scrollOffset: 0,
             },
           },
           {resolve: `gatsby-remark-copy-linked-files`},

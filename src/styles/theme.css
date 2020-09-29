@@ -8,10 +8,14 @@
     --background-color: rgb(5, 5, 5); */
     --textColor: #000;
     --primary: #421696;
-    --textDark: #797a85;
+    --textDark: #575860;
+    --darkBlack: #f2f5f8;
   }
   .mobile-nav-bg {
     @apply bg-white;
+  }
+  .medium-zoom-overlay {
+    background: white !important;
   }
 }
 
@@ -26,11 +30,14 @@
     --textColor: #fff;
     --primary: #a677ff;
     --textDark: #797a85;
+    --darkBlack: #0c1015;
   }
   .mobile-nav-bg {
     @apply bg-black;
   }
-
+  .medium-zoom-overlay {
+    background: black !important;
+  }
   body {
     @apply bg-black text-white;
   }

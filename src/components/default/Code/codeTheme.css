@@ -1,15 +1,14 @@
 code[class*='language-'],
 pre[class*='language-'] {
-  background: #292a2b;
+  background: var(--darkBlack);
   color: #e6e6e6;
 
-  font-family: 'Operator Mono', Consolas, Menlo, Monaco, source-code-pro,
-    'Courier New', monospace;
+  font-family: 'Operator Mono', Consolas, Menlo, Monaco, source-code-pro, 'Courier New', monospace;
   direction: ltr;
   text-align: left;
   word-spacing: normal;
   padding-top: 1em;
-  font-size: 12px;
+  font-size: 14px;
   padding-bottom: 1em;
   white-space: pre;
   word-wrap: normal;
@@ -27,11 +26,11 @@ pre[class*='language-'] code {
 
 pre[class*='language-'],
 :not(pre) > code[class*='language-'] {
-  background: #292a2b;
+  background: var(--darkBlack);
 }
 
 pre[class*='language-'] {
-  padding: 15px;
+  padding: 30px 20px;
   overflow: auto;
   border-radius: 3px;
 }

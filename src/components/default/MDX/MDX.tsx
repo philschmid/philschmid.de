@@ -1,5 +1,5 @@
 import {MDXProvider} from '@mdx-js/react';
-import Code from '../Code';
+import Code from '../Code/Code.Block';
 import React from 'react';
 
 const components = {
@@ -17,8 +17,8 @@ const components = {
   li: (props) => <li {...props} className="relative  pb-4 leading-6" />,
   p: (props) => <p {...props} className="text-justify mb-12" />,
   // span: Span,
-  code: Code.Pre,
-  pre: Code.Pre,
+  inlineCode: (props) => <code {...props} className="bg-darkBlack text-gray-1 px-1 rounded py-1" />,
+  pre: Code,
 
   // table: Tables.Table,
   // thead: Tables.Head,
