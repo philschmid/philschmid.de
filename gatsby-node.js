@@ -77,6 +77,7 @@ exports.createSchemaCustomization = ({actions, schema}, themeOptions) => {
       photograph: String!
       readingTime: String
       image: File
+      thumbnail: File
       imageAlt: String
       socialImage: File
   }
@@ -120,6 +121,16 @@ exports.createSchemaCustomization = ({actions, schema}, themeOptions) => {
           resolve: mdxResolverPassthrough(`excerpt`),
         },
         image: {
+          type: `File`,
+          resolve: async (source, args, context, info) => {
+            if (source.image___NODE) {
+              return context.nodeModel.getNodeById({id: source.image___NODE});
+            } else if (source.image) {
+              return processRelativeImage(source, context, `image`);
+            }
+          },
+        },
+        thumbnail: {
           type: `File`,
           resolve: async (source, args, context, info) => {
             if (source.image___NODE) {

@@ -54,6 +54,13 @@ module.exports.local = {
             }
           }
         }
+        thumbnail {
+          childImageSharp {
+            fluid(maxWidth: 400) {
+              ${GatsbyFluid_withWebp}
+            }
+          }
+        }
       }
     }
   }`,
@@ -89,6 +96,13 @@ module.exports.local = {
       socialImage {
         childImageSharp {
           fluid {
+            ${GatsbyFluid_withWebp}
+          }
+        }
+      }
+      thumbnail {
+        childImageSharp {
+          fluid(maxWidth: 400) {
             ${GatsbyFluid_withWebp}
           }
         }
@@ -132,14 +146,14 @@ module.exports.local = {
         }
       }
     }
+    thumbnail {
+      childImageSharp {
+        fluid(maxWidth: 400) {
+          ${GatsbyFluid_withWebp}
+        }
+      }
+    }
   }
 }
 }`,
 };
-// thumbnail {
-//   childImageSharp {
-//     fluid(maxWidth: 400) {
-//       ${GatsbyFluid_withWebp}
-//     }
-//   }
-// }
