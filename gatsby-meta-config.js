@@ -5,7 +5,42 @@ module.exports = {
   contentPath: `content/posts`,
   notebookPath: `content/notebooks`,
   basePath: `/`,
+  blogPostPageLength: 2,
   baseNotebooksPath: `/notebooks`,
+  notebooksPageLength: 15,
+  customSiteMetadata: {
+    title: `philschmid blog by Philipp Schmid`,
+    name: `philschmid`,
+    siteUrl: `https://www.philschmid.de`,
+    description: `Blog about Machine Learning, Cloud, AWS, GCP, helping People, Code, Share, be helpful`,
+    hero: {
+      heading: `Articles about Machine Learning and Cloud`,
+      subheading: `think, code and share`,
+      maxWidth: 652,
+    },
+    social: [
+      {
+        name: `Twitter`,
+        url: `https://twitter.com/_philschmid`,
+      },
+      {
+        name: `Github`,
+        url: `https://github.com/philschmid`,
+      },
+      {
+        name: `Instagram`,
+        url: `https://instagram.com/schmid_philipp`,
+      },
+      {
+        name: `LinkedIn`,
+        url: `https://www.linkedin.com/in/philipp-schmid-a6a2bb196/`,
+      },
+      {
+        name: `medium`,
+        url: `https://medium.com/@schmidphilipp1995`,
+      },
+    ],
+  },
 };
 // https://github.com/JaeYeopHan/gatsby-starter-bee/blob/master/gatsby-meta-config.js
 // module.exports = {

@@ -1,8 +1,8 @@
 const fs = require(`fs`);
 const path = require(`path`);
 const mkdirp = require(`mkdirp`);
-const debug = require(`debug`);
 const readingTime = require('reading-time');
+const createPaginatedPages = require('gatsby-paginate');
 
 const {createFilePath, createRemoteFileNode} = require(`gatsby-source-filesystem`);
 const {urlResolve, createContentDigest, slash} = require(`gatsby-core-utils`);
@@ -25,6 +25,13 @@ exports.onPreBootstrap = ({store}, themeOptions) => {
     }
   });
 };
+
+function buildPaginatedPath(index, basePath) {
+  if (basePath === '/') {
+    return index > 1 ? `${basePath}page/${index}` : basePath;
+  }
+  return index > 1 ? `${basePath}/page/${index}` : basePath;
+}
 
 const mdxResolverPassthrough = (fieldName) => async (source, args, context, info) => {
   const type = info.schema.getType(`Mdx`);
@@ -373,12 +380,12 @@ exports.onCreateNode = async ({node, actions, getNode, createNodeId, store, cach
   }
 };
 
-// These queries are simply data-fetching wrappers that import components
-const PostTemplate = require.resolve(`./src/queries/blog/post-query.js`);
-const PostsTemplate = require.resolve(`./src/queries/blog/posts-query.js`);
-// These queries are simply data-fetching wrappers that import components
-const NotebookTemplate = require.resolve(`./src/queries/notebooks/notebook-query.js`);
-const NotebooksTemplate = require.resolve(`./src/queries/notebooks/notebooks-query.js`);
+// These templates are simply data-fetching wrappers that import components
+const PostTemplate = require.resolve(`./src/templates/blog/post-query.js`);
+const PostsTemplate = require.resolve(`./src/templates/blog/posts-query.js`);
+// These templates are simply data-fetching wrappers that import components
+const NotebookTemplate = require.resolve(`./src/templates/notebooks/notebook-query.js`);
+const NotebooksTemplate = require.resolve(`./src/templates/notebooks/notebooks-query.js`);
 
 exports.createPages = async ({graphql, actions, reporter}, themeOptions) => {
   const {createPage} = actions;
@@ -388,7 +395,26 @@ exports.createPages = async ({graphql, actions, reporter}, themeOptions) => {
       allBlogPost(sort: {fields: [date, title], order: DESC}, limit: 1000) {
         nodes {
           id
+          excerpt
           slug
+          title
+          date(formatString: "MMMM DD, YYYY")
+          dateForSEO: date
+          tags
+          readingTime
+          image {
+            childImageSharp {
+              fluid(maxWidth: 400) {
+                base64
+                aspectRatio
+                src
+                srcSet
+                srcWebp
+                srcSetWebp
+                sizes
+              }
+            }
+          }
         }
       }
     }
@@ -420,10 +446,19 @@ exports.createPages = async ({graphql, actions, reporter}, themeOptions) => {
   });
 
   // // Create the Posts page
-  createPage({
-    path: options.basePath,
-    component: PostsTemplate,
-    context: {},
+  // createPage({
+  //   path: options.basePath,
+  //   component: PostsTemplate,
+  //   context: {},
+  // });
+
+  createPaginatedPages({
+    edges: posts,
+    pathPrefix: options.basePath,
+    createPage,
+    pageLength: options.blogPostPageLength,
+    pageTemplate: PostsTemplate,
+    buildPath: buildPaginatedPath,
   });
 
   const resultNotebook = await graphql(`
@@ -432,6 +467,15 @@ exports.createPages = async ({graphql, actions, reporter}, themeOptions) => {
         nodes {
           id
           slug
+          excerpt
+          title
+          date(formatString: "MMMM DD, YYYY")
+          dateForSEO: date
+          tags
+          links {
+            colab
+            github
+          }
         }
       }
     }
@@ -461,10 +505,19 @@ exports.createPages = async ({graphql, actions, reporter}, themeOptions) => {
   });
 
   // // Create the Posts page
-  createPage({
-    path: options.baseNotebooksPath,
-    component: NotebooksTemplate,
-    context: {},
+  // createPage({
+  //   path: options.baseNotebooksPath,
+  //   component: NotebooksTemplate,
+  //   context: {},
+  // });
+
+  createPaginatedPages({
+    edges: notebooks,
+    pathPrefix: options.baseNotebooksPath,
+    createPage,
+    pageLength: options.notebooksPageLength,
+    pageTemplate: NotebooksTemplate,
+    buildPath: buildPaginatedPath,
   });
 };
 

@@ -1,37 +1,7 @@
 const options = require(`./gatsby-meta-config`);
 
-const customSiteMetadata = {
-  title: `philschmid blog by Philipp Schmid`,
-  name: `philschmid`,
-  siteUrl: `https://www.philschmid.de`,
-  description: `Blog about Machine Learning, Cloud, AWS, GCP, helping People, Code, Share, be helpful`,
-  hero: {
-    heading: `Articles about Machine Learning and Cloud`,
-    subheading: `think, code and share`,
-    maxWidth: 652,
-  },
-  social: [
-    {
-      name: `Twitter`,
-      url: `https://twitter.com/_philschmid`,
-    },
-    {
-      name: `Github`,
-      url: `https://github.com/philschmid`,
-    },
-    {
-      name: `Instagram`,
-      url: `https://instagram.com/schmid_philipp`,
-    },
-    {
-      name: `LinkedIn`,
-      url: `https://www.linkedin.com/in/philipp-schmid-a6a2bb196/`,
-    },
-  ],
-};
-
 module.exports = {
-  siteMetadata: customSiteMetadata,
+  siteMetadata: options.customSiteMetadata,
   plugins: [
     `gatsby-plugin-typescript`,
     {

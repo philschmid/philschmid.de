@@ -27,8 +27,13 @@ export const query = graphql`
         image {
           childImageSharp {
             fluid(maxWidth: 600) {
-              ...GatsbyImageSharpFluid
+              base64
+              aspectRatio
               src
+              srcSet
+              srcWebp
+              srcSetWebp
+              sizes
             }
           }
         }

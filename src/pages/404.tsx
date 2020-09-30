@@ -11,7 +11,7 @@ export default () => {
 
       <h1>404 </h1>
       <br />
-      <h2>Requested Page not found</h2>
+      <h2 className="text-white">Requested Page not found</h2>
       <br></br>
     </div>
   );
