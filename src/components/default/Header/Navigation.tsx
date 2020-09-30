@@ -39,7 +39,7 @@ export default function Navigation() {
             placeholder="Search"
             value={searchString}
             onChange={(event) => {
-              console.log(event);
+              // console.log(event);
               setSearchString(event.target.value);
             }}
           />

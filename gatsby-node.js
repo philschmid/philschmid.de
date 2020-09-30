@@ -8,6 +8,17 @@ const {createFilePath, createRemoteFileNode} = require(`gatsby-source-filesystem
 const {urlResolve, createContentDigest, slash} = require(`gatsby-core-utils`);
 
 const options = require(`./gatsby-meta-config`);
+const templatesDirectory = path.resolve(__dirname, './src/templates');
+const templates = {
+  notebook: path.resolve(templatesDirectory, 'Notebook.tsx'),
+  notebooks: path.resolve(templatesDirectory, 'Notebooks.tsx'),
+  post: path.resolve(templatesDirectory, 'Post.tsx'),
+  posts: path.resolve(templatesDirectory, 'Posts.tsx'),
+  postsFiltered: path.resolve(templatesDirectory, 'Posts.Filtered.tsx'),
+};
+
+const queryBlog = require('./src/templates/data/blog.query');
+const queryNotebook = require('./src/templates/data/notebook.query');
 
 // Ensure that content directories exist at site-level
 exports.onPreBootstrap = ({store}, themeOptions) => {
@@ -278,6 +289,7 @@ exports.onCreateNode = async ({node, actions, getNode, createNodeId, store, cach
       date: node.frontmatter.date,
       dateForSEO: node.frontmatter.dateForSEO,
       image: node.frontmatter.image,
+      thumbnail: node.frontmatter.image,
       socialImage: node.frontmatter.socialImage,
     };
 
@@ -381,52 +393,47 @@ exports.onCreateNode = async ({node, actions, getNode, createNodeId, store, cach
 };
 
 // These templates are simply data-fetching wrappers that import components
-const PostTemplate = require.resolve(`./src/templates/blog/post-query.js`);
-const PostsTemplate = require.resolve(`./src/templates/blog/posts-query.js`);
-// These templates are simply data-fetching wrappers that import components
-const NotebookTemplate = require.resolve(`./src/templates/notebooks/notebook-query.js`);
-const NotebooksTemplate = require.resolve(`./src/templates/notebooks/notebooks-query.js`);
 
 exports.createPages = async ({graphql, actions, reporter}, themeOptions) => {
   const {createPage} = actions;
 
-  const resultBlog = await graphql(`
-    {
-      allBlogPost(sort: {fields: [date, title], order: DESC}, limit: 1000) {
-        nodes {
-          id
-          excerpt
-          slug
-          title
-          date(formatString: "MMMM DD, YYYY")
-          dateForSEO: date
-          tags
-          readingTime
-          image {
-            childImageSharp {
-              fluid(maxWidth: 400) {
-                base64
-                aspectRatio
-                src
-                srcSet
-                srcWebp
-                srcSetWebp
-                sizes
-              }
-            }
-          }
-        }
-      }
-    }
-  `);
+  // const cloudPosts = await graphql(`
+  //   {
+  //     allBlogPost(
+  //       sort: {fields: [date, title], order: DESC}
+  //       limit: 1000
+  //       filter: {tags: {in: ["Cloud", "AWS", "GCP", "Azure"]}}
+  //     ) {
+  //       nodes {
+  //         id
+  //         excerpt
+  //         slug
+  //         title
+  //         date(formatString: "MMMM DD, YYYY")
+  //         dateForSEO: date
+  //         tags
+  //         readingTime
+  //         image {
+  //           childImageSharp {
+  //             fluid(maxWidth: 400) {
+  //               base64
+  //               aspectRatio
+  //               src
+  //               srcSet
+  //               srcWebp
+  //               srcSetWebp
+  //               sizes
+  //             }
+  //           }
+  //         }
+  //       }
+  //     }
+  //   }
+  // `);
 
-  if (resultBlog.errors) {
-    reporter.panic(resultBlog.errors);
-  }
-
+  const resultBlog = await graphql(queryBlog.local.posts);
   // Create Posts and Post pages.
-  const {allBlogPost} = resultBlog.data;
-  const posts = allBlogPost.nodes;
+  const posts = resultBlog.data.allposts.nodes;
 
   // Create a page for each Post
   posts.forEach((post, index) => {
@@ -435,8 +442,9 @@ exports.createPages = async ({graphql, actions, reporter}, themeOptions) => {
     const {slug} = post;
     createPage({
       path: slug,
-      component: PostTemplate,
+      component: templates.post,
       context: {
+        post,
         id: post.id,
         previousId: previous ? previous.id : undefined,
         nextId: next ? next.id : undefined,
@@ -457,36 +465,52 @@ exports.createPages = async ({graphql, actions, reporter}, themeOptions) => {
     pathPrefix: options.basePath,
     createPage,
     pageLength: options.blogPostPageLength,
-    pageTemplate: PostsTemplate,
+    pageTemplate: templates.posts,
     buildPath: buildPaginatedPath,
   });
 
-  const resultNotebook = await graphql(`
-    {
-      allNotebook(sort: {fields: [date, title], order: DESC}, limit: 1000) {
-        nodes {
-          id
-          slug
-          excerpt
-          title
-          date(formatString: "MMMM DD, YYYY")
-          dateForSEO: date
-          tags
-          links {
-            colab
-            github
-          }
-        }
-      }
-    }
-  `);
+  const mlPosts = await graphql(queryBlog.local.mlPosts);
 
-  if (resultNotebook.errors) {
-    reporter.panic(resultNotebook.errors);
-  }
+  const allMlTags = [...new Set(mlPosts.data.mlposts.nodes.map((article) => article.tags).flat())];
+
   // Create Posts and Post pages.
-  const {allNotebook} = resultNotebook.data;
-  const notebooks = allNotebook.nodes;
+
+  createPaginatedPages({
+    edges: mlPosts.data.mlposts.nodes,
+    pathPrefix: options.baseMachineLearningPath,
+    createPage,
+    pageLength: options.blogPostPageLength,
+    pageTemplate: templates.postsFiltered,
+    buildPath: buildPaginatedPath,
+    context: {
+      allTags: allMlTags,
+      title: 'Machine Learning',
+    },
+  });
+
+  const cloudPosts = await graphql(queryBlog.local.cloudPosts);
+
+  const allCloudTags = [...new Set(cloudPosts.data.cloudposts.nodes.map((article) => article.tags).flat())];
+
+  // Create Posts and Post pages.
+
+  createPaginatedPages({
+    edges: cloudPosts.data.cloudposts.nodes,
+    pathPrefix: options.baseCloudPath,
+    createPage,
+    pageLength: options.blogPostPageLength,
+    pageTemplate: templates.postsFiltered,
+    buildPath: buildPaginatedPath,
+    context: {
+      allTags: allCloudTags,
+      title: 'Cloud',
+    },
+  });
+
+  const resultNotebook = await graphql(queryNotebook.local.notebooks);
+
+  const notebooks = resultNotebook.data.allnotebooks.nodes;
+  const allNotebooksTags = [...new Set(notebooks.map((article) => article.tags).flat())];
 
   // Create a page for each Post
   notebooks.forEach((notebook, index) => {
@@ -495,8 +519,9 @@ exports.createPages = async ({graphql, actions, reporter}, themeOptions) => {
     const {slug} = notebook;
     createPage({
       path: slug,
-      component: NotebookTemplate,
+      component: templates.notebook,
       context: {
+        notebook,
         id: notebook.id,
         previousId: previous ? previous.id : undefined,
         nextId: next ? next.id : undefined,
@@ -504,20 +529,16 @@ exports.createPages = async ({graphql, actions, reporter}, themeOptions) => {
     });
   });
 
-  // // Create the Posts page
-  // createPage({
-  //   path: options.baseNotebooksPath,
-  //   component: NotebooksTemplate,
-  //   context: {},
-  // });
-
   createPaginatedPages({
     edges: notebooks,
     pathPrefix: options.baseNotebooksPath,
     createPage,
     pageLength: options.notebooksPageLength,
-    pageTemplate: NotebooksTemplate,
+    pageTemplate: templates.notebooks,
     buildPath: buildPaginatedPath,
+    context: {
+      allTags: allNotebooksTags,
+    },
   });
 };
 

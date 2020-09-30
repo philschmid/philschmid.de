@@ -4,7 +4,7 @@
   "author": "Philipp Schmid",
   "license": "MIT",
   "scripts": {
-    "build": "rm -rf .cache && rm -rf ./public && gatsby build ",
+    "build": "gatsby clean && gatsby build ",
     "develop": "gatsby clean && gatsby develop",
     "clean": "gatsby clean",
     "start": "yarn develop",

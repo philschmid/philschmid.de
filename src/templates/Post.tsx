@@ -1,15 +1,15 @@
 import React from 'react';
 
 import {MDXRenderer} from 'gatsby-plugin-mdx';
-import Layout from '../default/Layout/Layout';
-import PostTitle from './Post.Title';
-import PostMeta from './Post.Meta';
-import PostHero from './Post.Hero';
-import PostSEO from '../default/SEO/SEO.Post';
+import Layout from '../components/default/Layout/Layout';
+import PostTitle from '../components/blog/Post.Title';
+import PostMeta from '../components/blog/Post.Meta';
+import PostHero from '../components/blog/Post.Hero';
+import PostSEO from '../components/default/SEO/SEO.Post';
 
-const Post = ({data}) => {
-  console.log(data);
-  const post = data.blogPost;
+const Post = (props) => {
+  // console.log(props);
+  const post = props.pageContext.post;
 
   return (
     <Layout>

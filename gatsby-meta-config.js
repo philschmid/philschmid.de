@@ -5,9 +5,12 @@ module.exports = {
   contentPath: `content/posts`,
   notebookPath: `content/notebooks`,
   basePath: `/`,
+  baseMachineLearningPath: `/machine-learning`,
+  baseCloudPath: `/cloud`,
   blogPostPageLength: 2,
   baseNotebooksPath: `/notebooks`,
   notebooksPageLength: 15,
+
   customSiteMetadata: {
     title: `philschmid blog by Philipp Schmid`,
     name: `philschmid`,

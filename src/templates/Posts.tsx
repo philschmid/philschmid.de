@@ -1,10 +1,10 @@
 import React from 'react';
-import AuthorHero from '../author/Author.Hero';
-import PostLink from '../blog/Post.Link';
-import Pagination from '../default/Footer/Pagination';
-import Layout from '../default/Layout/Layout';
-import SEO from '../default/SEO/SEO';
-import PostHighlight from './Post.Highlight';
+import AuthorHero from '../components/author/Author.Hero';
+import PostLink from '../components/blog/Post.Link';
+import Pagination from '../components/default/Footer/Pagination';
+import Layout from '../components/default/Layout/Layout';
+import SEO from '../components/default/SEO/SEO';
+import PostHighlight from '../components/blog/Post.Highlight';
 
 // {additionalContext: {}
 // first: true
@@ -18,28 +18,22 @@ import PostHighlight from './Post.Highlight';
 // pathPrefix: ""}
 
 const Posts = (props) => {
-  console.log(props);
+  // console.log(props);
   const {group, index, first, last, pageCount} = props.pageContext;
   const previousUrl = index - 1 == 1 ? '/' : (index - 1).toString();
   const nextUrl = (index + 1).toString();
 
-  const highlighPost = props.data.allBlogPost.nodes[0];
-  const postList = props.data.allBlogPost.nodes.slice(1);
-  console.log(postList);
   return (
     <Layout>
       <SEO pathname={'/'} title={''} description={'Blog overview'} />
       {first && (
         <div className="hidden md:flex justify-between space-x-24">
           <AuthorHero />
-          <PostHighlight post={highlighPost} />
+          <PostHighlight post={group[0]} />
         </div>
       )}
 
       <main className="grid sm:grid-cols-2 xl:grid-cols-3 gap-16">
-        <div className="md:hidden">
-          <PostLink {...highlighPost} />
-        </div>
         {group.map((node) => (
           <PostLink key={node.slug} {...node} />
         ))}

@@ -1,7 +1,7 @@
 import {graphql} from 'gatsby';
 import PostsPage from '../../components/blog/Posts';
-
-export default PostsPage;
+import PostsFilterView from '../../components/blog/Posts.Cloud.MachineLearning#';
+export {PostsPage, PostsFilterView};
 
 export const query = graphql`
   query PostsQuery {
