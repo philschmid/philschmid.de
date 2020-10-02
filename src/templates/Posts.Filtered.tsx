@@ -4,6 +4,7 @@ import PostLink from '../components/blog/Post.Link';
 import Pagination from '../components/default/Pagination/Pagination';
 import Layout from '../components/default/Layout/Layout';
 import SEO from '../components/default/SEO/SEO';
+import PostHighlight from '../components/blog/Post.Highlight';
 
 const PostsFilterView = (props) => {
   console.log(props);
@@ -11,6 +12,8 @@ const PostsFilterView = (props) => {
   const previousUrl = index - 1 == 1 ? '/' : (index - 1).toString();
   const nextUrl = (index + 1).toString();
   const sitePath = `${pathPrefix.substring(1)}/`;
+  const reducedGroups = group.slice(1);
+
   return (
     <Layout>
       <SEO pathname={pathPrefix} title={`${title} Articles`} description={`${title} Articles`} />
@@ -22,7 +25,8 @@ const PostsFilterView = (props) => {
         ))}
       </div>
       <main className="grid sm:grid-cols-2 xl:grid-cols-3 gap-16">
-        {group.map((node) => (
+        <PostHighlight post={group[0]} />
+        {reducedGroups.map((node) => (
           <PostLink key={node.slug} {...node} />
         ))}
       </main>{' '}

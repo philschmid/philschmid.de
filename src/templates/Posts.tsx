@@ -23,7 +23,7 @@ const Posts = (props) => {
   const previousUrl = index - 1 == 1 ? '/' : (index - 1).toString();
   const nextUrl = (index + 1).toString();
   const sitePath = '';
-  console.log(props);
+  const reducedGroups = group.slice(1);
   return (
     <Layout>
       <SEO pathname={sitePath} title={''} description={'Blog overview'} />
@@ -44,7 +44,8 @@ const Posts = (props) => {
       )}
 
       <main className="grid sm:grid-cols-2 xl:grid-cols-3 gap-16">
-        {group.map((node) => (
+        <PostHighlight post={group[0]} />
+        {reducedGroups.map((node) => (
           <PostLink key={node.slug} {...node} />
         ))}
       </main>

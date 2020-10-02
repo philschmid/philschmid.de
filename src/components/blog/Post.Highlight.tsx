@@ -5,27 +5,22 @@ import Img from 'gatsby-image';
 const PostHighlight = ({post}: any) => {
   const {title, slug, date, excerpt, image, readingTime, tags} = post;
   return (
-    <Link to={slug} className="flex items-center  max-w-3xl" aria-label={slug}>
-      <article className="bg-darkBlack p-4 grid grid-cols-3 rounded-lg">
-        <header className="col-span-2 space-y-4">
-          <h1 className="text-3xl leading-7 hover:text-primary">{title || slug}</h1>
-          <div>
-            {' '}
-            {tags.map((tag) => (
-              <span key={tag} className="text-primary">
-                #{tag}{' '}
-              </span>
-            ))}
-          </div>
-
-          <p className="text-gray-1 pb-12">{excerpt}</p>
-          <small className="text-gray-2">
-            {date} · {readingTime}
-          </small>
-        </header>
-        <div className="col-span-1 h-full">
-          <Img className=" h-full rounded-lg" fluid={image.childImageSharp.fluid} />
+    <Link to={slug} className="flex items-center col-span-1  md:col-span-2 " aria-label={slug}>
+      <article className="bg-darkBlack grid grid-cols-1 md:grid-cols-2 rounded-lg overflow-hidden h-full">
+        <div className=" h-full">
+          <Img className="h-48 md:h-full md:rounded-lg" fluid={image.childImageSharp.fluid} />
         </div>
+        <section className="p-6  space-y-4">
+          <header>
+            <h2 className=" text-xl md:text-3xl md:leading-7 hover:text-primary">{title || slug}</h2>
+          </header>
+          <div className="text-gray-2 text-sm md:text-base font-semibold ">
+            {date} · {readingTime}
+          </div>
+          <main>
+            <p className="text-sm md:text-base text-gray-1  text-truncate leading-3 md:leading-4 ">{excerpt}</p>
+          </main>
+        </section>
       </article>
     </Link>
   );
