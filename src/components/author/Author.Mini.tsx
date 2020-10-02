@@ -5,9 +5,9 @@ import Img from 'gatsby-image';
 export default () => {
   const data = useStaticQuery(query);
   return (
-    <div className="flex flex-row items-center">
-      <Img fluid={data.file.childImageSharp.fluid} className="clip-circle-sm" />
-      <h3 className="text-base " style={{fontWeight: 'bold'}}>
+    <div className="inline-block md:flex flex-col md:flex-row items-center">
+      <Img fluid={data.file.childImageSharp.fluid} className="clip-circle-sm hidden md:flex" />
+      <h3 className="text-sm md:text-base " style={{fontWeight: 'bold'}}>
         Philipp Schmid
       </h3>
     </div>

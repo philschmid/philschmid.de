@@ -15,7 +15,7 @@ const Post = (props) => {
     <Layout>
       <PostSEO article={post} />
       <article className="post">
-        <header className=" mt-24 mb-4 md:max-w-xl lg:max-w-2xl  m-auto">
+        <header className="mt-4  md:mt-24 mb-4 md:max-w-xl lg:max-w-2xl  m-auto">
           <PostTitle>{post.title}</PostTitle>
           <PostMeta {...post} />
         </header>

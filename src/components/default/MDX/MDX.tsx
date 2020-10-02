@@ -19,6 +19,10 @@ const components = {
   // span: Span,
   inlineCode: (props) => <code {...props} className="bg-darkBlack text-gray-1 px-1 rounded py-1" />,
   pre: Code,
+  table: (props) => <table {...props} className="bg-darkBlack w-full rounded " />,
+  thead: (props) => <thead {...props} className="font-bold font-semibold text-left" />,
+  td: (props) => <td {...props} className="p-4  md:py-6 md:px-8 table-border border-gray-1 text-gray-1" />,
+  th: (props) => <th {...props} className="p-4  md:py-6 md:px-8 " />,
 
   // table: Tables.Table,
   // thead: Tables.Head,

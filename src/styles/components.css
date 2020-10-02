@@ -68,3 +68,11 @@ li::before {
   display: -webkit-box;
   white-space: normal;
 }
+
+.table-border {
+  border-top-width: 1px;
+}
+
+.max-h-500 {
+  max-height: 500px;
+}
