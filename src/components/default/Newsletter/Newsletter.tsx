@@ -31,7 +31,7 @@ export default function Newsletter() {
   }
 
   return (
-    <div className="bg-darkBlack py-12 px-24 py-23 rounded-lg space-y-12">
+    <div className="bg-darkBlack py-6  md:py-12 px-6 md:px-24 rounded-lg space-y-12">
       <h3 className="dark-gray-1 ">Join my email list and get notified about new content</h3>
       <p className=" font-sans text-gray-1">
         Be the first to receive my latest content with the ability to opt-out at anytime. I promise to not spam your
@@ -41,26 +41,28 @@ export default function Newsletter() {
         onSubmit={handleSubmit}
         className="bg-darkBlack border-2 border-gray-2 pl-2 -pr-1 rounded-lg flex items-center max-w-xl mx-auto box-border"
       >
-        <svg
-          className="w-6 h-6 text-primary"
-          fill="currentColor"
-          viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            fillRule="evenodd"
-            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-            clipRule="evenodd"
+        <label className="flex items-center w-full">
+          <svg
+            className="w-6 h-6 text-primary"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fillRule="evenodd"
+              d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+              clipRule="evenodd"
+            />
+          </svg>
+          <input
+            placeholder="your@email.com"
+            name="email"
+            type="email"
+            value={email}
+            onChange={handleEmailChange}
+            className="bg-darkBlack  px-4 py-2 outline-none w-full"
           />
-        </svg>
-        <input
-          placeholder="your@email.com"
-          name="email"
-          type="email"
-          value={email}
-          onChange={handleEmailChange}
-          className="bg-darkBlack  px-4 py-2 outline-none w-full"
-        />
+        </label>
         <button
           type="submit"
           disabled={subscribed}

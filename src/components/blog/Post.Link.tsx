@@ -3,7 +3,7 @@ import {Link} from 'gatsby';
 import Img from 'gatsby-image';
 const PostLink = ({title, slug, date, excerpt, thumbnail, readingTime}) => {
   return (
-    <Link to={slug}>
+    <Link to={slug} aria-label={slug}>
       <article className="max-w-lg rounded-lg overflow-hidden bg-darkBlack h-full  ">
         <Img className="w-full h-48" fluid={thumbnail.childImageSharp.fluid} />
         <section className="p-6 space-y-2">

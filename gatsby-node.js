@@ -471,6 +471,17 @@ exports.createPages = async ({graphql, actions, reporter}, themeOptions) => {
   //   context: {},
   // });
 
+  const topK = 5;
+  const allTags = Object.entries(
+    posts
+      .map((article) => article.tags)
+      .flat()
+      .reduce((a, c) => ((a[c] = (a[c] || 0) + 1), a), Object.create(null)),
+  )
+    .sort(([, a], [, b]) => b - a)
+    .slice(0, topK)
+    .map((e) => e[0]);
+
   createPaginatedPages({
     edges: posts,
     pathPrefix: options.basePath,
@@ -478,6 +489,10 @@ exports.createPages = async ({graphql, actions, reporter}, themeOptions) => {
     pageLength: options.blogPostPageLength,
     pageTemplate: templates.posts,
     buildPath: buildPaginatedPath,
+    context: {
+      allTags,
+      title: 'philschmid blog',
+    },
   });
 
   const mlPosts = await graphql(queryBlog.local.mlPosts);

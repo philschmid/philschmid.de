@@ -16,7 +16,7 @@ export default function Navigation() {
   const [searchString, setSearchString] = React.useState('');
 
   return (
-    <nav className="col-span-2 flex justify-end text-gray-1">
+    <nav className="col-span-1  md:col-span-2 flex justify-end text-gray-1">
       {/* Suche */}
       <div
         className="cursor-pointer px-4 "

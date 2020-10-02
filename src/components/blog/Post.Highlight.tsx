@@ -5,7 +5,7 @@ import Img from 'gatsby-image';
 const PostHighlight = ({post}: any) => {
   const {title, slug, date, excerpt, image, readingTime, tags} = post;
   return (
-    <Link to={slug} className="flex items-center  max-w-3xl">
+    <Link to={slug} className="flex items-center  max-w-3xl" aria-label={slug}>
       <article className="bg-darkBlack p-4 grid grid-cols-3 rounded-lg">
         <header className="col-span-2 space-y-4">
           <h1 className="text-3xl leading-7 hover:text-primary">{title || slug}</h1>

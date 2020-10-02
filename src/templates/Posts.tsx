@@ -19,17 +19,27 @@ import PostHighlight from '../components/blog/Post.Highlight';
 
 const Posts = (props) => {
   // console.log(props);
-  const {group, index, first, last, pageCount} = props.pageContext;
+  const {group, index, first, last, pageCount, allTags} = props.pageContext;
   const previousUrl = index - 1 == 1 ? '/' : (index - 1).toString();
   const nextUrl = (index + 1).toString();
   const sitePath = '';
+  console.log(props);
   return (
     <Layout>
       <SEO pathname={sitePath} title={''} description={'Blog overview'} />
       {first && (
-        <div className="hidden md:flex justify-between space-x-24">
+        <div className="hidden md:flex justify-between items-center space-x-24">
+          <div>
+            <h1 className="font-serif text-white mb-4 text-6xl">
+              philschmid <span className="text-gray-1">blog</span>
+            </h1>
+            {allTags.map((tag) => (
+              <span className="text-primary text-2xl">#{tag} </span>
+            ))}
+          </div>
           <AuthorHero />
-          <PostHighlight post={group[0]} />
+
+          {/* <PostHighlight post={group[0]} /> */}
         </div>
       )}
 
