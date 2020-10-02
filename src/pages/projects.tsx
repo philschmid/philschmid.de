@@ -9,7 +9,7 @@ export default function Projects() {
     <Layout>
       <SEO pathname={'/projects'} title={'Projects'} description={'Project overview'} />
       <div className="mt-8 mb-32 ">
-        <h1 className="text-6xl font-serif ">Projects</h1>
+        <h1 className="text-6xl font-serif mb-4">Projects</h1>
         {tags.map((tag) => (
           <span className="text-primary text-2xl">#{tag} </span>
         ))}

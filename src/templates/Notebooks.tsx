@@ -9,12 +9,13 @@ const Notebooks = (props) => {
   const {group, index, first, last, pageCount, pathPrefix, allTags, title} = props.pageContext;
   const previousUrl = index - 1 == 1 ? '/' : (index - 1).toString();
   const nextUrl = (index + 1).toString();
+  const sitePath = `${pathPrefix.substring(1)}/`;
 
   return (
     <Layout>
       <SEO pathname={'/'} title={''} description={'Notebook overview'} />
       <div className="mt-8 mb-32 ">
-        <h1 className="text-6xl font-serif ">Notebooks</h1>
+        <h1 className="text-6xl font-serif mb-4 ">Notebooks</h1>
         {allTags.map((tag) => (
           <span className="text-primary text-2xl">#{tag} </span>
         ))}
@@ -24,7 +25,7 @@ const Notebooks = (props) => {
           <NotebookLink key={node.slug} {...node} />
         ))}
       </main>
-      <Pagination {...{nextUrl, previousUrl, index, first, last, pageCount}} />
+      <Pagination {...{nextUrl, previousUrl, index, first, last, pageCount, sitePath}} />
     </Layout>
   );
 };

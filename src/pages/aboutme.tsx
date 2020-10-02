@@ -12,7 +12,7 @@ export default function aboutme() {
     <Layout>
       <SEO pathname={'/aboutme'} title={'About Me'} description={'About Me'} />
       <div className="mt-8 mb-32 ">
-        <h1 className="text-6xl font-serif "> Philipp Schmid</h1>
+        <h1 className="text-6xl font-serif mb-4"> Philipp Schmid</h1>
         {tags.map((tag) => (
           <span className="text-primary text-2xl">#{tag} </span>
         ))}
