@@ -47,8 +47,8 @@ module.exports = {
       black: '#000',
       primary: 'var(--primary)',
       gray: {
-        1: 'var(--textDark)',
-        2: '#474953',
+        1: 'var(--gray1)',
+        2: 'var(--gray2)',
       },
       darkBlack: 'var(--darkBlack)',
     },
