@@ -20,13 +20,13 @@ const siteQuery = graphql`
   }
 `;
 
-export default function SocialList() {
+export default function SocialList({size}) {
   const results = useStaticQuery(siteQuery);
   const social = results.allSite.edges[0].node.siteMetadata.social;
   return (
     <div className="flex flex-row space-x-12">
       {social.map((socialMedia) => (
-        <Social key={socialMedia.url} {...socialMedia} />
+        <Social key={socialMedia.url} {...{...socialMedia, size}} />
       ))}
     </div>
   );

@@ -1,9 +1,11 @@
 import React from 'react';
-import AuthorHero from '../components/author/Author.Hero';
+import Author15Seconds from '../components/author/Author.15Seconds';
+import AuthorHeroAbout from '../components/author/Author.Hero.About';
+import AuthorTechnology from '../components/author/Author.technology';
 import Layout from '../components/default/Layout/Layout';
 import SEO from '../components/default/SEO/SEO';
 
-const tags = ['AWS', 'Azure', 'GCP', 'Pytorch', 'Scikit-learn', 'Kubernetes', 'Kubeflow', 'React', 'Preact'];
+const tags = ['AWS', 'Azure', 'Huggingface', 'Pytorch', 'Scikit-learn', 'Serverless', 'Kubeflow', 'React'];
 
 export default function aboutme() {
   return (
@@ -15,7 +17,12 @@ export default function aboutme() {
           <span className="text-primary text-2xl">#{tag} </span>
         ))}
       </div>
-      <AuthorHero />
+      <div className="grid md:grid-cols-3 gap-32">
+        <AuthorHeroAbout />
+        <Author15Seconds />
+        <h2>⚡ Technologies </h2>
+        <AuthorTechnology />
+      </div>
     </Layout>
   );
 }
