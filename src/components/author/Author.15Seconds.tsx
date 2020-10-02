@@ -18,7 +18,7 @@ export default function Author15Seconds() {
         I love to design solution oriented, scalable, efficient architectures to solve real business problems. I believe
         that machine learning can support any company in any area at any time.
       </p>
-      <p>
+      <p className="pb-6">
         I created this blog to share my knowledge and connect with people. Feel free to reach out to me on twitter or
         via email.
       </p>

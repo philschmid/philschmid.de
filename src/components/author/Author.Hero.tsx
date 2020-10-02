@@ -1,13 +1,15 @@
 import React from 'react';
 import {graphql, useStaticQuery} from 'gatsby';
 import Img from 'gatsby-image';
+import SocialList from '../default/Social/Social.List';
 
 export default () => {
   const data = useStaticQuery(query);
   return (
-    <div className="w-1/3 col-span-1 flex items-center flex-col text-center m-12">
+    <div className="w-1/3 col-span-1 flex items-center flex-col text-center m-12 space-y-4">
       <Img fluid={data.file.childImageSharp.fluid} className="clip-circle" />
       <h2 className="text-lg text-gray-1">Hello, I am Philipp a 24 years old Cloud & Machine Learning enthusiast.</h2>
+      <SocialList />
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import React from 'react';
 import {graphql, useStaticQuery} from 'gatsby';
 import Img from 'gatsby-image';
+import SocialList from '../default/Social/Social.List';
 
 const bio = [
   '📍Nuremberg,  🇩🇪 Germany',
@@ -14,6 +15,7 @@ export default () => {
   return (
     <div className=" col-span-1 flex items-center justify-start flex-col text-left ">
       <Img fluid={data.file.childImageSharp.fluid} className="clip-circle" />
+
       <ul className="space-y-2 flex flex-col mt-4 leading-5">
         {bio.map((attr) => (
           <li key={attr}>{attr}</li>
