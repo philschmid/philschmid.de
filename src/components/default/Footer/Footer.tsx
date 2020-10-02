@@ -1,12 +1,13 @@
 import {Link} from 'gatsby';
 import React from 'react';
+import Newsletter from '../Newsletter/Newsletter';
 import SocialList from '../Social/Social.List';
 
 export default function Footer() {
   return (
     <footer className="space-y-12 border-t-2 border-darkBlack py-12 mt-8">
       <div className="lg:container px-4 lg:mx-auto">
-        <h1> Newsletter</h1>
+        <Newsletter />
       </div>
       <hr className="lg:container px-4 lg:m-auto text-darkBlack"></hr>
       <div className="flex flex-col-reverse md:flex-row justify-between items-center lg:container px-4 lg:mx-auto gap-4">
