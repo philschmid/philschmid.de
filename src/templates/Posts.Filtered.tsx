@@ -1,7 +1,7 @@
 import React from 'react';
 import AuthorHero from '../components/author/Author.Hero';
 import PostLink from '../components/blog/Post.Link';
-import Pagination from '../components/default/Footer/Pagination';
+import Pagination from '../components/default/Pagination/Pagination';
 import Layout from '../components/default/Layout/Layout';
 import SEO from '../components/default/SEO/SEO';
 
@@ -21,7 +21,7 @@ const PostsFilterView = (props) => {
           <span className="text-primary text-2xl">#{tag} </span>
         ))}
       </div>
-      <main className="grid sm:grid-cols-3  gap-16">
+      <main className="grid sm:grid-cols-2 xl:grid-cols-3 gap-16">
         {group.map((node) => (
           <PostLink key={node.slug} {...node} />
         ))}

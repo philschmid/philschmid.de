@@ -1,5 +1,5 @@
 import React from 'react';
-import Pagination from '../components/default/Footer/Pagination';
+import Pagination from '../components/default/Pagination/Pagination';
 import Layout from '../components/default/Layout/Layout';
 import SEO from '../components/default/SEO/SEO';
 

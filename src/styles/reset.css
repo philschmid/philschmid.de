@@ -53,6 +53,10 @@ p {
   @apply leading-6;
 }
 
+a {
+  @apply font-sans;
+}
+
 .gatsby-resp-image-image {
   @apply rounded;
 }

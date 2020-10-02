@@ -7,7 +7,7 @@ module.exports = {
   basePath: `/`,
   baseMachineLearningPath: `/machine-learning`,
   baseCloudPath: `/cloud`,
-  blogPostPageLength: 9,
+  blogPostPageLength: 2,
   baseNotebooksPath: `/notebooks`,
   notebooksPageLength: 15,
 
