@@ -59,3 +59,12 @@ li::before {
     clip-path: circle(150px at center);
   }
 }
+
+.text-truncate {
+  @apply truncate;
+  -webkit-line-clamp: 3;
+  overflow-wrap: normal;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  white-space: normal;
+}

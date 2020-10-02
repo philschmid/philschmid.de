@@ -52,6 +52,7 @@ module.exports = {
       },
       darkBlack: 'var(--darkBlack)',
     },
+
     extend: {
       screens: {
         light: {raw: '(prefers-color-scheme: light)'},

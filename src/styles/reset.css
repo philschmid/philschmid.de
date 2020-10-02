@@ -16,15 +16,15 @@ h1 {
 }
 
 h2 {
-  @apply font-semibold text-3xl leading-6;
+  @apply font-semibold text-3xl leading-5;
 }
 
 h3 {
-  @apply text-2xl leading-5;
+  @apply text-2xl leading-4;
 }
 
 h4 {
-  @apply text-xl leading-4;
+  @apply text-xl leading-3;
 }
 
 @screen md {
