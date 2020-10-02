@@ -39,7 +39,7 @@ module.exports = {
         url: `https://www.linkedin.com/in/philipp-schmid-a6a2bb196/`,
       },
       {
-        name: `medium`,
+        name: `Medium`,
         url: `https://medium.com/@schmidphilipp1995`,
       },
     ],

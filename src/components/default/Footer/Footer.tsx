@@ -1,5 +1,6 @@
 import {Link} from 'gatsby';
 import React from 'react';
+import SocialList from '../Social/Social.List';
 
 export default function Footer() {
   return (
@@ -8,7 +9,7 @@ export default function Footer() {
         <h1> Newsletter</h1>
       </div>
       <hr className="lg:container px-4 lg:m-auto text-darkBlack"></hr>
-      <div className="grid grid-cols-2 lg:container px-4 lg:mx-auto">
+      <div className="flex flex-col-reverse md:flex-row justify-between items-center lg:container px-4 lg:mx-auto gap-4">
         <div className="text-sm space-x-2 text-gray-1">
           <span className=" text-center font-sans">© {new Date().getFullYear()} Philipp Schmid</span>
 
@@ -21,6 +22,7 @@ export default function Footer() {
             Privacy Policy
           </Link>
         </div>
+        <SocialList />
       </div>
     </footer>
   );

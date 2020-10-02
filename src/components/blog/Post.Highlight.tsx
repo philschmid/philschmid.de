@@ -12,7 +12,9 @@ const PostHighlight = ({post}: any) => {
           <div>
             {' '}
             {tags.map((tag) => (
-              <span className="text-primary">#{tag} </span>
+              <span key={tag} className="text-primary">
+                #{tag}{' '}
+              </span>
             ))}
           </div>
 
