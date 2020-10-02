@@ -17,8 +17,7 @@ const PostsFilterView = (props) => {
   return (
     <Layout>
       <SEO pathname={pathPrefix} title={`${title} Articles`} description={`${title} Articles`} />
-      <SEO pathname={'/'} title={''} description={'Blog overview'} />
-      <div className="mt-8 mb-32 ">
+      <div className="mt-8 mb-8 md:mb-32">
         <h1 className="text-6xl font-serif mb-4"> {title} Articles</h1>
         {allTags.map((tag) => (
           <span className="text-primary text-2xl">#{tag} </span>

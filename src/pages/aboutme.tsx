@@ -10,14 +10,14 @@ const tags = ['AWS', 'Azure', 'Huggingface', 'Pytorch', 'Scikit-learn', 'Serverl
 export default function aboutme() {
   return (
     <Layout>
-      <SEO pathname={'/aboutme'} title={'About Me'} description={'About Me'} />
-      <div className="mt-8 mb-32 ">
+      <SEO pathname={'/aboutme'} title={'About Me | Philipp Schmid'} description={'About Me'} />
+      <div className="mt-8 mb-8 md:mb-32 ">
         <h1 className="text-6xl font-serif mb-4"> Philipp Schmid</h1>
         {tags.map((tag) => (
           <span className="text-primary text-2xl">#{tag} </span>
         ))}
       </div>
-      <div className="grid md:grid-cols-3 gap-32">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-32">
         <AuthorHeroAbout />
         <Author15Seconds />
         <h2>⚡ Technologies </h2>

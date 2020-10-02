@@ -16,7 +16,7 @@ export default function Navigation() {
   const [searchString, setSearchString] = React.useState('');
 
   return (
-    <nav className="col-span-1  md:col-span-2 flex justify-end text-gray-1">
+    <nav className="col-span-1  md:col-span-3 flex justify-end text-gray-1">
       {/* Suche */}
       <div
         className="cursor-pointer px-4 "
@@ -102,7 +102,7 @@ export default function Navigation() {
             </Link>
           </li>
         ))}
-        <li className="hover:text-primary font-sans">
+        <li className="hover:text-primary px-4 text-center font-sans">
           <a href="mailto:schmidphilipp1995@gmail.com">Contact</a>
         </li>
       </ul>

@@ -13,8 +13,9 @@ const Notebooks = (props) => {
 
   return (
     <Layout>
-      <SEO pathname={'/'} title={''} description={'Notebook overview'} />
-      <div className="mt-8 mb-32 ">
+      <SEO pathname={pathPrefix} title={`Notebooks`} description={`Notebook overview`} />
+
+      <div className="mt-8 mb-8 md:mb-32">
         <h1 className="text-6xl font-serif mb-4 ">Notebooks</h1>
         {allTags.map((tag) => (
           <span className="text-primary text-2xl">#{tag} </span>

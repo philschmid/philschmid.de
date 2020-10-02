@@ -12,7 +12,7 @@ module.exports = {
   notebooksPageLength: 15,
 
   customSiteMetadata: {
-    title: `philschmid blog by Philipp Schmid`,
+    title: `Blog by Philipp Schmid`,
     name: `philschmid`,
     siteUrl: `https://www.philschmid.de`,
     description: `Blog about Machine Learning, Cloud, AWS, GCP, helping People, Code, Share, be helpful`,

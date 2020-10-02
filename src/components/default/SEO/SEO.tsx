@@ -100,7 +100,7 @@ function SEO({title, description, children, url, image, published, pathname, rea
   }
 
   return (
-    <Helmet title={site.title} htmlAttributes={{lang: 'en'}} meta={metaTags}>
+    <Helmet title={title || site.title} htmlAttributes={{lang: 'en'}} meta={metaTags}>
       {children}
     </Helmet>
   );

@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function AuthorTechnology() {
   return (
-    <div className="md:col-span-2 text-justify  space-y-8 border-t-2 border-gray-1 w-full pt-8">
+    <div className="md:col-span-2 text-justify  space-y-8 border-t-2 border-gray-1 w-full md:pt-8">
       <p>
         I believe that one should not have a fixed technology stack, but should always respond to the needs and problems
         of the customer. Below is just an excerpt and my favorite technologies in machine learning, cloud and non-ML

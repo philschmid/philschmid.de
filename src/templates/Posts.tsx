@@ -28,9 +28,9 @@ const Posts = (props) => {
     <Layout>
       <SEO pathname={sitePath} title={''} description={'Blog overview'} />
       {first && (
-        <div className="hidden md:flex justify-between items-center space-x-24">
-          <div>
-            <h1 className="font-serif text-white mb-4 text-6xl">
+        <div className="flex justify-between items-center space-x-24">
+          <div className="mt-8 mb-8 md:mb-32">
+            <h1 className="text-6xl font-serif mb-4">
               philschmid <span className="text-gray-1">blog</span>
             </h1>
             {allTags.map((tag) => (
