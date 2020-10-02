@@ -3,10 +3,12 @@ import React from 'react';
 
 const range = (len: number) => Array.from({length: len}, (_, i) => i + 1);
 
-export default function Pagination({previousUrl, nextUrl, first, index, last, pageCount}) {
-  const defaultPath = 'page';
+export default function Pagination({previousUrl, nextUrl, first, index, last, pageCount, sitePath}) {
+  // machine-learning/
+  const defaultPath = `${sitePath}page`;
   const nextPage = `/${defaultPath}/${nextUrl}`;
-  const lastPage = index == 2 ? '/' : `/${defaultPath}/${previousUrl}`;
+  const lastPage = index == 2 ? `/${sitePath}` : `/${defaultPath}/${previousUrl}`;
+  console.log(nextPage);
   return (
     pageCount !== 1 && (
       <div className="flex space-x-4 md:space-x-8 mt-12 md:mt-24 md:justify-start justify-center">
@@ -26,7 +28,7 @@ export default function Pagination({previousUrl, nextUrl, first, index, last, pa
                 className={`${
                   index === pageNumber ? 'font-semibold text-white' : 'text-gray-2'
                 } hidden md:flex hover:underline`}
-                to={pageNumber == 1 ? '/' : `/${defaultPath}/${pageNumber}`}
+                to={pageNumber == 1 ? `/${sitePath}` : `/${defaultPath}/${pageNumber}`}
               >
                 {pageNumber}
               </Link>

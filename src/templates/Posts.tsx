@@ -22,10 +22,10 @@ const Posts = (props) => {
   const {group, index, first, last, pageCount} = props.pageContext;
   const previousUrl = index - 1 == 1 ? '/' : (index - 1).toString();
   const nextUrl = (index + 1).toString();
-
+  const sitePath = '';
   return (
     <Layout>
-      <SEO pathname={'/'} title={''} description={'Blog overview'} />
+      <SEO pathname={sitePath} title={''} description={'Blog overview'} />
       {first && (
         <div className="hidden md:flex justify-between space-x-24">
           <AuthorHero />
@@ -38,7 +38,7 @@ const Posts = (props) => {
           <PostLink key={node.slug} {...node} />
         ))}
       </main>
-      <Pagination {...{nextUrl, previousUrl, index, first, last, pageCount}} />
+      <Pagination {...{nextUrl, previousUrl, index, first, last, pageCount, sitePath}} />
     </Layout>
   );
 };

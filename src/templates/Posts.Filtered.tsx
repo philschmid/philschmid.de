@@ -10,7 +10,7 @@ const PostsFilterView = (props) => {
   const {group, index, first, last, pageCount, pathPrefix, allTags, title} = props.pageContext;
   const previousUrl = index - 1 == 1 ? '/' : (index - 1).toString();
   const nextUrl = (index + 1).toString();
-  // console.log(props);
+  const sitePath = `${pathPrefix.substring(1)}/`;
   return (
     <Layout>
       <SEO pathname={pathPrefix} title={`${title} Articles`} description={`${title} Articles`} />
@@ -26,7 +26,7 @@ const PostsFilterView = (props) => {
           <PostLink key={node.slug} {...node} />
         ))}
       </main>{' '}
-      <Pagination {...{nextUrl, previousUrl, index, first, last, pageCount}} />
+      <Pagination {...{nextUrl, previousUrl, index, first, last, pageCount, sitePath}} />
     </Layout>
   );
 };
