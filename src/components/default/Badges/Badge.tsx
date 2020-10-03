@@ -9,9 +9,9 @@ const badges = {
 
 export default function Badge({name, url}) {
   const Badge = badges[name];
-  return (
+  return url && name ? (
     <a target="_blank" rel="noopener" aria-label={`Link to ${url}`} href={url}>
       <Badge />
     </a>
-  );
+  ) : null;
 }
