@@ -1,10 +1,22 @@
+import {graphql, useStaticQuery} from 'gatsby';
 import React from 'react';
 import Layout from '../components/default/Layout/Layout';
 import SEO from '../components/default/SEO/SEO';
 
-const tags = ['NLP', 'BERT', 'AWS', 'Competitive Intelligence'];
+const projectsQuery = graphql`
+  {
+    allProjectsYaml {
+      nodes {
+        title
+        tags
+      }
+    }
+  }
+`;
 
 export default function Projects() {
+  const projects = useStaticQuery(projectsQuery).allProjectsYaml.nodes;
+  const tags = [...new Set(projects.map((project) => project.tags).flat())];
   return (
     <Layout>
       <SEO pathname={'/projects'} title={'Projects'} description={'Project overview'} />

@@ -6,7 +6,7 @@ import AuthorTechnology from '../components/author/Author.technology';
 import Layout from '../components/default/Layout/Layout';
 import SEO from '../components/default/SEO/SEO';
 
-const seoQuery = graphql`
+const authorQuery = graphql`
   {
     allAuthorYaml {
       edges {
@@ -28,7 +28,7 @@ const seoQuery = graphql`
 `;
 
 export default function aboutme() {
-  const {name, tags, bio, meIn15Seconds, technologies} = useStaticQuery(seoQuery).allAuthorYaml.edges[0].node;
+  const {name, tags, bio, meIn15Seconds, technologies} = useStaticQuery(authorQuery).allAuthorYaml.edges[0].node;
 
   return (
     <Layout>
