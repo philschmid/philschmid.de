@@ -39,9 +39,9 @@ export default function Newsletter() {
       </p>
       <form
         onSubmit={handleSubmit}
-        className="bg-darkBlack border-2 border-gray-2 pl-2 -pr-1 rounded-lg flex items-center max-w-xl mx-auto box-border"
+        className="bg-darkBlack border-2 border-gray-2 pl-2   rounded-lg flex items-center max-w-xl mx-auto box-border"
       >
-        <label className="flex items-center w-full">
+        <label className="flex items-center w-full p-2">
           <svg
             className="w-6 h-6 text-primary"
             fill="currentColor"
@@ -66,7 +66,7 @@ export default function Newsletter() {
         <button
           type="submit"
           disabled={subscribed}
-          className="border-2 border-primary hover:bg-primary px-4 py-2 rounded-lg text-primary transition duration-500 hover:text-darkBlack outline-none"
+          className=" -my-1 -mr-05 p-4 border-2 border-primary hover:bg-primary p-4 rounded-lg text-primary transition duration-500 hover:text-darkBlack outline-none"
         >
           {subscribed ? (
             <div className="flex items-center">

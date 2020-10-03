@@ -76,3 +76,6 @@ li::before {
 .max-h-500 {
   max-height: 500px;
 }
+.-mr-05 {
+  margin-right: -0.1rem;
+}

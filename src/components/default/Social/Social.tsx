@@ -35,7 +35,7 @@ export default function Social({url, name, size}) {
       data-a11y="false"
       aria-label={`Link to ${url}`}
       href={url}
-      className="text-gray-1"
+      className="text-gray-1 hover:text-primary  transition duration-300"
     >
       <Icon />
       <span className="hidden">Link to ${url}</span>

@@ -19,7 +19,7 @@ export default function Navigation() {
     <nav className="col-span-1  md:col-span-3 flex justify-end text-gray-1">
       {/* Suche */}
       <div
-        className="cursor-pointer px-4 "
+        className="cursor-pointer px-4 hover:text-primary  transition duration-300"
         onClick={() => {
           setSearchActive(!searchActive);
         }}
@@ -96,13 +96,13 @@ export default function Navigation() {
       {/* Desktop Navigation */}
       <ul className=" hidden lg:flex">
         {sites.map((site) => (
-          <li className="hover:text-primary px-4 text-center font-sans" key={site.to}>
+          <li className="hover:text-primary transition duration-300 px-4 text-center font-sans" key={site.to}>
             <Link to={site.to} activeClassName="active">
               {site.label}
             </Link>
           </li>
         ))}
-        <li className="hover:text-primary px-4 text-center font-sans">
+        <li className="hover:text-primary transition duration-300 px-4 text-center font-sans">
           <a href="mailto:schmidphilipp1995@gmail.com">Contact</a>
         </li>
       </ul>

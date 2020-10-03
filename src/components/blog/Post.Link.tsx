@@ -8,7 +8,7 @@ const PostLink = ({title, slug, date, excerpt, thumbnail, readingTime}) => {
         <Img className="w-full h-48" fluid={thumbnail.childImageSharp.fluid} />
         <section className="p-6 space-y-2">
           <header>
-            <h2 className="text-xl hover:text-primary "> {title || slug}</h2>
+            <h2 className="text-xl hover:text-primary  transition duration-300 "> {title || slug}</h2>
           </header>
           <div className="text-gray-2 text-sm md:text-base font-semibold ">
             {date} · {readingTime}

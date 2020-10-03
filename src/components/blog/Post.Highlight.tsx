@@ -12,7 +12,9 @@ const PostHighlight = ({post}: any) => {
         </div>
         <section className="p-6  space-y-4">
           <header>
-            <h2 className=" text-xl md:text-3xl md:leading-7 hover:text-primary">{title || slug}</h2>
+            <h2 className=" text-xl md:text-3xl md:leading-7 hover:text-primary  transition duration-300">
+              {title || slug}
+            </h2>
           </header>
           <div className="text-gray-2 text-sm md:text-base font-semibold ">
             {date} · {readingTime}
