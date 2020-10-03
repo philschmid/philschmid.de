@@ -31,7 +31,7 @@ const Posts = (props) => {
         <div className="flex justify-between items-center space-x-24">
           <div className="mt-8 mb-8 md:mb-32">
             <h1 className="text-6xl font-serif mb-4">
-              philschmid <span className="text-gray-1">blog</span>
+              philschmid <span className="text-gray-2">blog</span>
             </h1>
             {allTags.map((tag) => (
               <span className="text-primary text-2xl">#{tag} </span>

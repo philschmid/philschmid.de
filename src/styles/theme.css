@@ -7,10 +7,10 @@
     /* --color: #000;
     --background-color: rgb(5, 5, 5); */
     --textColor: #000;
-    --primary: #421696;
-    --gray1: #575860;
-    /* --gray2: #474953; */
-    --darkBlack: #f2f5f8;
+    --primary: #5dd7c0;
+    --gray1: #3d3d3d;
+    --gray2: #858585;
+    --darkBlack: #e0e0e0;
   }
   .mobile-nav-bg {
     @apply bg-white;
@@ -26,16 +26,14 @@
 
 @screen dark {
   :root {
-    /* --color: rgb(250, 250, 250);
-    --background-color: rgb(5, 5, 5); */
+    /* --primary: #89fc00; grün */
+    /* --primary: #f5b700; orange */
+    /* --primary: #04e762; grün 2 */
+    /* --primary: #fffd77; gelb */
     --textColor: #fff;
-    /* --primary: #a677ff; */
     --primary: #5dd7c0;
-    /* --gray1: #797a85; */
-    --gray1: #b9b9ca;
-    /* --gray2: #474953; */
-    --gray2: #b9b9ca;
-    /* --darkBlack: #0c1015; */
+    --gray1: #ebebeb;
+    --gray2: #858585;
     --darkBlack: #09090c;
   }
   .mobile-nav-bg {
