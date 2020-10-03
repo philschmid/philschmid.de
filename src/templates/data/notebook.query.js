@@ -11,6 +11,7 @@ module.exports.local = {
         dateForSEO: date
         tags
         links {
+          
           colab
           github
         }
