@@ -539,21 +539,21 @@ exports.createPages = async ({graphql, actions, reporter}, themeOptions) => {
   const allNotebooksTags = [...new Set(notebooks.map((article) => article.tags).flat())];
 
   // Create a page for each Post
-  notebooks.forEach((notebook, index) => {
-    const previous = index === notebooks.length - 1 ? null : notebooks[index + 1];
-    const next = index === 0 ? null : notebooks[index - 1];
-    const {slug} = notebook;
-    createPage({
-      path: slug,
-      component: templates.notebook,
-      context: {
-        notebook,
-        id: notebook.id,
-        previousId: previous ? previous.id : undefined,
-        nextId: next ? next.id : undefined,
-      },
-    });
-  });
+  // notebooks.forEach((notebook, index) => {
+  //   const previous = index === notebooks.length - 1 ? null : notebooks[index + 1];
+  //   const next = index === 0 ? null : notebooks[index - 1];
+  //   const {slug} = notebook;
+  //   createPage({
+  //     path: slug,
+  //     component: templates.notebook,
+  //     context: {
+  //       notebook,
+  //       id: notebook.id,
+  //       previousId: previous ? previous.id : undefined,
+  //       nextId: next ? next.id : undefined,
+  //     },
+  //   });
+  // });
 
   createPaginatedPages({
     edges: notebooks,

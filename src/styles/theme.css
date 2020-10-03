@@ -8,7 +8,8 @@
     --background-color: rgb(5, 5, 5); */
     --textColor: #000;
     --primary: #421696;
-    --textDark: #575860;
+    --gray1: #575860;
+    /* --gray2: #474953; */
     --darkBlack: #f2f5f8;
   }
   .mobile-nav-bg {
