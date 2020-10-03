@@ -1,16 +1,8 @@
 import React from 'react';
 import {graphql, useStaticQuery} from 'gatsby';
 import Img from 'gatsby-image';
-import SocialList from '../default/Social/Social.List';
 
-const bio = [
-  '📍Nuremberg,  🇩🇪 Germany',
-  '🧑🏻‍💻 Machine Learning Engineer',
-  '❤️ Cloud and Machine Learning ',
-  '🔏 Certified Solution Architect ',
-];
-
-export default () => {
+export default ({bio}) => {
   const data = useStaticQuery(query);
   return (
     <div className=" col-span-1 flex items-center justify-start flex-col text-left ">

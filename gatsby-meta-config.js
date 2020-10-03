@@ -4,6 +4,8 @@ module.exports = {
   assetPath: `content/assets`,
   contentPath: `content/posts`,
   notebookPath: `content/notebooks`,
+  authorPath: `content/author`,
+  projectsPath: `content/projects`,
   basePath: `/`,
   baseMachineLearningPath: `/machine-learning`,
   baseCloudPath: `/cloud`,

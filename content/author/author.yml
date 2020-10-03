@@ -1,0 +1,60 @@
+name: Philipp Schmid
+tags:
+  - AWS
+  - Azure
+  - Huggingface
+  - Pytorch
+  - Scikit-learn
+  - Serverless
+  - Kubeflow
+  - React
+bio:
+  - 📍Nuremberg,  🇩🇪 Germany
+  - 🧑🏻‍💻 Machine Learning Engineer
+  - ❤️ Cloud and Machine Learning
+  - 🔏 Certified Solution Architect
+meIn15Seconds:
+  - Hello, my name is Philipp. I am 24 years old living in Nuremberg, Germany.
+  - Currently I am working as a machine learning engineer at technology incubation start up.
+  - At work design and implement cloud-native machine learning architectures for fin-tech and insurance companies.
+  - I found my passion for cloud concepts and machine learning 3 years ago. Since then I never stopped learning.
+    Currently, I am focusing myself in the area NLP and how to leverage models like BERT, Roberta and GPT2 to generate
+    business value.
+  - I love to design solution oriented, scalable, efficient architectures to solve real business problems. I believe
+    that machine learning can support any company in any area at any time.
+  - I created this blog to share my knowledge and connect with people. Feel free to reach out to me on twitter or via
+    email.
+technologies:
+  description:
+    I believe that one should not have a fixed technology stack, but should always respond to the needs and problems of
+    the customer. Below is just an excerpt and my favorite technologies in machine learning, cloud and non-ML
+    frameworks.
+  machineLearning:
+    - Pytorch
+    - Pytorch-lightning
+    - Huggingface Transformers
+    - PyCaret
+    - Scikit-Learn
+    - Tensorflow
+    - Weights & Bias
+    - Optuna
+    - Pandas
+    - Numpy
+  cloud:
+    - AWS
+    - GCP
+    - Azure
+    - Kubernetes
+    - Kubeflow
+    - Docker
+    - Terraform
+    - Github Actions
+    - Serverless Framework
+  nonMLFramework:
+    - React
+    - Vue
+    - React-Native
+    - LitElement
+    - GraphQL
+    - Gatsby
+    - TailwindCSS

@@ -42,6 +42,7 @@ module.exports = {
         // remarkPlugins: [require(`remark-slug`)],
       },
     },
+    `gatsby-transformer-yaml`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -61,6 +62,20 @@ module.exports = {
       options: {
         path: options.notebookPath,
         name: options.notebookPath,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: options.authorPath,
+        name: options.authorPath,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: options.projectsPath,
+        name: options.projectsPath,
       },
     },
     `gatsby-transformer-sharp`,
