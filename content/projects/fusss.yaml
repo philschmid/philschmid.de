@@ -1,0 +1,12 @@
+title: fusss - Functional similar semantic search
+author: 
+  - Philipp Schmid
+version: 0.0
+excerpt: fusss is a functional library built for semantic search in large document corpuses. It is build functional and stateless to split the different components ins different services, like AWS Lambda functions. The libary consists out of 3 main components datasets, searcher, and answeres
+  
+tags:
+  - NLP
+  - Semantic Search
+website: https://github.com/philschmid/efsync
+github: https://github.com/philschmid/efsync
+examples: https://github.com/philschmid/efsync#examples

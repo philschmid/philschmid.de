@@ -21,7 +21,7 @@ const Notebooks = (props) => {
           <span className="text-primary text-2xl">#{tag} </span>
         ))}
       </div>
-      <main className="flex flex-col">
+      <main className="flex flex-col space-y-8">
         {group.map((node) => (
           <NotebookLink key={node.slug} {...node} />
         ))}

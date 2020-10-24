@@ -1,5 +1,12 @@
-title: efsync
+title: efsync - Serverless Data Sync to AWS EFS
+author: 
+  - Philipp Schmid
+version: 0.8
+excerpt:
+  efsync is an CLI/SDK to automatically upload files and dependencies to AWS EFS. The CLI is easy to use, you only need access to an AWS Account and an AWS EFS-filesystem up and running. I wrote an article with an complete walkthrough. you can check the examples with "View Examples"
 tags:
   - AWS
   - EFS
-  - Data Sync
+website: https://github.com/philschmid/efsync
+github: https://github.com/philschmid/efsync
+examples: https://github.com/philschmid/efsync#examples
