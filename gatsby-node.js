@@ -20,6 +20,17 @@ const templates = {
 const queryBlog = require('./src/templates/data/blog.query');
 const queryNotebook = require('./src/templates/data/notebook.query');
 
+function slugify(string) {
+  const slug = string
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036F]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)+/g, '');
+
+  return `/${slug}`.replace(/\/\/+/g, '/');
+}
+
 // Ensure that content directories exist at site-level
 exports.onPreBootstrap = ({store}, themeOptions) => {
   const {program} = store.getState();
@@ -452,7 +463,7 @@ exports.createPages = async ({graphql, actions, reporter}, themeOptions) => {
     const next = index === 0 ? null : posts[index - 1];
     const {slug} = post;
     createPage({
-      path: slug,
+      path: slugify(slug),
       component: templates.post,
       context: {
         post,
