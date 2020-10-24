@@ -10,7 +10,6 @@ import Badge from '../components/default/Badges/Badge';
 
 const Post = (props) => {
   const post = props.pageContext.post;
-  console.log(props);
   return (
     <Layout>
       <PostSEO article={post} />
