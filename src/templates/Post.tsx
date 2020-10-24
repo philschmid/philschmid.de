@@ -9,7 +9,6 @@ import PostSEO from '../components/default/SEO/SEO.Post';
 import Badge from '../components/default/Badges/Badge';
 
 const Post = (props) => {
-  // console.log(props);
   const post = props.pageContext.post;
 
   return (

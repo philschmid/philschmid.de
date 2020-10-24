@@ -7,7 +7,6 @@ import SEO from '../components/default/SEO/SEO';
 import PostHighlight from '../components/blog/Post.Highlight';
 
 const PostsFilterView = (props) => {
-  console.log(props);
   const {group, index, first, last, pageCount, pathPrefix, allTags, title} = props.pageContext;
   const previousUrl = index - 1 == 1 ? '/' : (index - 1).toString();
   const nextUrl = (index + 1).toString();
