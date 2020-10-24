@@ -79,3 +79,7 @@ li::before {
 .-mr-05 {
   margin-right: -0.1rem;
 }
+
+.w-lg {
+  width: 500px;
+}

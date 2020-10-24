@@ -5,7 +5,7 @@ const ColabBadge = () => (
   <g id="Gruppe_17" data-name="Gruppe 17" transform="translate(-560 -241)">
     <path id="Pfad_15" data-name="Pfad 15" d="M3,0H114a3,3,0,0,1,3,3V17a3,3,0,0,1-3,3H3a3,3,0,0,1-3-3V3A3,3,0,0,1,3,0Z" transform="translate(560 241)" fill="#ff813c"/>
     <path id="Rechteck_5" data-name="Rechteck 5" d="M3,0H25a0,0,0,0,1,0,0V20a0,0,0,0,1,0,0H3a3,3,0,0,1-3-3V3A3,3,0,0,1,3,0Z" transform="translate(560 241)" fill="#252a2e"/>
-    <text id="View_Examples" data-name="View Examples" transform="translate(590 254)" fill="#fff" font-size="12" font-family="Helvetica"><tspan x="0" y="0">View Examples</tspan></text>
+    <text id="View_Examples" data-name="View Examples" transform="translate(590 254)" fill="#fff" fontSize="12" fontFamily="Helvetica"><tspan x="0" y="0">View Examples</tspan></text>
     <g id="flask" transform="translate(561.505 244)">
       <g id="Gruppe_12" data-name="Gruppe 12" transform="translate(11.061 0.841)">
         <g id="Gruppe_11" data-name="Gruppe 11">

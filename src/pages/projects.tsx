@@ -33,7 +33,7 @@ export default function Projects() {
       <div className="mt-8 mb-8 md:mb-32">
         <h1 className="text-6xl font-serif mb-4">Projects</h1>
         {tags.map((tag) => (
-          <span className="text-primary text-2xl">#{tag} </span>
+          <span className="text-primary text-2xl" key={tag}>#{tag} </span>
         ))}
       </div>
         <main className="flex flex-col space-y-8">

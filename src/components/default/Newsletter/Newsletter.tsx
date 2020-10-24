@@ -39,11 +39,11 @@ export default function Newsletter() {
       </p>
       <form
         onSubmit={handleSubmit}
-        className="bg-darkBlack border-2 border-gray-2 pl-2   rounded-lg flex items-center max-w-xl mx-auto box-border"
+        className="bg-darkBlack border-2 border-gray-2   rounded-lg flex items-center max-w-xl mx-auto box-border"
       >
         <label className="flex items-center w-full p-2">
           <svg
-            className="w-6 h-6 text-primary"
+            className="w-6 h-6 text-primary hidden md:flex"
             fill="currentColor"
             viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg"
