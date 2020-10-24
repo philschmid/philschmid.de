@@ -19,7 +19,6 @@ export default function Navigation() {
 
   const throttledFetch = React.useCallback(
     debounce(300, (query) => {
-      console.log(query);
       if (query === '') {
         // reset search string
         setSearchString('');

@@ -24,7 +24,6 @@ const projectsQuery = graphql`
 
 export default function Projects() {
   const projects = useStaticQuery(projectsQuery).allProjectsYaml.nodes;
-  console.log(projects);
   const tags = [...new Set(projects.map((project) => project.tags).flat())];
   return (
     <Layout>

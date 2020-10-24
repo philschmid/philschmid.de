@@ -8,7 +8,6 @@ export default function Pagination({previousUrl, nextUrl, first, index, last, pa
   const defaultPath = `${sitePath}page`;
   const nextPage = `/${defaultPath}/${nextUrl}`;
   const lastPage = index == 2 ? `/${sitePath}` : `/${defaultPath}/${previousUrl}`;
-  console.log(nextPage);
   return (
     pageCount !== 1 && (
       <div className="flex space-x-4 md:space-x-8 mt-12 md:mt-24 md:justify-start justify-center">
