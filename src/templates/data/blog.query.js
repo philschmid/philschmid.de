@@ -68,7 +68,7 @@ module.exports.local = {
     mlposts: allBlogPost(
       sort: { fields: [date, title], order: DESC},
       limit: 1000,
-      filter: {tags: {in: ["NLP", "ML", "Machine Learning", "AI", "Bert"]}}
+      filter: {tags: {in: ["NLP", "ML", "Machine Learning", "AI", "Bert","GPT2","Pytorch","HuggingFace", "Computer Vision"]}}
   ) {
     nodes {
       id
@@ -114,7 +114,7 @@ module.exports.local = {
   cloudposts: allBlogPost(
     sort: { fields: [date, title], order: DESC},
     limit: 1000,
-    filter: {tags: {in: ["Cloud", "AWS", "GCP", "Azure"]}}
+    filter: {tags: {in: ["Cloud", "AWS", "GCP", "Azure","Serverless"]}}
 ) {
   nodes {
     id

@@ -508,7 +508,15 @@ exports.createPages = async ({graphql, actions, reporter}, themeOptions) => {
 
   const mlPosts = await graphql(queryBlog.local.mlPosts);
 
-  const allMlTags = [...new Set(mlPosts.data.mlposts.nodes.map((article) => article.tags).flat())];
+  const allMlTags = Object.entries(
+    mlPosts.data.mlposts.nodes
+      .map((article) => article.tags)
+      .flat()
+      .reduce((a, c) => ((a[c] = (a[c] || 0) + 1), a), Object.create(null)),
+  )
+    .sort(([, a], [, b]) => b - a)
+    .slice(0, topK)
+    .map((e) => e[0]);
 
   // Create Posts and Post pages.
 
@@ -527,8 +535,15 @@ exports.createPages = async ({graphql, actions, reporter}, themeOptions) => {
 
   const cloudPosts = await graphql(queryBlog.local.cloudPosts);
 
-  const allCloudTags = [...new Set(cloudPosts.data.cloudposts.nodes.map((article) => article.tags).flat())];
-
+  const allCloudTags = Object.entries(
+    cloudPosts.data.cloudposts.nodes
+      .map((article) => article.tags)
+      .flat()
+      .reduce((a, c) => ((a[c] = (a[c] || 0) + 1), a), Object.create(null)),
+  )
+    .sort(([, a], [, b]) => b - a)
+    .slice(0, topK)
+    .map((e) => e[0]);
   // Create Posts and Post pages.
 
   createPaginatedPages({
@@ -547,7 +562,16 @@ exports.createPages = async ({graphql, actions, reporter}, themeOptions) => {
   const resultNotebook = await graphql(queryNotebook.local.notebooks);
 
   const notebooks = resultNotebook.data.allnotebooks.nodes;
-  const allNotebooksTags = [...new Set(notebooks.map((article) => article.tags).flat())];
+
+  const allNotebooksTags = Object.entries(
+    notebooks
+      .map((article) => article.tags)
+      .flat()
+      .reduce((a, c) => ((a[c] = (a[c] || 0) + 1), a), Object.create(null)),
+  )
+    .sort(([, a], [, b]) => b - a)
+    .slice(0, topK)
+    .map((e) => e[0]);
 
   // Create a page for each Post
   // notebooks.forEach((notebook, index) => {

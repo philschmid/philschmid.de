@@ -5,7 +5,7 @@ import React from 'react';
 const components = {
   // img: ImageZoom,
   a: (props) => <a {...props} className=" text-primary visited:opacity-50 visited:text-primary hover:underline" />,
-  blockquote: (props) => <blockquote {...props} className="my-12 pl-12 italic text-xl md:text-3xl " />,
+  blockquote: (props) => <blockquote {...props} className="my-12 px-4 md:px-8 italic text-xl md:text-3xl " />,
   h1: (props) => <h2 {...props} className="my-8 text-3xl leading-6" />,
   h2: (props) => <h2 {...props} className="my-8 text-2xl leading-5" />,
   h3: (props) => <h2 {...props} className="my-6 text-xl leading-4" />,

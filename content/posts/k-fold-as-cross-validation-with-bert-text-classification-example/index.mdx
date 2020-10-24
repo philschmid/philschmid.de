@@ -9,6 +9,7 @@ excerpt:
 tags:
   - Machine Learning
   - Python
+  - Bert
 photograph: Photo by Martin Sanchez on Unsplash
 ---
 
@@ -29,11 +30,11 @@ we split our model K times and then train. Be aware that this will result in lon
 
 1. Shuffle the dataset.
 2. Split the dataset into `K` groups.
-3. For each unique group `g`:  
-    1. Take `g` as a test dataset.  
-    2. Take the remaining groups as a training data set.  
-    3. Fit a model on the training set and evaluate it on the test set.  
-    4. Retain the evaluation score and discard the model.
+3. For each unique group `g`:
+   1. Take `g` as a test dataset.
+   2. Take the remaining groups as a training data set.
+   3. Fit a model on the training set and evaluate it on the test set.
+   4. Retain the evaluation score and discard the model.
 4. Summarize the skill of the model using the sample of model evaluation scores.
 
 ![Illustration of K-Fold](./images/k-fold.svg)
