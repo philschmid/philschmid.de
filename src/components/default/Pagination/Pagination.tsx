@@ -28,6 +28,7 @@ export default function Pagination({previousUrl, nextUrl, first, index, last, pa
                   index === pageNumber ? 'font-semibold text-white' : 'text-gray-2'
                 } hidden md:flex hover:underline`}
                 to={pageNumber == 1 ? `/${sitePath}` : `/${defaultPath}/${pageNumber}`}
+                key={pageNumber}
               >
                 {pageNumber}
               </Link>

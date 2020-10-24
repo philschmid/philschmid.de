@@ -66,6 +66,8 @@ module.exports = {
     opacity: ['visited', 'hover'],
     backgroundOpacity: ['visited', 'hover'],
     underline: ['hover'],
+    translate: ['responsive', 'hover'],
+    scale: ['responsive', 'hover'],
   },
   plugins: [],
 };

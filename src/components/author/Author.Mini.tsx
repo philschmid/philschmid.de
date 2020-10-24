@@ -1,5 +1,5 @@
 import React from 'react';
-import {graphql, useStaticQuery} from 'gatsby';
+import {graphql, Link, useStaticQuery} from 'gatsby';
 import Img from 'gatsby-image';
 
 export default () => {
@@ -7,9 +7,11 @@ export default () => {
   return (
     <div className="inline-block md:flex flex-col md:flex-row items-center">
       <Img fluid={data.file.childImageSharp.fluid} className="clip-circle-sm hidden md:flex" />
-      <h3 className="text-sm md:text-base " style={{fontWeight: 'bold'}}>
-        Philipp Schmid
-      </h3>
+      <Link className="hover:text-primary" to={'/philipp-schmid'}>
+        <h3 className="text-sm md:text-base " style={{fontWeight: 'bold'}}>
+          Philipp Schmid
+        </h3>
+      </Link>
     </div>
   );
 };

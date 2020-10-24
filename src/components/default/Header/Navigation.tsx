@@ -8,7 +8,7 @@ const sites = [
   {label: 'Cloud', to: '/cloud'},
   {label: 'Notebooks', to: '/notebooks'},
   {label: 'Projects', to: '/projects'},
-  {label: 'About me', to: '/aboutme'},
+  {label: 'About me', to: '/philipp-schmid'},
 ];
 
 export default function Navigation() {

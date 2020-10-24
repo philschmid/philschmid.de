@@ -1,6 +1,6 @@
 .divider::before {
-  letter-spacing: 0.6em;
-  content: '...';
+  letter-spacing: 0.1em;
+  content: '.   .   .';
 }
 .copy-button {
   position: absolute;
@@ -82,4 +82,9 @@ li::before {
 
 .w-lg {
   width: 500px;
+}
+
+.scale-102:hover {
+  --transform-scale-x: 1.005;
+  --transform-scale-y: 1.005;
 }

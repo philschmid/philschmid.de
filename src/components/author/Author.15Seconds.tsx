@@ -5,7 +5,7 @@ export default function Author15Seconds({meIn15Seconds}) {
   return (
     <div className="md:col-span-2 text-justify  space-y-6">
       {meIn15Seconds.map((text) => (
-        <p>{text}</p>
+        <p key={text}>{text}</p>
       ))}
       <div>
         <SocialList size={'large'} />

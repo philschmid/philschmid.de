@@ -5,7 +5,11 @@ import Img from 'gatsby-image';
 const PostHighlight = ({post}: any) => {
   const {title, slug, date, excerpt, image, readingTime, tags} = post;
   return (
-    <Link to={slug} className="flex items-center col-span-1  md:col-span-2  " aria-label={slug}>
+    <Link
+      to={slug}
+      className="flex items-center col-span-1  md:col-span-2  hover:-translate-y-px transform scale-102 transition duration-300 ease-in-out"
+      aria-label={slug}
+    >
       <article className="bg-darkBlack grid grid-cols-1 md:grid-cols-2 xl:grid-cols-1 rounded-lg overflow-hidden h-full">
         <div className=" h-full">
           <Img className="h-48 md:h-full " fluid={image.childImageSharp.fluid} />

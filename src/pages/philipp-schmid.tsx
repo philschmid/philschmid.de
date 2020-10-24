@@ -36,7 +36,9 @@ export default function aboutme() {
       <div className="mt-8 mb-8 md:mb-32 ">
         <h1 className="text-6xl font-serif mb-4"> {name}</h1>
         {tags.map((tag) => (
-          <span className="text-primary text-lg md:text-2xl">#{tag} </span>
+          <span className="text-primary text-lg md:text-2xl" key={tag}>
+            #{tag}{' '}
+          </span>
         ))}
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-32">

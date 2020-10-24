@@ -1,6 +1,5 @@
 import {graphql, useStaticQuery} from 'gatsby';
 import React from 'react';
-import Pagination from '../components/default/Pagination/Pagination';
 import Layout from '../components/default/Layout/Layout';
 import SEO from '../components/default/SEO/SEO';
 import ProjectLink from '../components/projects/Project.Link';
