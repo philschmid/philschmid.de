@@ -7,10 +7,10 @@
     /* --color: #000;
     --background-color: rgb(5, 5, 5); */
     --textColor: #000;
-    --primary: #5dd7c0;
+    --primary: #009f35;
     --gray1: #3d3d3d;
     --gray2: #858585;
-    --darkBlack: #e0e0e0;
+    --darkBlack: #f5f5f5;
   }
   .mobile-nav-bg {
     @apply bg-white;
@@ -31,10 +31,12 @@
     /* --primary: #04e762; grün 2 */
     /* --primary: #fffd77; gelb */
     --textColor: #fff;
-    --primary: #5dd7c0;
-    --gray1: #ebebeb;
-    --gray2: #858585;
-    --darkBlack: #09090c;
+    --primary: #05e850;
+    /* --primary: #5dd7c0; */
+    --gray1: #c2c2c2;
+    --gray2: #707070;
+    /* --gray2: #858585; */
+    --darkBlack: #1c1c1c;
   }
   .mobile-nav-bg {
     @apply bg-black;

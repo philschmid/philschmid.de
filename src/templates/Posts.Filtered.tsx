@@ -20,7 +20,7 @@ const PostsFilterView = (props) => {
       <div className="mt-8 mb-8 md:mb-32">
         <h1 className="text-6xl font-serif mb-4"> {title} Articles</h1>
         {allTags.map((tag) => (
-          <span className="text-primary text-2xl">#{tag} </span>
+          <span className="text-primary text-lg md:text-2xl">#{tag} </span>
         ))}
       </div>
       <main className="grid sm:grid-cols-2 xl:grid-cols-3 gap-16">

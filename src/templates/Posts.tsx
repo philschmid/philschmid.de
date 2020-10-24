@@ -34,7 +34,7 @@ const Posts = (props) => {
               philschmid <span className="text-gray-2">blog</span>
             </h1>
             {allTags.map((tag) => (
-              <span className="text-primary text-2xl" key={tag}>
+              <span className="text-primary text-lg md:text-2xl" key={tag}>
                 #{tag}{' '}
               </span>
             ))}

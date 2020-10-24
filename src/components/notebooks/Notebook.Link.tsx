@@ -21,7 +21,7 @@ const NotebookLink = ({title, slug, date, tags, excerpt, links}) => {
       </header>
 
       <section>
-        <p className="text-gray-1">{excerpt}</p>
+        <p className="text-gray-1 text-justify">{excerpt}</p>
       </section>
       <div className="flex flex-row space-x-4">
         {badges.map((badge) => (

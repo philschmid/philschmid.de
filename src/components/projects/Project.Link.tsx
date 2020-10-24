@@ -2,7 +2,7 @@ import React from 'react';
 import NotebookTitle from '../blog/Post.Title';
 import Badge from '../default/Badges/Badge';
 
-const NotebookLink = ({title, author, tags, excerpt, version,github,examples,usage,website}) => {
+const NotebookLink = ({title, author, tags, excerpt, version, github, examples, usage, website}) => {
   return (
     <article className="rounded-lg overflow-hidden bg-darkBlack h-full space-y-4 px-8 py-4">
       <header className="col-span-4">
@@ -17,16 +17,15 @@ const NotebookLink = ({title, author, tags, excerpt, version,github,examples,usa
           </span>
         ))}
         <span className="text-gray-2"> · Version {version}</span>
-        <span className="text-gray-2"> · {author.map(name => `${name}; `)}</span>
+        <span className="text-gray-2"> · {author.map((name) => `${name}; `)}</span>
       </header>
 
       <section>
-        <p className="text-gray-1">{excerpt}</p>
+        <p className="text-gray-1 text-justify">{excerpt}</p>
       </section>
       <div className="flex flex-row space-x-4">
-        {github &&       <Badge name={"github"} url={github} />}
-        {examples &&       <Badge name={"examples"} url={examples} />}
-
+        {github && <Badge name={'github'} url={github} />}
+        {examples && <Badge name={'examples'} url={examples} />}
       </div>
     </article>
   );

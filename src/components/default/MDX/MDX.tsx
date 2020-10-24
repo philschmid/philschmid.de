@@ -17,7 +17,7 @@ const components = {
   li: (props) => <li {...props} className="relative  pb-4 leading-6" />,
   p: (props) => <p {...props} className="text-justify mb-12" />,
   // span: Span,
-  inlineCode: (props) => <code {...props} className="bg-darkBlack text-gray-1 px-1 rounded py-1" />,
+  inlineCode: (props) => <code {...props} className="bg-darkBlack text-primary px-1 rounded py-1" />,
   pre: Code,
   table: (props) => <table {...props} className="bg-darkBlack w-full rounded " />,
   thead: (props) => <thead {...props} className="font-bold font-semibold text-left" />,

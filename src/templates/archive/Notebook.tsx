@@ -1,10 +1,10 @@
 import React from 'react';
 
 import {MDXRenderer} from 'gatsby-plugin-mdx';
-import Layout from '../components/default/Layout/Layout';
-import NotebookTitle from '../components/blog/Post.Title';
+import Layout from '../../components/default/Layout/Layout';
+import NotebookTitle from '../../components/blog/Post.Title';
 import NotebookMeta from '../components/notebooks/Notebook.Meta';
-import NotebookSEO from '../components/default/SEO/SEO.Notebook';
+import NotebookSEO from '../../components/default/SEO/SEO.Notebook';
 
 const Notebook = (props) => {
   const notebook = props.pageContext.notebook;
