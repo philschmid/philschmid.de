@@ -6,9 +6,9 @@ const PostHighlight = ({post}: any) => {
   const {title, slug, date, excerpt, image, readingTime, tags} = post;
   return (
     <Link
-      to={slug}
+      to={slug.slice(0, -1)}
       className="flex items-center col-span-1  md:col-span-2  hover:-translate-y-px transform scale-102 transition duration-300 ease-in-out"
-      aria-label={slug}
+      aria-label={slug.slice(0, -1)}
     >
       <article className="bg-darkBlack grid grid-cols-1 md:grid-cols-2 xl:grid-cols-1 rounded-lg overflow-hidden h-full">
         <div className=" h-full">
