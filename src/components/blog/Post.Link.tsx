@@ -4,8 +4,8 @@ import Img from 'gatsby-image';
 const PostLink = ({title, slug, date, excerpt, thumbnail, readingTime}) => {
   return (
     <Link
-      to={slug}
-      aria-label={slug}
+      to={slug.slice(0, -1)}
+      aria-label={slug.slice(0, -1)}
       className="hover:-translate-y-px scale-102 transform transition duration-300 ease-in-out"
     >
       <article className="max-w-lg rounded-lg overflow-hidden bg-darkBlack h-full  ">
