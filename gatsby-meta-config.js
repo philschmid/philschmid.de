@@ -17,9 +17,9 @@ module.exports = {
     title: `Blog by Philipp Schmid`,
     name: `philschmid`,
     siteUrl: `https://www.philschmid.de`,
-    description: `Blog about Machine Learning, Cloud, AWS, GCP, helping People, Code, Share, be helpful`,
+    description: `Hello, my name is Philipp. This is my blog. I write about cloud topics with an focus on AWS. My second passion is Machine Learning, where I write articles in the area of NLP and on how to leverage models like BERT, Roberta and GPT-2 to generate business value. I created this blog to share my knowledge and connect with people.`,
     hero: {
-      heading: `Articles about Machine Learning and Cloud`,
+      heading: `Articles about Machine Learning and Cloud, NLP, AWS`,
       subheading: `think, code and share`,
       maxWidth: 652,
     },
