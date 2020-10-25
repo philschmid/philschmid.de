@@ -1,6 +1,7 @@
 import {Link} from 'gatsby';
 import React from 'react';
 import {debounce} from 'throttle-debounce';
+const ReactGA = require('react-ga');
 
 const sites = [
   {label: 'Blog', to: '/'},
@@ -35,6 +36,10 @@ export default function Navigation() {
           setSearchString(query);
           if (data.items) {
             setSearchResults(data.items);
+            ReactGA.event({
+              category: 'Search',
+              action: query,
+            });
           }
         });
     }),

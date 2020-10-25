@@ -28,3 +28,7 @@ if (localStorage) {
 
   // console.log('init');
 }
+
+export const onRouteUpdate = ({location, prevLocation}) => {
+  ReactGA.pageview(location.pathname);
+};
