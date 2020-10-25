@@ -1,6 +1,6 @@
 code[class*='language-'],
 pre[class*='language-'] {
-  background: #09090c;
+  background: #1c1c1c;
   color: #e6e6e6;
 
   font-family: 'Operator Mono', Consolas, Menlo, Monaco, source-code-pro, 'Courier New', monospace;
@@ -26,7 +26,7 @@ pre[class*='language-'] code {
 
 pre[class*='language-'],
 :not(pre) > code[class*='language-'] {
-  background: #09090c;
+  background: #1c1c1c;
 }
 
 pre[class*='language-'] {
