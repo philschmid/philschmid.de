@@ -46,7 +46,9 @@ export default function Navigation() {
       <nav className="col-span-1  md:col-span-3 flex justify-end text-gray-1">
         {/* Suche */}
         <div
-          className="cursor-pointer px-4 hover:text-primary  transition duration-300"
+          className={`cursor-pointer px-4 hover:text-primary  transition duration-300 ${
+            searchActive ? 'text-primary' : ''
+          }`}
           onClick={() => {
             setSearchActive(!searchActive);
           }}
@@ -76,9 +78,9 @@ export default function Navigation() {
           </svg>
         </div>
         {mobileNaviagtionActive && (
-          <div className="lg:hidden origin-top-right fixed top-0  right-0 z-50 mobile-nav-bg w-full px-4">
+          <div className="lg:hidden origin-top-right fixed top-0  right-0 z-50 mobile-nav-bg w-full px-4 ">
             <div
-              className="lg:hidden cursor-pointer float-right h-24 flex items-center"
+              className="lg:hidden cursor-pointer float-right h-24 flex items-center absolute right-0 pr-4"
               onClick={() => {
                 setMobileNaviagtionActive(!mobileNaviagtionActive);
               }}
@@ -92,7 +94,7 @@ export default function Navigation() {
               </svg>
             </div>
 
-            <ul className="  flex justify-evenly items-center flex-col h-screen font-sans">
+            <ul className="  flex justify-evenly items-center flex-col h-screen font-sans pb-12">
               {sites.map((site) => (
                 <li key={site.to} className="hover:text-primary">
                   <Link to={site.to} activeClassName="active">
@@ -124,8 +126,9 @@ export default function Navigation() {
       {searchActive && (
         <div className="mt-24 absolute z-20 mobile-nav-bg -mx-4 w-full  lg:max-w-screen-lg xl:max-w-screen-xl	 px-4">
           <input
-            className="w-full  m-auto bg-darkBlack p-2 mb-4 outline-none"
+            className="w-full  m-auto bg-darkBlack md:p-2 md:mb-4 p-4 mb-6 outline-none"
             placeholder="Search...."
+            autoFocus={true}
             value={searchString}
             onChange={(event) => {
               setSearchString(event.target.value);

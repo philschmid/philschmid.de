@@ -11,7 +11,7 @@ export default function Footer() {
       </div>
       <hr className="lg:container px-4 lg:m-auto text-darkBlack"></hr>
       <div className="flex flex-col-reverse md:flex-row justify-between items-center lg:container px-4 lg:mx-auto gap-4">
-        <div className="text-sm space-x-2 text-gray-1">
+        <div className="text-sm space-x-2 text-gray-1 md:my-0 my-4">
           <span className=" text-center font-sans">© {new Date().getFullYear()} Philipp Schmid</span>
 
           <span>|</span>

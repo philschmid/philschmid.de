@@ -6,12 +6,15 @@ import Layout from '../components/default/Layout/Layout';
 import SEO from '../components/default/SEO/SEO';
 import PostHighlight from '../components/blog/Post.Highlight';
 
+const allTags = ['Machine Learning', 'Cloud', 'NLP', 'Serverless', 'Bert'];
+
 const Posts = (props) => {
-  const {group, index, first, last, pageCount, allTags} = props.pageContext;
+  const {group, index, first, last, pageCount} = props.pageContext;
   const previousUrl = index - 1 == 1 ? '/' : (index - 1).toString();
   const nextUrl = (index + 1).toString();
   const sitePath = '';
   const reducedGroups = group.slice(1);
+
   return (
     <Layout>
       <SEO pathname={sitePath} title={''} description={'Blog overview'} />
