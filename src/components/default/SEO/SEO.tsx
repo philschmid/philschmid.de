@@ -12,6 +12,17 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import {graphql, useStaticQuery} from 'gatsby';
 
+function slugify(string) {
+  const slug = string
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036F]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)+/g, '');
+
+  return `/${slug}`.replace(/\/\/+/g, '/');
+}
+
 interface HelmetProps {
   children?: React.ReactChildren;
   title: string;
@@ -74,20 +85,20 @@ function SEO({title, description, children, url, image, published, pathname, rea
     {name: 'description', content: description || site.description},
 
     {name: 'twitter:card', content: 'summary_large_image'},
-    {name: 'twitter:site', content: site.name},
+    {name: 'twitter:site', content: '@_philschmid'},
     {name: 'twitter:title', content: title || site.title},
     {name: 'twitter:description', content: description || site.description},
-    {name: 'twitter:creator', content: twitter.url},
+    {name: 'twitter:creator', content: '@_philschmid'},
     {
       name: 'twitter:image',
       content: fullURL(image),
     },
 
     {property: 'og:title', content: title || site.title},
-    {property: 'og:url', content: url},
+    {property: 'og:url', content: site.siteUrl + slugify(pathname)},
     {property: 'og:image', content: fullURL(image)},
     {property: 'og:description', content: description || site.description},
-    {property: 'og:site_name', content: site.name},
+    {property: 'og:site_name', content: site.title},
   ];
 
   if (published) {
