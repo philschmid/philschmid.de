@@ -89,13 +89,14 @@ function SEO({title, description, children, url, image, published, pathname, rea
     {name: 'twitter:title', content: title || site.title},
     {name: 'twitter:description', content: description || site.description},
     {name: 'twitter:creator', content: '@_philschmid'},
+    {name: 'twitter:domain', content: 'philschmid.de'},
     {
       name: 'twitter:image',
       content: fullURL(image),
     },
 
     {property: 'og:title', content: title || site.title},
-    {property: 'og:url', content: site.siteUrl + slugify(pathname)},
+    {property: 'og:url', content: site.siteUrl + pathname},
     {property: 'og:image', content: fullURL(image)},
     {property: 'og:description', content: description || site.description},
     {property: 'og:site_name', content: site.title},
