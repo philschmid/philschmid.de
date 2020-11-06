@@ -98,7 +98,7 @@ The 5 use cases consist of:
 - Install Python dependencies and uploading files with SCP an EFS Filesystem.
   _[Example](https://github.com/philschmid/efsync/blob/main/examples/efsync_pip_packages_and_scp_files.ipynb)_
 
-**\*Note:** Each Example can be run in a Google Colab.\*
+_**Note:** Each Example can be run in a Google Colab._
 
 ---
 
@@ -115,8 +115,8 @@ You can find examples for each configuration in the
 [Github Repository](https://github.com/philschmid/efsync#%EF%B8%8F--configurations). I also included configuration
 examples for the different use cases.
 
-**\*Note**: If you sync a file with SCP from a local directory (e.g. `model/bert`) to efs (`my_efs_model`) efsync will
-sync the model to `my_efs_model/bert` that happens because scp uploads the files recursively.\*
+_**Note**: If you sync a file with SCP from a local directory (e.g. `model/bert`) to efs (`my_efs_model`) efsync will
+sync the model to `my_efs_model/bert` that happens because scp uploads the files recursively._
 
 ---
 
@@ -165,7 +165,7 @@ The `efsync.yaml` contains all configuration, such as:
 
 **Standard Configuration**
 
-- `efs_filesystem_id`: the AWS EFS filesystem id (moint point).
+- `efs_filesystem_id`: the AWS EFS filesystem id (mount point).
 - `subnet_Id`: the Subnet Id of the EFS filesystem, which is running in.
 - `ec2_key_name`: A required key name for starting the EC2 instance.
 - `aws_profile`: the IAM profile with required permission configured in `.aws/credentials`.
