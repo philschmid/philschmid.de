@@ -126,5 +126,93 @@ module.exports = {
         siteUrl: `https://www.philschmid.de`,
       },
     },
+    {
+      resolve: `gatsby-plugin-feed`,
+      options: {
+        query: `
+        {
+          site {
+            siteMetadata {
+              title
+              description
+              siteUrl
+              site_url: siteUrl
+            }
+          }
+        }
+      `,
+        setup: ({
+          query: {
+            site: {siteMetadata},
+          },
+          ...rest
+        }) => {
+          siteMetadata.feed_url = siteMetadata.siteUrl + '/rss.xml';
+          siteMetadata.image_url = siteMetadata.siteUrl + '/icons/icon-512x512.png';
+          const siteMetadataModified = siteMetadata;
+          siteMetadataModified.feed_url = `${siteMetadata.siteUrl}/rss.xml`;
+          siteMetadataModified.image_url = `${siteMetadata.siteUrl}/icons/icon-512x512.png`;
+
+          return {
+            ...siteMetadataModified,
+            ...rest,
+          };
+        },
+        feeds: [
+          {
+            serialize: ({query: {site, allBlogPost}}) => {
+              return allBlogPost.nodes.map((node) => {
+                return {
+                  ...node,
+                  description: node.excerpt,
+                  date: node.date,
+                  url: site.siteMetadata.siteUrl + node.slug,
+                  guid: site.siteMetadata.siteUrl + node.slug,
+                  // custom_elements: [{ "content:encoded": edge.node.body }],
+                  author: 'Philipp Schmid',
+                  custom_elements: [
+                    {tags: node.tags.join(', ')},
+                    {readingTime: node.readingTime},
+                    {dateForSEO: node.dateForSEO},
+                    {image: site.siteMetadata.siteUrl + node.image.childImageSharp.fluid.src},
+                  ],
+                };
+              });
+            },
+            query: `
+            {
+              allBlogPost(sort: {fields: [date, title], order: DESC}, limit: 1000) {
+                nodes {
+                  id
+                  excerpt
+                  slug
+                  title
+                  tags
+                  readingTime
+                  photograph
+                  links {
+                    colab
+                    github
+                  }
+                  date(formatString: "MMMM DD, YYYY")
+                  dateForSEO: date
+                  image {
+                    childImageSharp {
+                      fluid(maxWidth: 900) {
+                        src
+                        srcWebp
+                      }
+                    }
+                  }
+                  imageAlt
+                }
+              }
+            }            
+            `,
+            output: '/rss.xml',
+          },
+        ],
+      },
+    },
   ].filter(Boolean),
 };
