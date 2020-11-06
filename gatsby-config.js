@@ -1,5 +1,16 @@
 const options = require(`./gatsby-meta-config`);
 
+function slugify(string) {
+  const slug = string
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036F]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)+/g, '');
+
+  return `/${slug}`.replace(/\/\/+/g, '/');
+}
+
 module.exports = {
   siteMetadata: options.customSiteMetadata,
   plugins: [
@@ -166,8 +177,8 @@ module.exports = {
                   ...node,
                   description: node.excerpt,
                   date: node.date,
-                  url: site.siteMetadata.siteUrl + node.slug,
-                  guid: site.siteMetadata.siteUrl + node.slug,
+                  url: site.siteMetadata.siteUrl + slugify(node.slug),
+                  guid: site.siteMetadata.siteUrl + slugify(node.slug),
                   // custom_elements: [{ "content:encoded": edge.node.body }],
                   author: 'Philipp Schmid',
                   custom_elements: [
