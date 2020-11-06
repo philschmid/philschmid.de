@@ -23,7 +23,6 @@ function ArticleSEO({article}: {article: any}) {
   const results = useStaticQuery(siteQuery);
   const name = results.allSite.edges[0].node.siteMetadata.name;
   const siteUrl = results.allSite.edges[0].node.siteMetadata.siteUrl;
-  console.log(article);
   /**
    * For some reason `location.href` is undefined here when using `yarn build`.
    * That is why I am using static query `allSite` to get needed fields: name & siteUrl.
@@ -64,7 +63,7 @@ function ArticleSEO({article}: {article: any}) {
       title={article.title}
       description={article.excerpt}
       image={article.image.childImageSharp.fluid.src}
-      timeToRead={article.readingTime}
+      readingTime={article.readingTime}
       published={article.dateForSEO}
       pathname={article.slug}
       tags={article.tags}

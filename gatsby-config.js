@@ -119,5 +119,12 @@ module.exports = {
           'https://philschmid.us19.list-manage.com/subscribe/post?u=9dbbfdd84e34132c1147d9db9&amp;id=a10a54e23e',
       },
     },
+    `gatsby-plugin-react-helmet`,
+    {
+      resolve: `gatsby-plugin-react-helmet-canonical-urls`,
+      options: {
+        siteUrl: `https://www.philschmid.de`,
+      },
+    },
   ].filter(Boolean),
 };

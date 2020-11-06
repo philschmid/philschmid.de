@@ -5,10 +5,13 @@ import Pagination from '../components/default/Pagination/Pagination';
 import Layout from '../components/default/Layout/Layout';
 import SEO from '../components/default/SEO/SEO';
 import PostHighlight from '../components/blog/Post.Highlight';
+import {graphql, useStaticQuery} from 'gatsby';
 
 const allTags = ['Machine Learning', 'Cloud', 'NLP', 'Serverless', 'Bert'];
 
 const Posts = (props) => {
+  const image = useStaticQuery(query);
+
   const {group, index, first, last, pageCount} = props.pageContext;
   const previousUrl = index - 1 == 1 ? '/' : (index - 1).toString();
   const nextUrl = (index + 1).toString();
@@ -17,7 +20,13 @@ const Posts = (props) => {
 
   return (
     <Layout>
-      <SEO pathname={sitePath} title={''} description={'Blog overview'} />
+      <SEO
+        pathname={sitePath}
+        title={''}
+        description={'Blog overview'}
+        tags={allTags}
+        image={image.file.childImageSharp.fluid.src}
+      />
       {first && (
         <div className="flex justify-between items-center space-x-24">
           <div className="mt-8 mb-8 md:mb-32">
@@ -46,5 +55,20 @@ const Posts = (props) => {
     </Layout>
   );
 };
+
+export const query = graphql`
+  query {
+    file(relativePath: {eq: "philippschmid-medium.png"}) {
+      childImageSharp {
+        # Specify the image processing specifications right in the query.
+        # Makes it trivial to update as your page's design changes.
+        fluid(maxWidth: 500) {
+          ...GatsbyImageSharpFluid
+          src
+        }
+      }
+    }
+  }
+`;
 
 export default Posts;

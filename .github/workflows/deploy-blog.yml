@@ -2,8 +2,8 @@ name: deploy-app-on-s3
 on:
   push:
     branches: [master]
-    paths:
-      - 'content/**'
+    # paths:
+    #   - 'content/**'
 jobs:
   deploy:
     runs-on: ubuntu-latest

@@ -22,7 +22,7 @@
   "homepage": "https://www.philschmid.de",
   "peerDependencies": {
     "@mdx-js/react": "^1.0.27",
-    "gatsby": "^2.23.22",
+    "gatsby": "^2.25.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6"
   },
@@ -35,6 +35,8 @@
     "gatsby-plugin-manifest": "^2.4.31",
     "gatsby-plugin-mdx": "^1.2.28",
     "gatsby-plugin-postcss": "^2.3.12",
+    "gatsby-plugin-react-helmet": "^3.3.14",
+    "gatsby-plugin-react-helmet-canonical-urls": "^1.4.0",
     "gatsby-plugin-robots-txt": "^1.5.3",
     "gatsby-plugin-sharp": "^2.6.21",
     "gatsby-plugin-sitemap": "^2.4.13",

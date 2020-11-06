@@ -463,7 +463,7 @@ exports.createPages = async ({graphql, actions, reporter}, themeOptions) => {
     const next = index === 0 ? null : posts[index - 1];
     const {slug} = post;
     createPage({
-      path: slug,
+      path: slugify(slug),
       component: templates.post,
       context: {
         post,
