@@ -64,6 +64,7 @@ function NotebookSEO({article}: {article: any}) {
       timeToRead={article.readingTime}
       published={article.date}
       pathname={article.slug}
+      tags={article.tags}
     >
       <script type="application/ld+json">{microdata}</script>
     </SEO>

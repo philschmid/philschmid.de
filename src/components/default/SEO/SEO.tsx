@@ -54,7 +54,7 @@ const seoQuery = graphql`
   }
 `;
 
-function SEO({title, description, children, url, image, published, pathname, readingTime}: HelmetProps) {
+function SEO({title, description, children, url, image, published, pathname, readingTime, tags}: HelmetProps) {
   const results = useStaticQuery(seoQuery);
   const site = results.allSite.edges[0].node.siteMetadata;
   const twitter = site.social.find((option) => option.name === 'twitter') || {};
@@ -101,8 +101,18 @@ function SEO({title, description, children, url, image, published, pathname, rea
     {property: 'og:site_name', content: site.title},
   ];
 
+  if (slugify(pathname) === '/') {
+    metaTags.push({property: 'og:type', content: 'website'});
+  }
+
   if (published) {
+    metaTags.push({property: 'og:type', content: 'article'});
     metaTags.push({name: 'article:published_time', content: published});
+    metaTags.push({name: 'article:author', content: 'Philipp Schmid'});
+    metaTags.push({name: 'article:section', content: tags[0]});
+    tags.forEach((tag) => {
+      metaTags.push({name: 'article:tag', content: tag});
+    });
   }
 
   if (readingTime) {
