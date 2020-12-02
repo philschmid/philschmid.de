@@ -246,7 +246,7 @@ through all the details we need for our `docker` image and leave out all standar
 more about the `sam template.yaml`, you can read through the documentation
 [here](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-specification-resources-and-properties.html).
 
-```bash
+```yaml
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: serverless-aws-lambda-custom-docker
@@ -288,7 +288,7 @@ like that `namespace/image:tag` or `docker.io/namespace/image:tag`.
 
 Afterwards, we can deploy our application again using `sam deploy` and thats it.
 
-```python
+```bash
 sam deploy --guided
 ```
 
