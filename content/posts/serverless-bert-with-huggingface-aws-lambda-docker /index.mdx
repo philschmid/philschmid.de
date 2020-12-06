@@ -433,9 +433,7 @@ functions:
 To use a `docker` image in our `serverlss.yaml` we have to `image` and in our `function` section. The `image` has the
 URL to our `docker` image also value.
 
-For an ECR image, the URL should look like tihs `<account>.dkr.ecr.<region>.amazonaws.com/
-
-<repository>@<digest>`
+For an ECR image, the URL should look like this `{AccountID}.dkr.ecr.{region}.amazonaws.com/{repository-name}@{digest}`
 
 In order to deploy the function, we run `serverless deploy`.
 
