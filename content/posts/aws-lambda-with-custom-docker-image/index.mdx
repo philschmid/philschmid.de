@@ -240,7 +240,7 @@ Next we need to `tag` / rename our previously created image to an ECR format. Th
 `{AccountID}.dkr.ecr.{region}.amazonaws.com/{repository-name}`
 
 ```bash
-docker tag docker-lambda 891511646143.dkr.ecr.eu-central-1.amazonaws.com/docker-lambda
+docker tag docker-lambda $aws_account_id.dkr.ecr.$aws_region.amazonaws.com/docker-lambda
 ```
 
 To check if it worked we can run `docker images` and should see an image with our tag as name
