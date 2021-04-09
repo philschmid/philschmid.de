@@ -27,16 +27,12 @@ technologies:
     the customer. Below is just an excerpt and my favorite technologies in machine learning, cloud and non-ML
     frameworks.
   machineLearning:
-    - Pytorch
-    - Pytorch-lightning
     - Huggingface Transformers
-    - PyCaret
+    - PyTorch
     - Scikit-Learn
-    - Tensorflow
+    - TensorFlow
     - Weights & Bias
     - Optuna
-    - Pandas
-    - Numpy
   cloud:
     - AWS
     - GCP
@@ -49,9 +45,9 @@ technologies:
     - Serverless Framework
   nonMLFramework:
     - React
-    - Vue
+    - Svelte
     - React-Native
-    - LitElement
     - GraphQL
+    - Next.js
     - Gatsby
     - TailwindCSS
