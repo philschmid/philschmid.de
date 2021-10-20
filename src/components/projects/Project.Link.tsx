@@ -3,7 +3,6 @@ import NotebookTitle from '../blog/Post.Title';
 import Badge from '../default/Badges/Badge';
 
 const NotebookLink = ({title, asset, tags, excerpt, type, github, examples, usage, website}) => {
-  console.log(asset)
   return (
     <article className="rounded-lg overflow-hidden bg-darkBlack h-full space-y-4 px-8 py-4">
       <header className="col-span-4">

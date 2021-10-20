@@ -21,7 +21,6 @@ const projectsQuery = graphql`
 
 export default function Projects() {
   const projects = useStaticQuery(projectsQuery).allProjectsYaml.nodes.sort((a, b) => (a.priority > b.priority) ? 1 : -1)
-  console.log(projects)
   const tags:any = [...new Set(projects.map((project) => project.tags).flat())];
   return (
     <Layout>
