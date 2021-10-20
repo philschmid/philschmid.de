@@ -33,16 +33,8 @@ module.exports = {
         url: `https://github.com/philschmid`,
       },
       {
-        name: `Instagram`,
-        url: `https://instagram.com/schmid_philipp`,
-      },
-      {
         name: `LinkedIn`,
         url: `https://www.linkedin.com/in/philipp-schmid-a6a2bb196/`,
-      },
-      {
-        name: `Medium`,
-        url: `https://medium.com/@schmidphilipp1995`,
       },
     ],
   },

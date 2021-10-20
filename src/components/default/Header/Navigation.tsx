@@ -7,7 +7,7 @@ const sites = [
   {label: 'Blog', to: '/'},
   {label: 'Machine Learning', to: '/machine-learning'},
   {label: 'Cloud', to: '/cloud'},
-  {label: 'Notebooks', to: '/notebooks'},
+  // {label: 'Notebooks', to: '/notebooks'},
   {label: 'Projects', to: '/projects'},
   {label: 'About me', to: '/philipp-schmid'},
 ];

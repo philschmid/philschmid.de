@@ -590,17 +590,17 @@ exports.createPages = async ({graphql, actions, reporter}, themeOptions) => {
   //   });
   // });
 
-  createPaginatedPages({
-    edges: notebooks,
-    pathPrefix: options.baseNotebooksPath,
-    createPage,
-    pageLength: options.notebooksPageLength,
-    pageTemplate: templates.notebooks,
-    buildPath: buildPaginatedPath,
-    context: {
-      allTags: allNotebooksTags,
-    },
-  });
+  // createPaginatedPages({
+  //   edges: notebooks,
+  //   pathPrefix: options.baseNotebooksPath,
+  //   createPage,
+  //   pageLength: options.notebooksPageLength,
+  //   pageTemplate: templates.notebooks,
+  //   buildPath: buildPaginatedPath,
+  //   context: {
+  //     allTags: allNotebooksTags,
+  //   },
+  // });
 };
 
 // const path = require('path');

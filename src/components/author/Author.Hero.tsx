@@ -8,7 +8,7 @@ export default () => {
   return (
     <div className="hidden md:flex w-1/3 col-span-1  items-center flex-col text-center m-12 space-y-4">
       <Img fluid={data.file.childImageSharp.fluid} className="clip-circle" />
-      <h2 className="text-lg text-gray-1">Hello, I am Philipp Machine Learning Engineer & Cloud enthusiast.</h2>
+      <h2 className="text-lg text-gray-1">Hello, I am Philipp Machine Learning Engineer, Tech Lead & Cloud enthusiast.</h2>
       <SocialList />
     </div>
   );
