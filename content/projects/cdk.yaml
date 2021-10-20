@@ -1,0 +1,10 @@
+title: AWS CDK - Samples
+asset: ./assets/hf.png
+type:
+  - Maintainer
+priority: 7
+excerpt: This repository contains a set of example projects for Deep Learning Cloud Native Applications using the AWS Cloud Development Kit.
+tags:
+  - AWS
+  - IaC
+website: https://github.com/aws/deep-learning-containers

@@ -1,0 +1,11 @@
+title: 🤗 Accelerate
+asset: ./assets/hf.png
+type:
+  - Contributor
+priority: 8
+excerpt: 🤗 Accelerate was created for PyTorch users who like to write the training loop of PyTorch models but are reluctant to write and maintain the boilerplate code needed to use multi-GPUs/TPU/fp16.
+tags:
+  - Deep Learning
+  - PyTorch
+  - HuggingFace
+website: https://github.com/huggingface/accelerate

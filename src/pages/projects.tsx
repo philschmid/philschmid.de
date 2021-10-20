@@ -8,13 +8,11 @@ const projectsQuery = graphql`
   {
     allProjectsYaml {
       nodes {
-        author
-        examples
+        type
         excerpt
-        github
         tags
         title
-        version
+        priority
         website
       }
     }
@@ -22,11 +20,12 @@ const projectsQuery = graphql`
 `;
 
 export default function Projects() {
-  const projects = useStaticQuery(projectsQuery).allProjectsYaml.nodes;
-  const tags = [...new Set(projects.map((project) => project.tags).flat())];
+  const projects = useStaticQuery(projectsQuery).allProjectsYaml.nodes.sort((a, b) => (a.priority > b.priority) ? 1 : -1)
+  console.log(projects)
+  const tags:any = [...new Set(projects.map((project) => project.tags).flat())];
   return (
     <Layout>
-      <SEO pathname={'/projects'} title={'Projects'} description={'Project overview'} />
+      <SEO pathname={'/projects'} title={'Projects'} description={'Project overview'} tags={tags} />
       <div className="mt-8 mb-8 md:mb-32">
         <h1 className="text-6xl font-serif mb-4">Projects</h1>
         {tags.map((tag) => (
@@ -35,7 +34,7 @@ export default function Projects() {
           </span>
         ))}
       </div>
-      <main className="flex flex-col space-y-8">
+      <main className="grid lg:grid-cols-2 flex-col gap-8">
         {projects.map((node) => (
           <ProjectLink key={node.title} {...node} />
         ))}

@@ -2,7 +2,8 @@ import React from 'react';
 import NotebookTitle from '../blog/Post.Title';
 import Badge from '../default/Badges/Badge';
 
-const NotebookLink = ({title, author, tags, excerpt, version, github, examples, usage, website}) => {
+const NotebookLink = ({title, asset, tags, excerpt, type, github, examples, usage, website}) => {
+  console.log(asset)
   return (
     <article className="rounded-lg overflow-hidden bg-darkBlack h-full space-y-4 px-8 py-4">
       <header className="col-span-4">
@@ -16,8 +17,8 @@ const NotebookLink = ({title, author, tags, excerpt, version, github, examples, 
             #{tag}{' '}
           </span>
         ))}
-        <span className="text-gray-2"> · Version {version}</span>
-        <span className="text-gray-2"> · {author.map((name) => `${name}; `)}</span>
+        {/* <span className="text-gray-2"> · Version {version}</span> */}
+        <span className="text-gray-2"> · {type.map((name) => `${name}; `)}</span>
       </header>
 
       <section>

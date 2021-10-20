@@ -1,0 +1,11 @@
+title: AWS Deep Learning Containers
+asset: ./assets/hf.png
+type:
+  - Contributor of Hugging Face Images
+priority: 6
+excerpt: AWS Deep Learning Containers (DLCs) are a set of Docker images for training and serving models in Hugging Face Transformers, TensorFlow, TensorFlow 2, PyTorch, and MXNet.
+tags:
+  - AWS
+  - Deep Learning
+  - Container
+website: https://github.com/aws/deep-learning-containers

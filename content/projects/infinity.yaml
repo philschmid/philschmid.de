@@ -1,0 +1,11 @@
+title: 🤗 Infinity
+asset: ./assets/hf.png
+type:
+  - Tech Lead
+priority: 1
+excerpt: A containerized solution to deploy fully optimized inference pipelines for State of the Art Transformer models into your own production environment at 1ms latency.
+tags:
+  - AWS
+  - Container
+  - Transformers
+website: https://huggingface.co/infinity

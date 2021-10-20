@@ -1,0 +1,11 @@
+title: Transformers Notebooks
+asset: ./assets/hf.png
+type:
+  - Maintainer
+priority: 5
+excerpt: A collection of Jupyter Notebooks guiding, showcasing, and helping you get started with Hugging Face Transformers on Amazon SageMaker including Basic Getting Started up to Distributed Training.
+tags:
+  - AWS
+  - SageMaker
+  - Transformers
+website: https://github.com/huggingface/notebooks/tree/master/sagemaker

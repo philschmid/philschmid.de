@@ -1,0 +1,10 @@
+title: 🤗 Datasets
+asset: ./assets/hf.png
+type:
+  - Contributor
+priority: 4
+excerpt: 🤗 Datasets is a library for easily accessing and sharing datasets, and evaluation metrics for Natural Language Processing (NLP), computer vision, and audio tasks.
+tags:
+  - NLP
+  - HuggingFace
+website: https://github.com/huggingface/datasets

@@ -1,0 +1,11 @@
+title: SageMaker Hugging Face Inference Toolkit
+asset: ./assets/hf.png
+type:
+  - Maintainer
+priority: 3
+excerpt: SageMaker Hugging Face Inference Toolkit is an open-source library for serving 🤗 Transformers models on Amazon SageMaker.
+tags:
+  - AWS
+  - SageMaker
+  - Transformers
+website: https://github.com/aws/sagemaker-huggingface-inference-toolkit

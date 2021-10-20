@@ -1,0 +1,10 @@
+title: 🤗 Transformers
+asset: ./assets/hf.png
+type:
+  - Contributor
+priority: 2
+excerpt: 🤗 Transformers provides thousands of pretrained transformer models to perform tasks on text, vision and speech.
+tags:
+  - Transformers
+  - HuggingFace
+website: https://github.com/huggingface/transformers
