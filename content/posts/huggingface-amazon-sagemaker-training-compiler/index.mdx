@@ -1,46 +1,41 @@
 ---
-title:  "MLOps: Using the Hugging Face Hub as model registry with Amazon SageMaker"
+title:  "Hugging Face Transformers BERT fine-tuning using Amazon SageMaker and Training Compiler"
 author: Philipp Schmid
-date: 2021-11-16
+date: 2021-12-07
 image: ./images/cover.jpg
 excerpt:
-  Learn how to automatically save your model weights, logs, and artifacts to the Hugging Face Hub using Amazon SageMaker and how to deploy the model afterwards for inference. 
+  Learn how to Compile and fine-tune a Multi-Class Classification Transformers with `Trainer` and `emotion` dataset using Amazon SageMaker Training Compiler.
 tags:
   - AWS
   - BERT
   - HuggingFace
   - Sagemaker
-photograph: Photo by Florian Wehde on Unsplash
+photograph: Photo by Rohan Makhecha on Unsplash
 
 ---
 
 # Introduction
 
-The [Hugging Face Hub](hf.co/models) is the largest collection of models, datasets, and metrics in order to democratize and advance AI for everyone 🚀. The Hugging Face Hub works as a central place where anyone can share and explore models and datasets. 
+Last week at re:Invent 2021 [Swami Sivasubramanian](https://www.linkedin.com/in/swaminathansivasubramanian) has introducted the new [Amazon SageMaker Training Compiler](https://docs.aws.amazon.com/sagemaker/latest/dg/training-compiler.html), which optimizes DL models to accelerate training by more efficiently using SageMaker machine learning (ML) GPU instances. SageMaker Training Compiler is available at no additional charge within SageMaker and can help reduce total billable time as it accelerates training.
 
-In this blog post you will learn how to automatically save your model weights, logs, and artifacts to the Hugging Face Hub using Amazon SageMaker and how to deploy the model afterwards for inference.  🏎 
+You can watch the [AWS re:Invent 2021 - Database, Analytics, and Machine Learning Keynote with Swami Sivasubramanian](https://www.youtube.com/watch?v=ue9aumC7AAk&ab_channel=AWSEvents) video to learn more about SageMaker Training Compiler and all Machine Learning related announcements. 
 
-This will allow you to use the Hugging Face Hub as the backbone of your model-versioning, -storage & -management 👔
+Amazon SageMaker Training Compiler is integrated into the Hugging Face AWS Deep Learning Containers (DLCs). 
+In this blog post, we will use the Hugging Faces `transformers` and `datasets` library together with Amazon SageMaker and the new Amazon SageMaker Training Compiler to fine-tune a pre-trained transformer for multi-class text classification. In particular, the pre-trained model will be fine-tuned using the `emotion` dataset. To get started, we need to set up the environment with a few prerequisite steps, for permissions, configurations, and so on. 
 
-You will be able to easily share your models inside your own private organization or with the whole Hugging Face community without heavy lifting due to [build in permission and access control features](https://huggingface.co/docs/hub/security).🔒
-
-![huggingface-sagemaker-hub](./images/huggingface-sagemaker-hub.png)
-
-
-# Example
-
-In this demo, we will use the Hugging Faces `transformers` and `datasets` library together with a custom Amazon sagemaker-sdk extension to fine-tune a pre-trained transformer for multi-class text classification. In particular, the pre-trained model will be fine-tuned using the `emotion` dataset. To get started, we need to set up the environment with a few prerequisite steps, for permissions, configurations, and so on. 
+![emotion-widget.png](./images/emotion-widget.png)
 
 _**NOTE: You can run this demo in Sagemaker Studio, your local machine or Sagemaker Notebook Instances**_
 
+# Development Environment and Permissions 
 
-## Development Environment and Permissions 
+## Installation
 
 _*Note:* we only install the required libraries from Hugging Face and AWS. You also need PyTorch or Tensorflow, if you haven´t it installed_
 
 
 ```python
-!pip install "sagemaker>=2.69.0" "transformers==4.12.3" --upgrade
+!pip install "sagemaker>=2.70.0" "transformers==4.11.0" --upgrade
 # using older dataset due to incompatibility of sagemaker notebook & aws-cli with > s3fs and fsspec to >= 2021.10
 !pip install  "datasets==1.13" --upgrade
 ```
@@ -48,7 +43,12 @@ _*Note:* we only install the required libraries from Hugging Face and AWS. You a
 
 ```python
 import sagemaker
-assert sagemaker.__version__ >= "2.69.0"
+assert sagemaker.__version__ >= "2.70.0"
+```
+
+
+```python
+import sagemaker.huggingface
 ```
 
 ## Permissions
@@ -75,11 +75,11 @@ print(f"sagemaker bucket: {sess.default_bucket()}")
 print(f"sagemaker session region: {sess.boto_region_name}")
 ```
 
-## Preprocessing
+# Preprocessing
 
 We are using the `datasets` library to download and preprocess the `emotion` dataset. After preprocessing, the dataset will be uploaded to our `sagemaker_session_bucket` to be used within our training job. The [emotion](https://github.com/dair-ai/emotion_dataset) dataset consists of 16000 training examples, 2000 validation examples, and 2000 testing examples.
 
-### Tokenization 
+## Tokenization 
 
 
 ```python
@@ -87,7 +87,7 @@ from datasets import load_dataset
 from transformers import AutoTokenizer
 
 # tokenizer used in preprocessing
-tokenizer_name = 'distilbert-base-uncased'
+model_id = 'bert-base-uncased'
 
 # dataset used
 dataset_name = 'emotion'
@@ -99,7 +99,7 @@ s3_prefix = 'samples/datasets/emotion'
 
 ```python
 # download tokenizer
-tokenizer = AutoTokenizer.from_pretrained(tokenizer_name)
+tokenizer = AutoTokenizer.from_pretrained(model_id)
 
 # tokenizer helper function
 def tokenize(batch):
@@ -141,52 +141,42 @@ test_dataset.save_to_disk(test_input_path, fs=s3)
 
 ## Creating an Estimator and start a training job
 
-List of supported models: https://huggingface.co/models?library=pytorch,transformers&sort=downloads
+The Amazon Training Compiler works best with Encoder Type models, like `BERT`, `RoBERTa`, `ALBERT`, `DistilBERT`. 
 
-### setting up `push_to_hub` for our model. 
+The Model compilation using Amazon SageMaker Training compiler increases efficiency and lowers the memory footprint of your Transformers model, which allows larger batch sizes and more efficient and faster training. 
 
-The `train.py` scripts implements the `push_to_hub` using the `Trainer` and `TrainingArguments`. To push our model to the [Hub](https://huggingface.co/models) we need to define the `push_to_hub`. hyperparameter and set it to `True` and provide out [Hugging Face Token](https://hf.co/settings/token). Additionally, we can configure the repository name and saving strategy using the `hub_model_id`, `hub_strategy`.
+We tested long classification tasks with `BERT`, `DistilBERT` and `RoBERTa and achieved up 33% higher batch sizes and 1.4x faster Training. For best performance, set batch size to a multiple of 8. 
 
-You can find documentation to those parameters [here](https://huggingface.co/transformers/main_classes/trainer.html).
+The longer your training job, the larger the benefit of using Amazon SageMaker Training Compiler. 30 minutes seems to be the sweet spot to offset model compilation time in the beginning of your training. Initial pre-training jobs are excellent candidates for using the new Amazon SageMaker Training Compiler.
 
-We are going to provide our HF Token securely with out exposing it to the public using `notebook_login` from the `huggingface_hub` SDK. 
-But be careful your token will still be visible insight the logs of the training job. If you run `huggingface_estimator.fit(...,wait=True)` you will see the token in the logs.
-A better way of providing your `HF_TOKEN` to your training jobs would be using [AWS Secret Manager](https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html)
-
-### You can also directly find your token at [https://hf.co/settings/token](https://hf.co/settings/token).
 
 
 
 ```python
-from huggingface_hub import notebook_login
+from sagemaker.huggingface import HuggingFace, TrainingCompilerConfig
 
-notebook_login()
-```
+# initialize the Amazon Training Compiler
+compiler_config=TrainingCompilerConfig()
 
-Now we can use the `HfFolder.get_token()` to dynamically load our Token from disk and use it as Hyperparameter. The `train.py` script can be found in the [Github repository](https://github.com/huggingface/notebooks/blob/master/sagemaker/14_train_and_push_to_hub/scripts/train.py).
-
-
-```python
-from sagemaker.huggingface import HuggingFace
-from huggingface_hub import HfFolder
-import time
 
 # hyperparameters, which are passed into the training job
-hyperparameters={'epochs': 1,                                    # number of training epochs
-                 'train_batch_size': 32,                         # batch size for training
-                 'eval_batch_size': 64,                          # batch size for evaluation
+hyperparameters={'epochs': 4,                                    # number of training epochs
+                 'train_batch_size': 24,                         # batch size for training
+                 'eval_batch_size': 32,                          # batch size for evaluation
                  'learning_rate': 3e-5,                          # learning rate used during training
-                 'model_id':'distilbert-base-uncased',           # pre-trained model
+                 'model_id':model_id,                            # pre-trained model
                  'fp16': True,                                   # Whether to use 16-bit (mixed) precision training
-                 'push_to_hub': True,                            # Defines if we want to push the model to the hub
-                 'hub_model_id': 'sagemaker-distilbert-emotion', # The model id of the model to push to the hub
-                 'hub_strategy': 'every_save',                   # The strategy to use when pushing the model to the hub
-                 'hub_token': HfFolder.get_token()               # HuggingFace token to have permission to push
                 }
 
-# define Training Job Name 
-job_name = f'push-to-hub-sample-{time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime())}'
+# job name for sagemaker training 
+job_name=f"training-compiler-{hyperparameters['model_id']}-{dataset_name}"
 
+```
+
+Create a `SageMakerEstimator` with the `SageMakerTrainingCompiler` and the `hyperparemters`, instance configuration and training script.
+
+
+```python
 # create the Estimator
 huggingface_estimator = HuggingFace(
     entry_point          = 'train.py',        # fine-tuning script used in training jon
@@ -195,14 +185,17 @@ huggingface_estimator = HuggingFace(
     instance_count       = 1,                 # the number of instances used for training
     base_job_name        = job_name,          # the name of the training job
     role                 = role,              # Iam role used in training job to access AWS ressources, e.g. S3
-    transformers_version = '4.12',           # the transformers version used in the training job
-    pytorch_version      = '1.9',           # the pytorch_version version used in the training job
+    transformers_version = '4.11.0',          # the transformers version used in the training job
+    pytorch_version      = '1.9.0',           # the pytorch_version version used in the training job
     py_version           = 'py38',            # the python version used in the training job
     hyperparameters      = hyperparameters,   # the hyperparameter used for running the training job
+    compiler_config      = compiler_config,   # the compiler configuration used in the training job
+    disable_profiler     = True,              # whether to disable the profiler during training used to gain maximum performance
+    debugger_hook_config = False,             # whether to enable the debugger hook during training used to gain maximum performance
 )
 ```
 
-After we defined our Hyperparameter and Estimator we can start the training job.
+Start the training with the uploaded datsets on s3 with `huggingface_estimator.fit()`.
 
 
 ```python
@@ -213,66 +206,16 @@ data = {
 }
 
 # starting the train job with our uploaded datasets as input
-# setting wait to False to not expose the HF Token
-huggingface_estimator.fit(data, wait=False)
+huggingface_estimator.fit(data)
 ```
 
-Since we set `wait=False` to hide the logs we can use a `waiter` to see when our training job is done.
+## Deploying the endpoint
+
+To deploy our endpoint, we call `deploy()` on our HuggingFace estimator object, passing in our desired number of instances and instance type.
 
 
 ```python
-# adding waiter to see when training is done
-waiter = huggingface_estimator.sagemaker_session.sagemaker_client.get_waiter('training_job_completed_or_stopped')
-waiter.wait(TrainingJobName=huggingface_estimator.latest_training_job.name)
-```
-
-## Accessing the model on [hf.co/models](hf.co/models)
-
-we can access the model on [hf.co/models](https://hf.co/models) using the `hub_model_id` and our username.
-
-
-```python
-from huggingface_hub import HfApi
-
-whoami = HfApi().whoami()
-username = whoami['name']
-
-print(f"https://huggingface.co/{username}/{hyperparameters['hub_model_id']}")
-
-#     https://huggingface.co/philschmid/sagemaker-distilbert-emotion
-```
-
-## Deploying the model from Hugging Face to a SageMaker Endpoint
-
-To deploy our model to Amazon SageMaker we can create a `HuggingFaceModel` and provide the Hub configuration (`HF_MODEL_ID` & `HF_TASK`) to deploy it. Alternatively, we can use the the `hugginface_estimator` to deploy our model from S3 with `huggingface_estimator.deploy()`.
-
-
-```python
-from sagemaker.huggingface import HuggingFaceModel
-import sagemaker
-
-role = sagemaker.get_execution_role()
-# Hub Model configuration. https://huggingface.co/models
-hub = {
-	'HF_MODEL_ID':f"{username}/{hyperparameters['hub_model_id']}",
-	'HF_TASK':'text-classification'
-}
-
-# create Hugging Face Model Class
-huggingface_model = HuggingFaceModel(
-	transformers_version='4.12',
-	pytorch_version='1.9',
-	py_version='py38',
-	env=hub,
-	role=role, 
-)
-
-# deploy model to SageMaker Inference
-predictor = huggingface_model.deploy(
-	initial_instance_count=1, # number of instances
-	instance_type='ml.m5.xlarge' # ec2 instance type
-)
-
+predictor = huggingface_estimator.deploy(1,"ml.g4dn.xlarge")
 ```
 
 Then, we use the returned predictor object to call the endpoint.
@@ -293,12 +236,10 @@ predictor.delete_endpoint()
 
 # Conclusion
 
-With the `push_to_hub` integration of the `Trainer API` we were able to automatically push our model weights and logs based on the `hub_strategy` to the Hugging Face Hub. With this we benefit from automatic model versioning through the git system and [build in permission and access control features](https://huggingface.co/docs/hub/security).
-
-The combination of using Amazon SageMaker with the Hugging Face Hub allows Machine Learning Teams to easily collaborate across Regions and Accounts using the private and secure Organization to manage, monitor and deploy their own models into production. 
+With the Amazon SageMaker Training Compiler you can accelerate your training by 1.4x without any code changes required. When you are fine-tuning Transformer models longer than 30 minutes and are using on of the currently compatible model architecture and tasks it is a no brainer to use the new Training Compiler to speed up your training and save costs. 
 
 ---
 
-You can find the code [here](https://github.com/huggingface/notebooks/blob/master/sagemaker/14_train_and_push_to_hub/sagemaker-notebook.ipynb) and feel free open a thread the [forum](https://discuss.huggingface.co/).
+You can find the code [here](https://github.com/huggingface/notebooks/blob/master/sagemaker/15_training_compiler/sagemaker-notebook.ipynb) and feel free open a thread the [forum](https://discuss.huggingface.co/).
 
 Thanks for reading. If you have any questions, feel free to contact me, through [Github](https://github.com/huggingface/transformers), or on the [forum](https://discuss.huggingface.co/c/sagemaker/17). You can also connect with me on [Twitter](https://twitter.com/_philschmid) or [LinkedIn](https://www.linkedin.com/in/philipp-schmid-a6a2bb196/).
