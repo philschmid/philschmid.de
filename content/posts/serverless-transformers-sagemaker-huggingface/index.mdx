@@ -46,7 +46,7 @@ Since Amazon SageMaker Serverless Inference is built on top of AWS Lambda we not
 - The maximum concurrency for a single endpoint is limited to 50 with a total concurrency of 200 per accounts. Meaning 1 endpoint can scale at max to 50 concurrent running environments/functions.
 - The endpoint must respond successfully to health checks within 3 minutes (for me unclear, because serverless functions are normally not always "warm")
 - The "function" timeout for the container to respond to inference requests is 1 minute.
-- **found limitation when testing:** [Currently, Transformer models > 512MB create errors](https://example.com)
+- **found limitation when testing:** Currently, Transformer models > 512MB create errors
 
 You can find all of the current limitations and configurations in the [documentation of Serverless Inference](https://docs.aws.amazon.com/sagemaker/latest/dg/serverless-endpoints.html#serverless-endpoints-how-it-works).
 
