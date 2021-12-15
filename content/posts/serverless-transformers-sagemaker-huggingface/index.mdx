@@ -108,9 +108,9 @@ cdk bootstrap
 
 ## **Deploy the model using CDK**
 
-Now we are able to deploy our application with the whole infrastructure and deploy our previous selected Transformer `sshleifer/distilbart-cnn-12-6` to Amazon SageMaker Serverless Inference. Our application uses the [CDK context](https://docs.aws.amazon.com/cdk/latest/guide/context.html) to accept dynamic parameters for the deployment. We can provide our model with a key `model` and our task as a key `task`. 
+Now we are able to deploy our application with the whole infrastructure and deploy our previous selected Transformer distilbert-base-uncased-finetuned-sst-2-english` to Amazon SageMaker Serverless Inference. Our application uses the [CDK context](https://docs.aws.amazon.com/cdk/latest/guide/context.html) to accept dynamic parameters for the deployment. We can provide our model with a key `model` and our task as a key `task`. 
 
-In our case we will provide `model=sshleifer/distilbart-cnn-12-6` and `task=summarization`.
+In our case we will provide `model=distilbert-base-uncased-finetuned-sst-2-english` and `task=text-classification`.
 
 ```bash
 cdk deploy \
