@@ -46,7 +46,7 @@ Since Amazon SageMaker Serverless Inference is built on top of AWS Lambda we not
 - The maximum concurrency for a single endpoint is limited to 50 with a total concurrency of 200 per accounts. Meaning 1 endpoint can scale at max to 50 concurrent running environments/functions.
 - The endpoint must respond successfully to health checks within 3 minutes (for me unclear, because serverless functions are normally not always "warm")
 - The "function" timeout for the container to respond to inference requests is 1 minute.
-- **found limitation when testing:** [Currently, Transformer models > 512MB create errors](https://example.com)
+- **found limitation when testing:** Currently, Transformer models > 512MB create errors
 
 You can find all of the current limitations and configurations in the [documentation of Serverless Inference](https://docs.aws.amazon.com/sagemaker/latest/dg/serverless-endpoints.html#serverless-endpoints-how-it-works).
 
@@ -110,9 +110,9 @@ cdk bootstrap \
 
 ## **Deploy the model using CDK**
 
-Now we are able to deploy our application with the whole infrastructure and deploy our previous selected Transformer `sshleifer/distilbart-cnn-12-6` to Amazon SageMaker Serverless Inference. Our application uses the [CDK context](https://docs.aws.amazon.com/cdk/latest/guide/context.html) to accept dynamic parameters for the deployment. We can provide our model with a key `model` and our task as a key `task`. 
+Now we are able to deploy our application with the whole infrastructure and deploy our previous selected Transformer distilbert-base-uncased-finetuned-sst-2-english` to Amazon SageMaker Serverless Inference. Our application uses the [CDK context](https://docs.aws.amazon.com/cdk/latest/guide/context.html) to accept dynamic parameters for the deployment. We can provide our model with a key `model` and our task as a key `task`. 
 
-In our case we will provide `model=sshleifer/distilbart-cnn-12-6` and `task=summarization`.
+In our case we will provide `model=distilbert-base-uncased-finetuned-sst-2-english` and `task=text-classification`.
 
 ```bash
 cdk deploy \
