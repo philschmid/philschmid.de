@@ -25,7 +25,7 @@ More information for the dataset can be found at the [repository](https://github
 We are going to use all of the great Features from the Hugging Face ecosystem like model versioning and experiment tracking as well as all the great features of Keras like Early Stopping and Tensorboard.
 
 
-### Quick intro: Vision Transformer (ViT) by Google Brain
+# Quick intro: Vision Transformer (ViT) by Google Brain
 The Vision Transformer (ViT) is basically BERT, but applied to images. It attains excellent results compared to state-of-the-art convolutional networks. In order to provide images to the model, each image is split into a sequence of fixed-size patches (typically of resolution 16x16 or 32x32), which are linearly embedded. One also adds a [CLS] token at the beginning of the sequence in order to classify images. Next, one adds absolute position embeddings and provides this sequence to the Transformer encoder.
 
 ![vision-transformer-architecture](./images/vision-transformer-architecture.png)
@@ -33,7 +33,7 @@ The Vision Transformer (ViT) is basically BERT, but applied to images. It attain
 * Paper: https://arxiv.org/abs/2010.11929
 * Official repo (in JAX): https://github.com/google-research/vision_transformer
 
-## Installation
+# Installation
 
 
 ```python
@@ -157,7 +157,7 @@ img_class_labels = eurosat_ds.features["label"].names
 ```
 
 
-### Pre-processing
+# Pre-processing
 
 To train our model we need to convert our "Images" to `pixel_values`. This is done by a [🤗 Transformers Feature Extractor](https://huggingface.co/docs/transformers/master/en/main_classes/feature_extractor#feature-extractor) which allows us to `augment` and convert the images into a 3D Array to be fed into our model.
 
@@ -222,12 +222,12 @@ test_size=.15
 processed_dataset = processed_dataset.shuffle().train_test_split(test_size=test_size)
 ```
 
-## Fine-tuning the model using `Keras`
+# Fine-tuning the model using `Keras`
 
 Now that our `dataset` is processed, we can download the pretrained model and fine-tune it. But before we can do this we need to convert our Hugging Face `datasets` Dataset into a `tf.data.Dataset`. For this, we will use the `.to_tf_dataset` method and a `data collator` (Data collators are objects that will form a batch by using a list of dataset elements as input).
 
 
-### Hyperparameter
+# Hyperparameter
 
 
 ```python
@@ -255,7 +255,7 @@ if fp16:
 
 ```
 
-### Converting the dataset to a `tf.data.Dataset`
+## Converting the dataset to a `tf.data.Dataset`
 
 
 ```python
@@ -281,7 +281,7 @@ tf_eval_dataset = processed_dataset["test"].to_tf_dataset(
    collate_fn=data_collator)
 ```
 
-### Download the pretrained transformer model and fine-tune it. 
+## Download the pre-trained transformer model and fine-tune it. 
 
 
 ```python
@@ -345,7 +345,7 @@ If you want to create you own classification head or if you want to add the augm
 # keras_model = tf.keras.Model(inputs=pixel_values, outputs=classifier)
 ```
 
-### Callbacks
+## Callbacks
 
 As mentioned in the beginning we want to use the [Hugging Face Hub](https://huggingface.co/models) for model versioning and monitoring. Therefore we want to push our model weights, during training and after training to the Hub to version it.
 Additionally, we want to track the performance during training therefore we will push the `Tensorboard` logs along with the weights to the Hub to use the "Training Metrics" Feature to monitor our training in real-time. 
@@ -490,7 +490,7 @@ After the dataset is uploaded we can start the training a pass our `s3_uri` as a
 huggingface_estimator.fit({"dataset": dataset_uri})
 ```
 
-## Conclusion
+# Conclusion
 
 We managed to successfully fine-tune a Vision Transformer using Transformers and Keras, without any heavy lifting or complex and unnecessary boilerplate code. The new utilities like `.to_tf_dataset` are improving the developer experience of the Hugging Face ecosystem to become more Keras and TensorFlow friendly. Combining those new features with the Hugging Face Hub we get a fully-managed MLOps pipeline for model-versioning and experiment management using Keras callback API. 
 
