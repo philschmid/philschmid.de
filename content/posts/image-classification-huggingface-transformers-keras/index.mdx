@@ -328,21 +328,21 @@ If you want to create you own classification head or if you want to add the augm
 # alternatively create Image Classification model using Keras Layer and ViTModel 
 # here you can also add the processing layers of keras
 
-# import tensorflow as tf
-# from transformers import TFViTModel
+import tensorflow as tf
+from transformers import TFViTModel
 
-# base_model = TFViTModel.from_pretrained('google/vit-base-patch16-224-in21k')
+base_model = TFViTModel.from_pretrained('google/vit-base-patch16-224-in21k')
 
 
-# # inputs
-# pixel_values = tf.keras.layers.Input(shape=(3,224,224), name='pixel_values', dtype='float32')
+# inputs
+pixel_values = tf.keras.layers.Input(shape=(3,224,224), name='pixel_values', dtype='float32')
 
-# # model layer
-# vit = base_model.vit(pixel_values)[0]
-# classifier = tf.keras.layers.Dense(10, activation='softmax', name='outputs')(vit[:, 0, :])
+# model layer
+vit = base_model.vit(pixel_values)[0]
+classifier = tf.keras.layers.Dense(10, activation='softmax', name='outputs')(vit[:, 0, :])
 
-# # model
-# keras_model = tf.keras.Model(inputs=pixel_values, outputs=classifier)
+# model
+keras_model = tf.keras.Model(inputs=pixel_values, outputs=classifier)
 ```
 
 ## Callbacks
