@@ -294,7 +294,7 @@ def compute_metrics(eval_pred):
 
 ## Training
 
-Start training with calling `model.fit`
+Start training with calling `trainer.train()`
 
 
 ```python
@@ -418,7 +418,7 @@ print(f"https://huggingface.co/{username}/{repo_name}")
 
 ## Results & Conclusion
 
-We were able to achieve a `accuracy` of 0.8337, which is a very good result for our model. Our distilled `Tiny-Bert` has only 96% less parameters than the teacher `bert-base`, runs ~46.5x faster while preserving over 90% of BERT’s performances as measured on the SST2 dataset.
+We were able to achieve a `accuracy` of 0.8337, which is a very good result for our model. Our distilled `Tiny-Bert` has 96% less parameters than the teacher `bert-base` and runs ~46.5x faster while preserving over 90% of BERT’s performances as measured on the SST2 dataset.
 
 | model | Parameter | Speed-up | Accuracy |
 |------------|-----------|----------|----------|
