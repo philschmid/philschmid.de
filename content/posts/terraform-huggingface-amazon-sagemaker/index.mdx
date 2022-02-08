@@ -1,0 +1,266 @@
+---
+title:  "Deploy BERT with Hugging Face Transformers, Amazon SageMaker and Terraform module"
+author: Philipp Schmid
+date: 2022-02-08
+image: ./images/cover.jpg
+excerpt:
+  Learn how to deploy BERT/DistilBERT with Hugging Face Transformers using Amazon SageMaker and Terraform module.
+tags:
+  - HuggingFace
+  - AWS
+  - BERT
+  - Terraform
+photograph: Photo by Taylor Heery on Unsplash
+---
+
+_“Infrastructure as Code (IaC) is **the managing and provisioning of infrastructure through code instead of through manual processes**. With IaC, configuration files are created that contain your infrastructure specifications, which makes it easier to edit and distribute configurations. It also ensures that you provision the same environment every time.”_ - [Red Hat](https://www.redhat.com/en/topics/automation/what-is-infrastructure-as-code-iac)
+
+Provisioning infrastructure and deploying machine learning models in the past has been a time-consuming and costly manual process.
+
+Especially due to faster time to market and shorter development and experimentation cycles, it must be possible to always rebuild, scale up, change and take down the infrastructure frequently. Without an IaC this wouldn’t be possible. 
+
+IaC enables not only [Continuous Deployment](https://www.suse.com/suse-defines/definition/continuous-deployment/) but also can:
+
+- reduce cost
+- increase in speed of deployments
+- reduce errors, especially Human-errors
+- improve infrastructure consistency
+- eliminate configuration drift
+
+I think it is clear to all of you that you need IaC to be able to run and implement machine learning projects successfully for enterprise-grade production workloads.
+
+in this blog post, we will use one of the most popular open-source IaC (Terraform) to deploy DistilBERT into “production” using [Amazon SageMaker](https://aws.amazon.com/sagemaker/?nc1=h_ls) as the underlying infrastructure.
+
+[HashiCorp Terraform](https://www.terraform.io/intro) is an IaC tool that lets you define resources in human-readable configuration files that you can version, reuse, and share. Terraform supports besides [Amazon Web Services](https://learn.hashicorp.com/collections/terraform/aws-get-started), also all other major cloud providers and tools like Docker and Kubernetes.**
+
+```java
+provider "aws" {
+  profile = "default"
+  region  = "us-west-2"
+}
+
+resource "aws_instance" "app_server" {
+  ami           = "ami-830c94e3"
+  instance_type = "t2.micro"
+
+  tags = {
+    Name = "ExampleAppServerInstance"
+  }
+}
+```
+
+This snippet would create an Amazon EC2 `t2.micro` instance in `us-west-2` using my `default` credentials and the `ami-830c94e3`. if you are not familiar with terraform or if you want to learn more about it first, you can look at their [“Build Infrastructure - Terraform AWS Example”](https://learn.hashicorp.com/tutorials/terraform/aws-build).
+
+---
+
+## The ****[sagemaker-huggingface](https://registry.terraform.io/modules/philschmid/sagemaker-huggingface/aws/latest) terraform module**
+
+In addition to [resources](https://www.terraform.io/language/resources), terraform also has includes the [module](https://www.terraform.io/language/modules) element. *“A module is a container for multiple [resources](https://www.terraform.io/language/resources) that are used together. Modules can be used to create lightweight abstractions, so that you can describe your infrastructure in terms of its architecture, rather than directly in terms of physical objects.”* 
+
+In order to deploy a Hugging Face Transformer to Amazon SageMaker for inference you always need [SageMaker Model](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-model.html), [SageMaker Endpoint Configuration](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-endpointconfig.html) & a [SageMaker Endpoint](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-endpoint.html). All of those components are available as [resources in terraform](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sagemaker_model). We could use all of those individual components to deploy our model but it would make way more sense to create a [sagemaker-huggingface](https://registry.terraform.io/modules/philschmid/sagemaker-huggingface/aws/latest), which abstracts away required logic for selecting the correct Container or how I want to deploy my model. So we did this.
+
+The [sagemaker-huggingface](https://registry.terraform.io/modules/philschmid/sagemaker-huggingface/aws/latest) Terraform module enables easy deployment of a [Hugging Face Transformer models](https://registry.terraform.io/modules/philschmid/sagemaker-huggingface/aws/hf.co/models) to [Amazon SageMaker](https://aws.amazon.com/de/sagemaker/) real-time endpoints. The module will create all the necessary resources to deploy a model to Amazon SageMaker including IAM roles, if not provided, SageMaker Model, SageMaker Endpoint Configuration, SageMaker Endpoint.
+
+With the module, you can deploy [Hugging Face Transformer](https://registry.terraform.io/modules/philschmid/sagemaker-huggingface/aws/hf.co/models) directly from the [Model Hub](https://registry.terraform.io/modules/philschmid/sagemaker-huggingface/aws/hf.co/models) or from Amazon S3 to Amazon SageMaker for PyTorch and Tensorflow based models.
+
+Registry: [sagemaker-huggingface](https://registry.terraform.io/modules/philschmid/sagemaker-huggingface/aws/latest)
+
+Github: [philschmid/terraform-aws-sagemaker-huggingface](https://github.com/philschmid/terraform-aws-sagemaker-huggingface)
+
+```java
+module "sagemaker-huggingface" {
+  source                   = "philschmid/sagemaker-huggingface/aws"
+  version                  = "0.2.0"
+  name_prefix              = "distilbert"
+  pytorch_version          = "1.9.1"
+  transformers_version     = "4.12.3"
+  instance_type            = "ml.g4dn.xlarge"
+  instance_count           = 1 # default is 1
+  hf_model_id              = "distilbert-base-uncased-finetuned-sst-2-english"
+  hf_task                  = "text-classification"
+}
+```
+
+---
+
+## How to deploy DistilBERT with the ****[sagemaker-huggingface](https://registry.terraform.io/modules/philschmid/sagemaker-huggingface/aws/latest) terraform module**
+
+Before we get started, make sure you have the [Terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli) installed and configured, as well as access to AWS Credentials to create the necessary services. [[Instructions](https://learn.hashicorp.com/tutorials/terraform/aws-build?in=terraform/aws-get-started#prerequisites)]
+**What are we going to do:**
+
+- create a new Terraform configuration
+- initialize the AWS provider and our module
+- deploy the DistilBERT model
+- test the endpoint
+- destroy the infrastructure
+
+### Create a new Terraform configuration
+
+Each Terraform configuration must be in its own directory including a `main.tf` file. Our first step is to create the `distilbert-terraform` directory with a `main.tf` file.
+
+```bash
+mkdir distilbert-terraform
+touch distilbert-terraform/main.tf
+cd distilbert-terraform
+```
+
+### Initialize the AWS provider and our module
+
+Next, we need to open the `main.tf` in a text editor and add the `aws` provider as well as our `module`. 
+
+*Note: the snippet below assumes that you have an AWS profile `default` configured with the needed permissions*
+
+```bash
+provider "aws" {
+  profile = "default"
+  region  = "us-east-1"
+}
+
+module "sagemaker-huggingface" {
+  source                   = "philschmid/sagemaker-huggingface/aws"
+  version                  = "0.2.0"
+  name_prefix              = "distilbert"
+  pytorch_version          = "1.9.1"
+  transformers_version     = "4.12.3"
+  instance_type            = "ml.g4dn.xlarge"
+  instance_count           = 1 # default is 1
+  hf_model_id              = "distilbert-base-uncased-finetuned-sst-2-english"
+  hf_task                  = "text-classification"
+}
+```
+
+When we create a new configuration — or check out an existing configuration from version control — we need to initialize the directory with `terraform init`.
+
+Initializing will download and install our AWS provider as well as the `sagemaker-huggingface` module.
+
+```bash
+terraform init
+# Initializing modules...
+# Downloading philschmid/sagemaker-huggingface/aws 0.2.0 for sagemaker-huggingface...
+# - sagemaker-huggingface in .terraform/modules/sagemaker-huggingface
+#
+# Initializing the backend...
+#
+# Initializing provider plugins...
+# - Finding latest version of hashicorp/aws...
+# - Installing hashicorp/aws v3.74.1...
+```
+
+### Deploy the DistilBERT model
+
+To deploy/apply our configuration we run `terraform apply` command. Terraform will then print out which resources are going to be created and ask us if we want to continue, which can we confirm with `yes`.
+
+```bash
+terraform apply
+```
+
+Now Terraform will deploy our model to Amazon SageMaker as a real-time endpoint. This can take 2-5 minutes. 
+
+### Test the endpoint
+
+To test our deployed endpoint we can use the [aws sdk](https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_runtime_InvokeEndpoint.html#API_runtime_InvokeEndpoint_SeeAlso) in our example we are going to use the Python SDK (`boto3`), but you can easily switch this to use Java, Javascript, .NET, or Go SDK to invoke the Amazon SageMaker endpoint.
+
+To be able to invoke our endpoint we need the endpoint name. The Endpoint name in our module will always be `${name_prefix}-endpoint` so in our case it is `distilbert-endpoint`. You can also get the endpoint name by inspecting the output of Terraform with `terraform output` or going to the SageMaker service in the AWS Management console. 
+
+We create a new file `request.py` with the following snippet.
+
+*Make sure you have configured your credentials (and region) correctly*
+
+```python
+import boto3
+import json
+
+client = boto3.client("sagemaker-runtime")
+
+ENDPOINT_NAME = "distilbert-endpoint"
+
+body={"inputs":"This terraform module is amazing."}
+
+response = client.invoke_endpoint(
+            EndpointName=ENDPOINT_NAME,
+            ContentType="application/json",
+            Accept="application/json",
+            Body=json.dumps(body),
+        )
+print(response['Body'].read().decode('utf-8'))
+```
+
+Now we can execute our request.
+
+```python
+python3 request.py 
+#[{"label":"POSITIVE","score":0.9998819828033447}]
+```
+
+### Destroy the infrastructure
+
+To clean up our created resources we can run `terraform destroy`, which will delete all the created resources from the module. 
+
+## More examples
+
+The [module](https://registry.terraform.io/modules/philschmid/sagemaker-huggingface/aws/latest) already includes several configuration options to deploy Hugging Face Transformers. You can find all examples in the [Github repository](https://github.com/philschmid/terraform-aws-sagemaker-huggingface/tree/master/examples) of the module
+
+The Example we used has deployed a PyTorch model from the [Hugging Face Hub](http://hf.co/models). This is also possible for Tensorflow models. As well as deploying models from Amazon S3.
+
+### Deploy Tensorflow models to Amazon SageMaker
+
+```python
+ module "sagemaker-huggingface" {
+  source                   = "philschmid/sagemaker-huggingface/aws"
+  version                  = "0.2.0"
+  name_prefix              = "tf-distilbert"
+	tensorflow_version       = "2.5.1"
+  transformers_version     = "4.12.3"
+  instance_type            = "ml.g4dn.xlarge"
+  instance_count           = 1 # default is 1
+  hf_model_id              = "distilbert-base-uncased-finetuned-sst-2-english"
+  hf_task                  = "text-classification"
+}
+```
+
+### Deploy Transformers from Amazon S3 to Amazon SageMaker
+
+```python
+ module "sagemaker-huggingface" {
+  source               = "philschmid/sagemaker-huggingface/aws"
+  version              = "0.2.0"
+	name_prefix          = "deploy-s3"
+	pytorch_version      = "1.9.1"
+	transformers_version = "4.12.3"
+	instance_type        = "ml.g4dn.xlarge"
+	instance_count       = 1 # default is 1
+	model_data           = "s3://my-bucket/mypath/model.tar.gz"
+	hf_task              = "text-classification"
+}
+```
+
+## Provide an existing IAM Role to deploy Amazon SageMaker
+
+All of the examples from above are not including any IAM Role. The reason for this is that the module creates the required IAM Role for Amazon SageMaker together with the other resources, but it is also possible to provide an existing IAM Role for that with the `sagemaker_execution_role`.
+
+```python
+module "sagemaker-huggingface" {
+  source                   = "philschmid/sagemaker-huggingface/aws"
+  version                  = "0.2.0"
+  name_prefix              = "distilbert"
+  pytorch_version          = "1.9.1"
+  transformers_version     = "4.12.3"
+  instance_type            = "ml.g4dn.xlarge"
+  instance_count           = 1 # default is 1
+  hf_model_id              = "distilbert-base-uncased-finetuned-sst-2-english"
+  hf_task                  = "text-classification"
+	sagemaker_execution_role = "the_name_of_my_iam_role"
+}
+```
+
+## Conclusion
+
+The [sagemaker-huggingface](https://registry.terraform.io/modules/philschmid/sagemaker-huggingface/aws/latest) terraform module abstracts all the heavy lifting for deploying Transformer models to Amazon SageMaker away, which enables controlled, consistent and understandable managed deployments after concepts of IaC. This should help companies to move faster and include deployed models to Amazon SageMaker into their existing Applications and IaC definitions. 
+
+Give it a try and tell us what you think about the module. 
+
+The next step is going to be support for easily configurable autoscaling for the endpoints, where the heavy lifting is abstracted into the module. 
+
+---
+
+Thanks for reading! If you have any questions, feel free to contact me, through [Github](https://github.com/huggingface/transformers), or on the [forum](https://discuss.huggingface.co/c/sagemaker/17). You can also connect with me on [Twitter](https://twitter.com/_philschmid) or [LinkedIn](https://www.linkedin.com/in/philipp-schmid-a6a2bb196/).
