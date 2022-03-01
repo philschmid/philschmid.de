@@ -1,0 +1,205 @@
+---
+title:  "Autoscaling BERT with Hugging Face Transformers, Amazon SageMaker and Terraform module"
+author: Philipp Schmid
+date: 2022-03-01
+image: ./images/cover.jpg
+excerpt:
+  Learn how to apply autoscaling to Hugging Face Transformers and Amazon SageMaker using Terraform.
+tags:
+  - HuggingFace
+  - AWS
+  - BERT
+  - Terraform
+photograph: Photo by Kelvin T on Unsplash
+---
+
+
+A Few weeks ago we released a Terraform module [sagemaker-huggingface](https://registry.terraform.io/modules/philschmid/sagemaker-huggingface/aws/latest), which makes it super easy to deploy Hugging Face Transformers like BERT from Amazon S3 or the [Hugging Face Hub](http://hf.co/models) to Amazon SageMake for real-time inference.
+
+```python
+module "sagemaker-huggingface" {
+  source                   = "philschmid/sagemaker-huggingface/aws"
+  version                  = "0.5.0"
+  name_prefix              = "distilbert"
+  pytorch_version          = "1.9.1"
+  transformers_version     = "4.12.3"
+  instance_type            = "ml.g4dn.xlarge"
+  hf_model_id              = "distilbert-base-uncased-finetuned-sst-2-english"
+  hf_task                  = "text-classification"
+	autoscaling = {
+    max_capacity               = 4   # The max capacity of the scalable target
+    scaling_target_invocations = 200 # The scaling target invocations (requests/minute)
+  }
+}
+```
+
+You should check out the [“Deploy BERT with Hugging Face Transformers, Amazon SageMaker and Terraform module”](https://www.philschmid.de/terraform-huggingface-amazon-sagemaker) blog post if you want to know more about [Terraform](https://www.terraform.io/intro) and how we have built the module.
+
+**TL;DR;** this module should enable companies and individuals to easily deploy Hugging Face Transformers without heavy lifting. 
+
+Since then we got a lot of feedback requests from users for new additional features. Thank you for that! BTW. if you have any feedback or feature ideas feel free to open a thread in the [forum](https://discuss.huggingface.co/c/sagemaker/17).
+
+Below can find the currently supported features + the `newly` supported features. 
+
+## Features
+
+- Deploy Hugging Face Transformers from [hf.co/models](http://hf.co/models) to Amazon SageMaker
+- Deploy Hugging Face Transformers from Amazon S3 to Amazon SageMaker
+- 🆕  Deploy private Hugging Face Transformers from [hf.co/models](http://hf.co/models) to Amazon SageMaker with a `hf_api_token`
+- 🆕  Add [Autoscaling](https://docs.aws.amazon.com/sagemaker/latest/dg/endpoint-auto-scaling.html) to your Amazon SageMaker endpoints with `autoscaling` configuration
+- 🆕  Deploy [Asynchronous Inference Endpoints](https://docs.aws.amazon.com/sagemaker/latest/dg/async-inference.html) either from the  [hf.co/models](http://hf.co/models) or Amazon S3
+
+You can find examples for all use cases in the [repository](https://github.com/philschmid/terraform-aws-sagemaker-huggingface) of the module or in the [registry](https://registry.terraform.io/modules/philschmid/sagemaker-huggingface/aws/latest). In addition to the feature updates, we also improved the naming by adding a random lower case string at the end of all resources. 
+
+Registry: [https://registry.terraform.io/modules/philschmid/sagemaker-huggingface/aws/latest](https://registry.terraform.io/modules/philschmid/sagemaker-huggingface/aws/latest)
+
+Github: https://github.com/philschmid/terraform-aws-sagemaker-huggingface
+
+Let's test some of the new features and let us deploy an Asynchronous Inference Endpoint with autoscaling to zero.
+
+---
+
+## How to deploy Asynchronous Endpoint with Autoscaling using the ****[sagemaker-huggingface](https://registry.terraform.io/modules/philschmid/sagemaker-huggingface/aws/latest) terraform module**
+
+Before we get started, make sure you have the [Terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli) installed and configured, as well as access to AWS Credentials to create the necessary services. [[Instructions](https://learn.hashicorp.com/tutorials/terraform/aws-build?in=terraform/aws-get-started#prerequisites)]
+**What are we going to do:**
+
+- create a new Terraform configuration
+- initialize the AWS provider and our module
+- deploy our Asynchronous Endpoint
+- test the endpoint
+- destroy the infrastructure
+
+If you want to learn about Asynchronous Inference you can check out my blog post: [“**Asynchronous Inference with Hugging Face Transformers and Amazon SageMaker”**](https://www.philschmid.de/sagemaker-huggingface-async-inference)
+
+### Create a new Terraform configuration
+
+Each Terraform configuration must be in its own directory including a `main.tf` file. Our first step is to create the `distilbert-terraform` directory with a `main.tf` file.
+
+```bash
+mkdir async-terraform
+touch async-terraform/main.tf
+cd async-terraform
+```
+
+### Initialize the AWS provider and our module
+
+Next, we need to open the `main.tf` in a text editor and add the `aws` provider as well as our `module`. 
+
+*Note: the snippet below assumes that you have an AWS profile `default` configured with the needed permissions*
+
+```bash
+provider "aws" {
+  profile = "default"
+  region  = "us-east-1"
+}
+
+# create bucket for async inference for inputs & outputs
+resource "aws_s3_bucket" "async_inference_bucket" {
+  bucket = "async-inference-bucket"
+}
+
+module "huggingface_sagemaker" {
+  source               = "philschmid/sagemaker-huggingface/aws"
+  version              = "0.5.0"
+  name_prefix          = "deploy-hub"
+  pytorch_version      = "1.9.1"
+  transformers_version = "4.12.3"
+  instance_type        = "ml.g4dn.xlarge"
+  hf_model_id          = "distilbert-base-uncased-finetuned-sst-2-english"
+  hf_task              = "text-classification"
+  async_config = {
+    # needs to be a s3 uri
+    s3_output_path = "s3://async-inference-bucket/async-distilbert"
+  }
+  autoscaling = {
+    min_capacity               = 0
+    max_capacity               = 4
+    scaling_target_invocations = 100
+  }
+}
+```
+
+When we create a new configuration — or check out an existing configuration from version control — we need to initialize the directory with `terraform init`.
+
+Initializing will download and install our AWS provider as well as the `sagemaker-huggingface` module.
+
+```bash
+terraform init
+# Initializing modules...
+# Downloading philschmid/sagemaker-huggingface/aws 0.5.0 for huggingface_sagemaker...
+# - huggingface_sagemaker in .terraform/modules/huggingface_sagemaker
+
+# Initializing the backend... 
+
+# Initializing provider plugins...
+# - Finding latest version of hashicorp/random...
+# - Finding hashicorp/aws versions matching "~> 4.0"...
+# - Installing hashicorp/random v3.1.0...
+```
+
+### Deploy the Asynchronous Endpoint
+
+To deploy/apply our configuration we run `terraform apply` command. Terraform will then print out which resources are going to be created and ask us if we want to continue, which can we confirm with `yes`.
+
+```bash
+terraform apply
+```
+
+Now Terraform will deploy our model to Amazon SageMaker as a real-time endpoint. This can take 2-5 minutes. 
+
+### Test the endpoint
+
+To test our deployed endpoint we can use the [aws sdk](https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_runtime_InvokeEndpoint.html#API_runtime_InvokeEndpoint_SeeAlso) in our example we are going to use the Python SageMaker SDK (`sagemaker`), but you can easily switch this to use Java, Javascript, .NET, or Go SDK to invoke the Amazon SageMaker endpoint. We are going to use the `sagemaker` SDK since it provides an easy-to-use [AsyncPredictor](https://sagemaker.readthedocs.io/en/stable/api/inference/predictor_async.html) object which does the heavy lifting for uploading the data to Amazon S3 for us.  
+
+For initializing our Predictor we need the name of our deployed endpoint, which we can get by inspecting the output of Terraform with `terraform output` or going to the SageMaker service in the AWS Management console and our Amazon S3 bucket defined in our Terraform module. 
+
+We create a new file `request.py` with the following snippet.
+
+*Make sure you have configured your credentials (and region) correctly and `sagemaker` installed*
+
+```python
+from sagemaker.huggingface import HuggingFacePredictor
+from sagemaker.predictor_async import AsyncPredictor
+
+ENDPOINT_NAME = "deploy-hub-ep-rzbiwuva"
+ASYNC_S3_PATH = "s3://async-inference-bucket/async-distilbert"
+
+async_predictor = AsyncPredictor(HuggingFacePredictor(ENDPOINT_NAME))
+
+data = {
+  "inputs": [
+    "it 's a charming and often affecting journey .",
+    "it 's slow -- very, very slow",
+    "the mesmerizing performances of the leads keep the film grounded and keep the audience riveted .",
+    "the emotions are raw and will strike a nerve with anyone who 's ever had family trauma ."
+  ]
+}
+
+res = async_predictor.predict(data=data,input_path=ASYNC_S3_PATH)
+print(res)
+
+```
+
+Now we can execute our request.
+
+```python
+python3 request.py 
+# [{'label': 'LABEL_2', 'score': 0.8808117508888245}, {'label': 'LABEL_0', 'score': 0.6126593947410583}, {'label': 'LABEL_2', 'score': 0.9425230622291565}, {'label': 'LABEL_0', 'score': 0.5511414408683777}]
+```
+
+### Destroy the infrastructure
+
+To clean up our created resources we can run `terraform destroy`, which will delete all the created resources from the module. 
+
+## More Examples
+
+You find examples of how to deploy private Models and use Autoscaling in the [repository](https://github.com/philschmid/terraform-aws-sagemaker-huggingface) of the module or in the [registry](https://registry.terraform.io/modules/philschmid/sagemaker-huggingface/aws/latest).
+
+## Conclusion
+
+The [sagemaker-huggingface](https://registry.terraform.io/modules/philschmid/sagemaker-huggingface/aws/latest) terraform module abstracts all the heavy lifting for deploying Transformer models to Amazon SageMaker away, which enables controlled, consistent and understandable managed deployments after concepts of IaC. This should help companies to move faster and include deployed models to Amazon SageMaker into their existing Applications and IaC definitions. 
+
+---
+
+Thanks for reading! If you have any questions, feel free to contact me, through [Github](https://github.com/huggingface/transformers), or on the [forum](https://discuss.huggingface.co/c/sagemaker/17). You can also connect with me on [Twitter](https://twitter.com/_philschmid) or [LinkedIn](https://www.linkedin.com/in/philipp-schmid-a6a2bb196/).
