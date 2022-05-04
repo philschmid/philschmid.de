@@ -128,7 +128,7 @@ predictor = huggingface_model.deploy(
 
 The `.deploy()` returns an `HuggingFacePredictor` object with our `DataSeriliazer` which can be used to request inference. This `HuggingFacePredictor` makes it easy to send requests to your endpoint and get the results back.
 
-We will use 3 different methods to send requests to the endpoint:
+We will use 2 different methods to send requests to the endpoint:
 
 a. Provide a audio file via path to the predictor  
 b. Provide binary audio data object to the predictor  
