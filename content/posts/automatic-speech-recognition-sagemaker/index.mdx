@@ -126,7 +126,7 @@ predictor = huggingface_model.deploy(
 
 ## 3. Send requests to the endpoint to do speech recognition.
 
-The `.deploy()` returns an `HuggingFacePredictor` object with our `DataSeriliazer` which can be used to request inference. This `HuggingFacePredictor` makes it easy to send requests to your endpoint and get the results back.
+The `.deploy()` returns an `HuggingFacePredictor` object with our `DataSerializer` which can be used to request inference. This `HuggingFacePredictor` makes it easy to send requests to your endpoint and get the results back.
 
 We will use 2 different methods to send requests to the endpoint:
 
@@ -138,7 +138,7 @@ b. Provide binary audio data object to the predictor
 
 Using a audio file as input is easy as easy as providing the path to its location. The `DataSerializer` will then read it and send the bytes to the endpoint. 
 
-We can use a `libirispeech` sample hosted on huggingface.co
+We can use a `librispeech` sample hosted on huggingface.co
 
 
 ```python

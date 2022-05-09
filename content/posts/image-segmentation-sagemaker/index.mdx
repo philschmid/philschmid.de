@@ -13,7 +13,7 @@ tags:
 photograph: Photo by Roberto Sorin on Unsplash
 ---
 
-Transformer models are changing are changing the world of machine learning, starting with natural language processing, and now, with audio and computer vision. Hugging Face's mission is to democratize good machine learning and giving any one the opportunity to use these new state-of-the-art machine learning models. 
+Transformer models are changing the world of machine learning, starting with natural language processing, and now, with audio and computer vision. Hugging Face's mission is to democratize good machine learning and giving any one the opportunity to use these new state-of-the-art machine learning models. 
 Together with Amazon SageMaker and AWS we have been working on extending the functionalities of the Hugging Face Inference DLC and the Python SageMaker SDK to make it easier to use speech and vision models together with `transformers`. 
 You can now use the Hugging Face Inference DLC to do [automatic speech recognition](https://huggingface.co/tasks/automatic-speech-recognition) using MetaAIs [wav2vec2](https://arxiv.org/abs/2006.11477) model or Microsofts [WavLM](https://arxiv.org/abs/2110.13900) or use NVIDIAs [SegFormer](https://arxiv.org/abs/2105.15203) for [image segmentation](https://huggingface.co/tasks/image-segmentation).
 
@@ -125,7 +125,7 @@ predictor = huggingface_model.deploy(
 
 ## 3. Send requests to the endpoint to do image segmentation.
 
-The `.deploy()` returns an `HuggingFacePredictor` object with our `DataSeriliazer` which can be used to request inference. This `HuggingFacePredictor` makes it easy to send requests to your endpoint and get the results back.
+The `.deploy()` returns an `HuggingFacePredictor` object with our `DataSerializer` which can be used to request inference. This `HuggingFacePredictor` makes it easy to send requests to your endpoint and get the results back.
 
 We will use 2 different methods to send requests to the endpoint:
 
@@ -136,7 +136,7 @@ b. Provide binary image data object to the predictor
 
 Using a image file as input is easy as easy as providing the path to its location. The `DataSerializer` will then read it and send the bytes to the endpoint. 
 
-We can use a `libirispeech` sample hosted on huggingface.co
+We can use a `fixtures_ade20k` sample hosted on huggingface.co
 
 
 ```python
@@ -170,7 +170,7 @@ def get_overlay(original_image_path,result):
     overlay_masks(image, masks, labels=masks_labels, colors=cmap, mask_alpha=0.5)
 ```
 
-To send a request with provide our path to the audio file we can use the following code:
+To send a request with provide our path to the image file we can use the following code:
 
 
 ```python
