@@ -118,8 +118,6 @@ torch.onnx.export(
 )
 ```
 
-To
-
 ### Export with `transformers.onnx`  (mid-level)
 
 [transformers.onnx](https://huggingface.co/docs/transformers/serialization#exporting-a-model-to-onnx) enables you to convert model checkpoints to an ONNX graph by leveraging configuration objects. That way you don’t have to provide the complex configuration for `dynamic_axes` etc.
@@ -157,8 +155,6 @@ onnx_inputs, onnx_outputs = transformers.onnx.export(
         output=Path("trfs-model.onnx")
 )
 ```
-
-You should now have a new directory `transformers-export/` with a `model.onnx` in it.
 
 ### Export with Optimum (high-level)
 
